@@ -1,7 +1,7 @@
 package ui;
 
 public interface UI {
-	void display();
+	void displayMenu();
 
 	void start();
 }

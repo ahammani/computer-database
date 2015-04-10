@@ -3,27 +3,48 @@ package ui;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import data.Company;
+import data.Computer;
+import main.Main;
 
 public class CLI implements UI {
+	private List<String> features;
+
+	public CLI() {
+		features = new ArrayList<>();
+	}
+
+	public CLI(List<String> l) {
+		features = new ArrayList<>();
+		features.addAll(l);
+	}
 
 	@Override
-	public void display() {
-		System.out.println("What do you want?");
-		System.out.println("0 - Computers list");
-		System.out.println("1 - Companies list");
-		System.out
-				.println("2 - Computer details (press '2 ' followed by computer's id)");
-		System.out.println("3 - Add a new computer");
-		System.out.println("4 - Update a computer");
-		System.out.println("5 - Delete a computer (same syntax as 2)");
-
+	public void displayMenu() {
+		for (int i = 0; i < Main.actions.length; i++)
+			System.out.println(i + " - " + Main.actions[i]);
 	}
 
 	@Override
 	public void start() {
-		System.out.println("Welcome !");
-		display();
+		System.out.println("Bonjour !");
+		displayMenu();
 
+	}
+
+	public void showComputerDetails(int id) {
+		Computer c = Main.computers.find(id);
+		display(c);
+	}
+
+	public void display(Object c) {
+		if (c instanceof Computer || c instanceof Company) {
+			System.out.println(c.toString());
+		}
+		return;
 	}
 
 	public static void display(ResultSet result) {
