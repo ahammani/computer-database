@@ -1,6 +1,11 @@
 package data;
 
 public class Company {
+	@Override
+	public String toString() {
+		return "Company name " + name;
+	}
+
 	private String name;
 
 	public Company() {

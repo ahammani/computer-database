@@ -1,6 +1,14 @@
 package data;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import ui.CLI;
 
 public class CompanyDAO extends DAO<Company> {
 
@@ -29,13 +37,51 @@ public class CompanyDAO extends DAO<Company> {
 
 	@Override
 	public Company find(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Company company = new Company();
+		try {
+			Statement state = connect.createStatement();
+			ResultSet result = state
+					.executeQuery("SELECT * FROM company WHERE company.id="
+							+ id);
+			if (result.next()) {
+				company = new Company(result.getString("name"));
+			}
+			CLI.display(result);
+			result.close();
+			state.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return company;
 	}
 
+	// A changer
 	@Override
-	public void getList() {
-		// TODO Auto-generated method stub
+	public List<Company> getList() {
+		List<Company> l = new ArrayList<>();
+		try {
+			Statement state = connect.createStatement();
+			ResultSet result = state
+					.executeQuery("SELECT DISTINCT name FROM computer ORDER BY name ASC");
+
+			ResultSetMetaData resmet = result.getMetaData();
+			while (result.next()) {
+				for (int i = 1; i <= resmet.getColumnCount(); i++) {
+					if (result.getObject(i) != null) {
+						Company obj = (Company) result.getObject(i);
+						l.add(obj);
+					}
+				}
+			}
+			result.close();
+			state.close();
+			return l;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
 
 	}
 

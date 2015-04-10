@@ -2,8 +2,11 @@ package data;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import ui.CLI;
 
@@ -55,20 +58,31 @@ public class ComputerDAO extends DAO<Computer> {
 		return computer;
 	}
 
-	// A changer
 	@Override
-	public void getList() {
+	public List<Computer> getList() {
+		List<Computer> l = new ArrayList<>();
 		try {
 			Statement state = connect.createStatement();
 			ResultSet result = state
-					.executeQuery("SELECT DISTINCT name FROM computer ORDER BY name ASC");
-			CLI.display(result);
+					.executeQuery("SELECT id,name FROM computer ORDER BY id ASC");
+
+			ResultSetMetaData resmet = result.getMetaData();
+			while (result.next()) {
+				for (int i = 1; i <= resmet.getColumnCount(); i++) {
+					if (result.getObject(i) != null) {
+						Computer obj = (Computer) result.getObject(i);
+						l.add(obj);
+					}
+				}
+			}
 			result.close();
 			state.close();
+			return l;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return l;
 
 	}
 

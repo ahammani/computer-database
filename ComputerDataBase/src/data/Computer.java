@@ -3,11 +3,17 @@ package data;
 import java.sql.Timestamp;
 
 public class Computer {
-	private String name;
+	private String name = "";
 	private Timestamp intro_date;
 	private Timestamp dis_date;
 
 	public Computer() {
+	}
+
+	@Override
+	public String toString() {
+		return "Computer name : " + name + ", date d'entree : " + intro_date
+				+ ", date hors service : " + dis_date;
 	}
 
 	public Computer(String name) {
