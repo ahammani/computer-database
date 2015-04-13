@@ -12,7 +12,6 @@ public class UpdateComputerCommand extends Command {
 		System.out.print("(You have to enter a computer's id)");
 		int id = Main.getInt();
 		Computer comp = Main.computers.find(id);
-		System.out.println("IIIIIIIIIIIIIIIIIIIID = " + comp.getCompany_id());
 		try {
 			if (chooseArgs("modify introduced date")) {
 				comp.setIntro_date(getDate());
@@ -23,8 +22,6 @@ public class UpdateComputerCommand extends Command {
 			if (chooseArgs("modify company id")) {
 				comp.setCompany_id(Main.getInt());
 			}
-			System.out.println("IIIIIIIIIIIIIIIIIIIID = "
-					+ comp.getCompany_id());
 			Main.computers.update(comp);
 			System.out.println("Modification done");
 			System.out.println();

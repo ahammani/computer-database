@@ -7,11 +7,34 @@ import java.util.Date;
 
 import main.Main;
 
+// TODO: Auto-generated Javadoc
+
+/**
+ * Class which represents A command given by user.
+ *
+ * @author ahammani
+ */
 public abstract class Command {
+
+	/**
+	 * Execute command's instruction and display the result.
+	 */
 	public abstract void fetch();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	public abstract String toString();
 
+	/**
+	 * Represents a boolean user choice.
+	 *
+	 * @param arg
+	 *            the arg
+	 * @return true, if successful
+	 */
 	public boolean chooseArgs(String arg) {
 		System.out.println("Do you want " + arg + "? (y/n)");
 		String s = Main.sc.next();
@@ -22,6 +45,13 @@ public abstract class Command {
 		return (s.contains("y")) ? true : false;
 	}
 
+	/**
+	 * Gets the date.
+	 *
+	 * @return the date
+	 * @throws ParseException
+	 *             the parse exception
+	 */
 	public Timestamp getDate() throws ParseException {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss.SSS");

@@ -1,5 +1,9 @@
 package database;
 
+/**
+ * Class which represents the database connection
+ * 
+ */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

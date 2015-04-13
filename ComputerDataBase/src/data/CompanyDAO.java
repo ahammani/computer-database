@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import ui.CLI;
-
 public class CompanyDAO extends DAO<Company> {
 
 	public CompanyDAO(Connection conn) {
@@ -42,7 +40,6 @@ public class CompanyDAO extends DAO<Company> {
 			if (result.next()) {
 				company = new Company(result.getString("name"));
 			}
-			CLI.display(result);
 			result.close();
 			state.close();
 		} catch (SQLException e) {

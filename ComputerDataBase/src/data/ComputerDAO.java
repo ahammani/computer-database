@@ -9,8 +9,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import ui.CLI;
-
 public class ComputerDAO extends DAO<Computer> {
 
 	public ComputerDAO(Connection conn) {
@@ -61,7 +59,6 @@ public class ComputerDAO extends DAO<Computer> {
 			Timestamp discontinued = obj.getDis_date();
 			int id_company = obj.getCompany_id();
 			int id = obj.getId();
-			System.out.println("IIIIFDDDDD " + id);
 			PreparedStatement state = connect
 					.prepareStatement("UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?");
 			state.setString(1, name);
@@ -91,7 +88,6 @@ public class ComputerDAO extends DAO<Computer> {
 						result.getInt("company_id"));
 				computer.setId(result.getInt("id"));
 			}
-			CLI.display(result);
 			result.close();
 			state.close();
 		} catch (SQLException e) {

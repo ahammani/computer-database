@@ -18,9 +18,10 @@ public class Main {
 	public static Scanner sc = new Scanner(System.in);
 
 	public static final Command[] actions = { new CompanyListCommand(),
-			new ComputerListCommand(), new ComputerDetailsCommand(),
-			new AddComputerCommand(), new UpdateComputerCommand(),
-			new DeleteComputerCommand(), new ExitCommand() };
+			new ComputerListCommand(), new PageableComputerListCommand(),
+			new ComputerDetailsCommand(), new AddComputerCommand(),
+			new UpdateComputerCommand(), new DeleteComputerCommand(),
+			new ExitCommand() };
 
 	public static void wrongEntry() {
 		System.out.println("Wrong entry !");
@@ -28,14 +29,12 @@ public class Main {
 
 	public static int getInt() {
 		System.out.print("Enter an number > ");
-
 		String s = sc.next();
 		int i = Integer.parseInt(s);
 		if (i < 0) {
 			wrongEntry();
 			return -1;
 		}
-
 		return i;
 	}
 

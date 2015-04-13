@@ -1,5 +1,10 @@
 package data;
 
+/**
+ * 
+ * @author ahammani Class which represents Company Entity
+ */
+
 public class Company {
 	@Override
 	public String toString() {

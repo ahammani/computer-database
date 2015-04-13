@@ -1,5 +1,10 @@
 package data;
 
+/**
+ * 
+ * @author ahammani
+ * Class which represents Computer Entity
+ */
 import java.sql.Timestamp;
 
 public class Computer {
