@@ -55,8 +55,24 @@ public class ComputerDAO extends DAO<Computer> {
 
 	@Override
 	public void update(Computer obj) {
-		// TODO Auto-generated method stub
-
+		try {
+			String name = obj.getName();
+			Timestamp introduced = obj.getIntro_date();
+			Timestamp discontinued = obj.getDis_date();
+			long id_company = obj.getCompany_id();
+			int id = obj.getId();
+			PreparedStatement state = connect
+					.prepareStatement("UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?");
+			state.setString(1, name);
+			state.setTimestamp(2, introduced);
+			state.setTimestamp(3, discontinued);
+			state.setLong(4, id_company);
+			state.setInt(5, id);
+			state.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

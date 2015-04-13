@@ -31,7 +31,8 @@ public class Computer {
 	@Override
 	public String toString() {
 		return "Id : " + id + " Computer name : " + name + ", date d'entree : "
-				+ intro_date + ", date hors service : " + dis_date;
+				+ intro_date + ", date hors service : " + dis_date
+				+ ", company_id :" + company_id;
 	}
 
 	public Computer(String name) {
