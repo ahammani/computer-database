@@ -59,14 +59,15 @@ public class ComputerDAO extends DAO<Computer> {
 			String name = obj.getName();
 			Timestamp introduced = obj.getIntro_date();
 			Timestamp discontinued = obj.getDis_date();
-			long id_company = obj.getCompany_id();
+			int id_company = obj.getCompany_id();
 			int id = obj.getId();
+			System.out.println("IIIIFDDDDD " + id);
 			PreparedStatement state = connect
 					.prepareStatement("UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?");
 			state.setString(1, name);
 			state.setTimestamp(2, introduced);
 			state.setTimestamp(3, discontinued);
-			state.setLong(4, id_company);
+			state.setInt(4, id_company);
 			state.setInt(5, id);
 			state.executeUpdate();
 		} catch (SQLException e) {
@@ -88,6 +89,7 @@ public class ComputerDAO extends DAO<Computer> {
 						result.getTimestamp("introduced"),
 						result.getTimestamp("discontinued"),
 						result.getInt("company_id"));
+				computer.setId(result.getInt("id"));
 			}
 			CLI.display(result);
 			result.close();
