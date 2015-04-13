@@ -24,8 +24,10 @@ public class CLI implements UI {
 
 	@Override
 	public void displayMenu() {
-		for (int i = 0; i < Main.actions.length; i++)
+		for (int i = 0; i < Main.actions.length; i++) {
 			System.out.println(i + " - " + Main.actions[i].toString());
+		}
+		System.out.println();
 	}
 
 	@Override

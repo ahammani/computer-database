@@ -20,7 +20,7 @@ public class Main {
 	public static final Command[] actions = { new CompanyListCommand(),
 			new ComputerListCommand(), new ComputerDetailsCommand(),
 			new AddComputerCommand(), new UpdateComputerCommand(),
-			new DeleteComputerCommand() };
+			new DeleteComputerCommand(), new ExitCommand() };
 
 	public static void wrongEntry() {
 		System.out.println("Wrong entry !");
@@ -40,8 +40,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		boolean loop = true;
-		while (loop) {
+		while (true) {
 			cli.displayMenu();
 			int i = getInt();
 			if (i >= actions.length) {
@@ -49,6 +48,5 @@ public class Main {
 			} else
 				actions[i].fetch();
 		}
-		sc.close();
 	}
 }
