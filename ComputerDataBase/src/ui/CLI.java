@@ -25,7 +25,7 @@ public class CLI implements UI {
 	@Override
 	public void displayMenu() {
 		for (int i = 0; i < Main.actions.length; i++)
-			System.out.println(i + " - " + Main.actions[i]);
+			System.out.println(i + " - " + Main.actions[i].toString());
 	}
 
 	@Override
@@ -35,16 +35,12 @@ public class CLI implements UI {
 
 	}
 
-	public void showComputerDetails(int id) {
-		Computer c = Main.computers.find(id);
-		display(c);
+	public void display(Computer c) {
+		System.out.println(c.toString());
 	}
 
-	public void display(Object c) {
-		if (c instanceof Computer || c instanceof Company) {
-			System.out.println(c.toString());
-		}
-		return;
+	public void display(Company c) {
+		System.out.println(c.toString());
 	}
 
 	public static void display(ResultSet result) {

@@ -1,10 +1,14 @@
 package ui;
 
+import main.Main;
+
 public class DeleteComputerCommand extends Command {
 
 	@Override
 	public void fetch() {
-		// TODO Auto-generated method stub
+		System.out.println("You have to enter the computer's id");
+		int id = Main.getInt();
+		Main.computers.delete(id);
 
 	}
 

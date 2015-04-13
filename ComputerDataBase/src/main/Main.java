@@ -2,7 +2,7 @@ package main;
 
 import java.util.Scanner;
 
-import ui.CLI;
+import ui.*;
 import data.Company;
 import data.CompanyDAO;
 import data.Computer;
@@ -17,17 +17,22 @@ public class Main {
 	public static DAO<Company> companies = new CompanyDAO(Connect.getInstance());
 	public static Scanner sc = new Scanner(System.in);
 
-	public static final String[] actions = { "Computers list",
-			"Companies list", "Computer details", "Add a new computer",
-			"Update a computer", "Delete a computer" };
+	public static final Command[] actions = { new CompanyListCommand(),
+			new ComputerListCommand(), new ComputerDetailsCommand(),
+			new AddComputerCommand(), new UpdateComputerCommand(),
+			new DeleteComputerCommand() };
 
-	public static int getAction() {
-		System.out.print("Entrez un entier > ");
+	public static void wrongEntry() {
+		System.out.println("Wrong entry !");
+	}
+
+	public static int getInt() {
+		System.out.print("Enter an number > ");
 
 		String s = sc.next();
 		int i = Integer.parseInt(s);
-		if (i < 0 && i >= actions.length) {
-			System.out.println("Mauvaise entree !");
+		if (i < 0) {
+			wrongEntry();
 			return -1;
 		}
 
@@ -35,30 +40,15 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		cli.start();
 		boolean loop = true;
 		while (loop) {
 			cli.displayMenu();
-			switch (getAction()) {
-			case -1:
-				break;
-			case 0:
-				computers.getList();
-				break;
-			case 1:
-				companies.getList();
-				break;
-			case 2:
-				System.out.print("(id de l'ordinateur)");
-				int id = getAction();
-				cli.showComputerDetails(id);
-			default:
-				loop = false;
-			}
+			int i = getInt();
+			if (i >= actions.length) {
+				wrongEntry();
+			} else
+				actions[i].fetch();
 		}
-		// Computer c = computers.find(5);
-		// companies.getList();
-		// Company apple = companies.find(2);
-		// System.out.println(apple.getName());
+		sc.close();
 	}
 }

@@ -8,7 +8,7 @@ public class ComputerDetailsCommand extends Command {
 	@Override
 	public void fetch() {
 		System.out.print("(id de l'ordinateur)");
-		int id = Main.getAction();
+		int id = Main.getInt();
 		Computer c = Main.computers.find(id);
 		System.out.println(c.toString());
 	}
