@@ -2,7 +2,6 @@ package data;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -20,19 +19,16 @@ public class CompanyDAO extends DAO<Company> {
 	@Override
 	public void create(Company obj) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public void delete(Company obj) {
+	public void delete(int id) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void update(Company obj) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -56,7 +52,6 @@ public class CompanyDAO extends DAO<Company> {
 		return company;
 	}
 
-	// A changer
 	@Override
 	public List<Company> getList() {
 		List<Company> l = new ArrayList<>();
@@ -65,14 +60,10 @@ public class CompanyDAO extends DAO<Company> {
 			ResultSet result = state
 					.executeQuery("SELECT DISTINCT name FROM computer ORDER BY name ASC");
 
-			ResultSetMetaData resmet = result.getMetaData();
 			while (result.next()) {
-				for (int i = 1; i <= resmet.getColumnCount(); i++) {
-					if (result.getObject(i) != null) {
-						Company obj = (Company) result.getObject(i);
-						l.add(obj);
-					}
-				}
+				String s = (String) result.getObject(1);
+				Company obj = new Company(s);
+				l.add(obj);
 			}
 			result.close();
 			state.close();

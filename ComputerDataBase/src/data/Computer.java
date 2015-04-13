@@ -6,24 +6,43 @@ public class Computer {
 	private String name = "";
 	private Timestamp intro_date;
 	private Timestamp dis_date;
+	private int company_id;
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getCompany_id() {
+		return company_id;
+	}
+
+	public void setCompany_id(int company_id) {
+		this.company_id = company_id;
+	}
 
 	public Computer() {
 	}
 
 	@Override
 	public String toString() {
-		return "Computer name : " + name + ", date d'entree : " + intro_date
-				+ ", date hors service : " + dis_date;
+		return "Id : " + id + " Computer name : " + name + ", date d'entree : "
+				+ intro_date + ", date hors service : " + dis_date;
 	}
 
 	public Computer(String name) {
 		this.name = name;
 	}
 
-	public Computer(String name, Timestamp intro, Timestamp dis) {
+	public Computer(String name, Timestamp intro, Timestamp dis, int id) {
 		this.name = name;
 		this.intro_date = intro;
 		this.dis_date = dis;
+		this.company_id = id;
 	}
 
 	public String getName() {

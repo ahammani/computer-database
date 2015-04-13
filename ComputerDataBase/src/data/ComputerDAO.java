@@ -1,10 +1,11 @@
 package data;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +20,36 @@ public class ComputerDAO extends DAO<Computer> {
 
 	@Override
 	public void create(Computer obj) {
-		// TODO Auto-generated method stub
+		try {
+			String name = obj.getName();
+			Timestamp introduced = obj.getIntro_date();
+			Timestamp discontinued = obj.getDis_date();
+			int id_company = obj.getCompany_id();
+			PreparedStatement state = connect
+					.prepareStatement("INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)");
+			state.setString(1, name);
+			state.setTimestamp(2, introduced);
+			state.setTimestamp(3, discontinued);
+			state.setLong(4, id_company);
+			state.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public void delete(Computer obj) {
-		// TODO Auto-generated method stub
+	public void delete(int id) {
+		try {
+			PreparedStatement state = connect
+					.prepareStatement("DELETE FROM computer WHERE id=?");
+			state.setLong(1, id);
+			state.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -46,7 +70,8 @@ public class ComputerDAO extends DAO<Computer> {
 			if (result.next()) {
 				computer = new Computer(result.getString("name"),
 						result.getTimestamp("introduced"),
-						result.getTimestamp("discontinued"));
+						result.getTimestamp("discontinued"),
+						result.getInt("company_id"));
 			}
 			CLI.display(result);
 			result.close();
@@ -64,16 +89,16 @@ public class ComputerDAO extends DAO<Computer> {
 		try {
 			Statement state = connect.createStatement();
 			ResultSet result = state
-					.executeQuery("SELECT id,name FROM computer ORDER BY id ASC");
-
-			ResultSetMetaData resmet = result.getMetaData();
+					.executeQuery("SELECT * FROM computer ORDER BY id ASC");
 			while (result.next()) {
-				for (int i = 1; i <= resmet.getColumnCount(); i++) {
-					if (result.getObject(i) != null) {
-						Computer obj = (Computer) result.getObject(i);
-						l.add(obj);
-					}
-				}
+				long id = (long) result.getObject("id");
+				String name = (String) result.getObject("name");
+				Timestamp intro = result.getTimestamp("introduced");
+				Timestamp dis = result.getTimestamp("discontinued");
+				int cid = result.getInt("company_id");
+				Computer obj = new Computer(name, intro, dis, (int) cid);
+				obj.setId((int) id);
+				l.add(obj);
 			}
 			result.close();
 			state.close();
@@ -85,5 +110,4 @@ public class ComputerDAO extends DAO<Computer> {
 		return l;
 
 	}
-
 }
