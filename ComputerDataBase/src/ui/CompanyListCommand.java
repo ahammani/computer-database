@@ -11,7 +11,8 @@ public class CompanyListCommand extends Command {
 	public void fetch() {
 		List<Company> comp = Main.companies.getList();
 		for (Company c : comp) {
-			System.out.println(c.toString());
+			if (c != null)
+				System.out.println(c.toString());
 		}
 
 	}

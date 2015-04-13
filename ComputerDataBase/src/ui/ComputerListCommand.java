@@ -11,7 +11,8 @@ public class ComputerListCommand extends Command {
 	public void fetch() {
 		List<Computer> comp = Main.computers.getList();
 		for (Computer c : comp) {
-			System.out.println("ID :" + c.getId() + " NAME : " + c.getName());
+			if (c != null)
+				Main.cli.simpleDisplay(c);
 		}
 	}
 

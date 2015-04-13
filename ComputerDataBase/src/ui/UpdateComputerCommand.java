@@ -12,6 +12,8 @@ public class UpdateComputerCommand extends Command {
 		System.out.print("(You have to enter a computer's id)");
 		int id = Main.getInt();
 		Computer comp = Main.computers.find(id);
+		if (comp == null)
+			return;
 		try {
 			if (chooseArgs("modify introduced date")) {
 				comp.setIntro_date(getDate());

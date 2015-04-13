@@ -35,9 +35,14 @@ public class Computer {
 
 	@Override
 	public String toString() {
-		return "Id : " + id + " Computer name : " + name + ", date d'entree : "
-				+ intro_date + ", date hors service : " + dis_date
-				+ ", company_id :" + company_id;
+		String intro = (intro_date != null) ? "INTRODUCED : "
+				+ intro_date.toString() + "\t " : "";
+		String dis = (dis_date != null) ? "DISCONTINUED : "
+				+ dis_date.toString() + "\t " : "";
+		String aid = "ID : " + id + "\t ";
+		String cname = "COMPUTER NAME : " + name + "\t ";
+		String cid = (company_id != 0) ? "COMPANY ID :" + company_id : "";
+		return aid + cname + intro + dis + cid;
 	}
 
 	public Computer(String name) {

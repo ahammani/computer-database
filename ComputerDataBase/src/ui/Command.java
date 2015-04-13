@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import main.Main;
 
@@ -46,6 +48,19 @@ public abstract class Command {
 	}
 
 	/**
+	 * Check if the string d represents a date with yyyy-MM-dd form
+	 * 
+	 * @param d
+	 *            the string which represent a date
+	 * @return true if successful
+	 */
+	public boolean checkDate(String d) {
+		Pattern p = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		Matcher m = p.matcher(d);
+		return m.matches();
+	}
+
+	/**
 	 * Gets the date.
 	 *
 	 * @return the date
@@ -56,8 +71,14 @@ public abstract class Command {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss.SSS");
 		System.out
-				.println("Enter a date with this format (it's very important) : yyyy-MM-dd");
+				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 		String date = Main.sc.next();
+		while (!checkDate(date)) {
+			Main.wrongEntry();
+			System.out
+					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
+			date = Main.sc.next();
+		}
 		date += " 00:00:00.000";
 		Date parsedDate = dateFormat.parse(date);
 		return (new java.sql.Timestamp(parsedDate.getTime()));

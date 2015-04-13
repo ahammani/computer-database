@@ -10,7 +10,8 @@ public class ComputerDetailsCommand extends Command {
 		System.out.print("(id de l'ordinateur)");
 		int id = Main.getInt();
 		Computer c = Main.computers.find(id);
-		System.out.println(c.toString());
+		if (c != null)
+			System.out.println(c.toString());
 	}
 
 	@Override

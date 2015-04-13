@@ -2,6 +2,8 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import data.Computer;
 import main.Main;
 
 /**
@@ -29,6 +31,10 @@ public class CLI implements UI {
 			System.out.println(i + " - " + Main.actions[i].toString());
 		}
 		System.out.println();
+	}
+
+	public void simpleDisplay(Computer c) {
+		System.out.println("ID : " + c.getId() + " " + "NAME : " + c.getName());
 	}
 
 	@Override

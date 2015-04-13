@@ -8,7 +8,7 @@ package data;
 public class Company {
 	@Override
 	public String toString() {
-		return "Company name " + name;
+		return "COMPANY NAME : " + name;
 	}
 
 	private String name;

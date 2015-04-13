@@ -9,7 +9,7 @@ public class DeleteComputerCommand extends Command {
 		System.out.println("You have to enter the computer's id");
 		int id = Main.getInt();
 		Main.computers.delete(id);
-
+		System.out.println("Operation done");
 	}
 
 	@Override

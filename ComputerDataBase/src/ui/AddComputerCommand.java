@@ -27,6 +27,7 @@ public class AddComputerCommand extends Command {
 			}
 			Computer comp = new Computer(name, intro, dis, id);
 			Main.computers.create(comp);
+			System.out.println("Creation done");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
