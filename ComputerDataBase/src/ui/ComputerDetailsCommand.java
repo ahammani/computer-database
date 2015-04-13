@@ -7,11 +7,13 @@ public class ComputerDetailsCommand extends Command {
 
 	@Override
 	public void fetch() {
-		System.out.print("(id de l'ordinateur)");
+		System.out.print("(computer's id)");
 		int id = Main.getInt();
 		Computer c = Main.computers.find(id);
-		if (c != null)
+		if (c != null && c.getId() > 0)
 			System.out.println(c.toString());
+		else
+			System.out.println("Computer doesn't exist");
 	}
 
 	@Override
