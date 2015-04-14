@@ -6,11 +6,17 @@ import java.time.LocalDateTime;
 public class Mapper {
 
 	public static Timestamp LocalDateTimeToTimestamp(LocalDateTime ldt) {
-		return Timestamp.valueOf(ldt);
+		if (ldt != null)
+			return Timestamp.valueOf(ldt);
+		else
+			return null;
 	}
 
 	public static LocalDateTime TimestampToLocalDateTime(Timestamp ts) {
-		return ts.toLocalDateTime();
+		if (ts != null)
+			return ts.toLocalDateTime();
+		else
+			return null;
 	}
 
 }

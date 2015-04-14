@@ -1,23 +1,24 @@
 package ui;
 
+import java.util.List;
+
 import main.Main;
-import data.Computer;
+import model.Computer;
 import page.Page;
+import service.ComputerDAOService;
 
 public class PageableComputerListCommand extends Command {
 	Page<Computer> pages;
 
 	@Override
 	public void fetch() {
-		pages = new Page<Computer>(Main.computers.getList(), 20) {
+		List<Computer> l = ComputerDAOService.INSTANCE.getAll();
+		pages = new Page<Computer>(l, 20) {
 			public void display() {
-				for (int i = 0; i < getNbfield(); i++) {
-					int index = (getCurrentPage() * getNbfield()) + i;
-					if (index < getData().size()) {
-						Computer c = getData().get(index);
-						if (c != null)
-							Main.cli.simpleDisplay(c);
-					}
+				for (int i = 0; i < getData().size(); i++) {
+					Computer c = getData().get(i);
+					if (c != null)
+						Main.cli.simpleDisplay(c);
 				}
 				turnPages();
 			}

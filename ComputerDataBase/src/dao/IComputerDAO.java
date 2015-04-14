@@ -26,7 +26,7 @@ public interface IComputerDAO {
 	 * @param id
 	 *            the id
 	 */
-	void delete(int id);
+	void delete(long id);
 
 	/**
 	 * Update a raw.
@@ -43,12 +43,15 @@ public interface IComputerDAO {
 	 *            the id
 	 * @return an object T
 	 */
-	public abstract Computer find(long id);
+	Computer find(long id);
 
 	/**
 	 * Gets the list of all T elements. A raw represents one elements
 	 * 
 	 * @return the list
 	 */
-	public abstract List<Computer> findAll();
+	List<Computer> findAll();
+
+	List<Computer> findAll(int offset, int limit);
+
 }

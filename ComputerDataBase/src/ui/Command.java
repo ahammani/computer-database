@@ -3,13 +3,14 @@ package ui;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import main.Main;
-
-// TODO: Auto-generated Javadoc
 
 /**
  * Class which represents A command given by user.
@@ -44,7 +45,7 @@ public abstract class Command {
 			Main.wrongEntry();
 			System.out.print("Press 'y' for yes and 'n' for no >");
 		}
-		return (s.contains("y")) ? true : false;
+		return (s.contains("y"));
 	}
 
 	/**
@@ -84,4 +85,26 @@ public abstract class Command {
 		return (new java.sql.Timestamp(parsedDate.getTime()));
 
 	}
+
+	public LocalDateTime getLocalDateTime() throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss.SSS");
+		System.out
+				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
+		String date = Main.sc.next();
+		while (!checkDate(date)) {
+			Main.wrongEntry();
+			System.out
+					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
+			date = Main.sc.next();
+		}
+		date += " 00:00:00.000";
+		Date parsedDate = dateFormat.parse(date);
+		Instant instant = Instant.ofEpochMilli(parsedDate.getTime());
+		LocalDateTime res = LocalDateTime.ofInstant(instant,
+				ZoneId.systemDefault());
+		return res;
+
+	}
+
 }

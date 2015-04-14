@@ -13,8 +13,8 @@ import mapper.Mapper;
 import model.Company;
 import model.Computer;
 
-public class ComputerDAO implements IComputerDAO {
-
+public enum ComputerDAO implements IComputerDAO {
+	INSTANCE;
 	/**
 	 * Instantiates a new dao.
 	 *
@@ -50,7 +50,7 @@ public class ComputerDAO implements IComputerDAO {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(long id) {
 		Connection connect = FactoryConnection.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		try {
@@ -123,34 +123,59 @@ public class ComputerDAO implements IComputerDAO {
 		return computer;
 	}
 
+	private List<Computer> getComputers(ResultSet result) throws SQLException {
+
+		List<Computer> l = new ArrayList<>();
+
+		while (result.next()) {
+			String name = result.getString("c_name");
+			LocalDateTime intro = Mapper.TimestampToLocalDateTime(result
+					.getTimestamp("introduced"));
+			LocalDateTime dis = Mapper.TimestampToLocalDateTime(result
+					.getTimestamp("discontinued"));
+			Company comp = new Company(result.getString("name"));
+			comp.setId(result.getLong("company_id"));
+			long c_id = result.getLong("c_id");
+			Computer computer = new Computer(name, intro, dis, comp, c_id);
+			l.add(computer);
+		}
+		return l;
+
+	}
+
 	@Override
 	public List<Computer> findAll() {
 		Connection connect = FactoryConnection.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
-		List<Computer> l = new ArrayList<>();
 		try {
 			state = connect
 					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id");
 			result = state.executeQuery();
-			while (result.next()) {
-				String name = result.getString("c_name");
-				LocalDateTime intro = Mapper.TimestampToLocalDateTime(result
-						.getTimestamp("introduced"));
-				LocalDateTime dis = Mapper.TimestampToLocalDateTime(result
-						.getTimestamp("discontinued"));
-				Company comp = new Company(result.getString("name"));
-				comp.setId(result.getLong("company_id"));
-				long c_id = result.getLong("c_id");
-				Computer computer = new Computer(name, intro, dis, comp, c_id);
-				l.add(computer);
-			}
-			return l;
+
+			return getComputers(result);
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
 		}
 
+	}
+
+	@Override
+	public List<Computer> findAll(int offset, int limit) {
+		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		PreparedStatement state = null;
+		ResultSet result = null;
+		try {
+			state = connect
+					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id LIMIT 10 OFFSET 10");
+			result = state.executeQuery();
+			return getComputers(result);
+		} catch (SQLException e) {
+			throw new DAOException();
+		} finally {
+			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+		}
 	}
 }

@@ -5,23 +5,30 @@ import java.util.List;
 import model.Computer;
 import dao.ComputerDAO;
 
-public class ComputerDAOService {
-	private ComputerDAO computers = new ComputerDAO();
-
-	public ComputerDAO getComputers() {
-		return computers;
-	}
-
-	public void setComputers(ComputerDAO computers) {
-		this.computers = computers;
-	}
+public enum ComputerDAOService {
+	INSTANCE;
 
 	public List<Computer> getAll() {
-		return computers.findAll();
+		return ComputerDAO.INSTANCE.findAll();
+	}
+
+	public List<Computer> getAll(int offset, int limit) {
+		return ComputerDAO.INSTANCE.findAll(offset, limit);
 	}
 
 	public Computer getComputer(long id) {
-		return computers.find(id);
+		return ComputerDAO.INSTANCE.find(id);
 	}
 
+	public void addComputer(Computer c) {
+		ComputerDAO.INSTANCE.create(c);
+	}
+
+	public void updateComputer(Computer c) {
+		ComputerDAO.INSTANCE.update(c);
+	}
+
+	public void deleteComputer(long id) {
+		ComputerDAO.INSTANCE.delete(id);
+	}
 }

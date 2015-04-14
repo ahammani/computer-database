@@ -2,29 +2,30 @@ package ui;
 
 import java.text.ParseException;
 
+import service.ComputerDAOService;
 import main.Main;
-import data.Computer;
+import model.Computer;
 
 public class UpdateComputerCommand extends Command {
 
 	@Override
 	public void fetch() {
 		System.out.print("(You have to enter a computer's id)");
-		int id = Main.getInt();
-		Computer comp = Main.computers.find(id);
+		long id = Main.getLong();
+		Computer comp = ComputerDAOService.INSTANCE.getComputer(id);
 		if (comp == null)
 			return;
 		try {
 			if (chooseArgs("modify introduced date")) {
-				comp.setIntro_date(getDate());
+				comp.setIntro_date(getLocalDateTime());
 			}
 			if (chooseArgs("modify discontinued date")) {
-				comp.setDis_date(getDate());
+				comp.setDis_date(getLocalDateTime());
 			}
 			if (chooseArgs("modify company id")) {
-				comp.setCompany_id(Main.getInt());
+				comp.getCompany().setId(Main.getLong());
 			}
-			Main.computers.update(comp);
+			ComputerDAOService.INSTANCE.updateComputer(comp);
 			System.out.println("Modification done");
 			System.out.println();
 		} catch (ParseException e) {

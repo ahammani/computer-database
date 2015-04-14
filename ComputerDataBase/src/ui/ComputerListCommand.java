@@ -2,14 +2,16 @@ package ui;
 
 import java.util.List;
 
+import service.ComputerDAOService;
 import main.Main;
-import data.Computer;
+import model.Computer;
 
 public class ComputerListCommand extends Command {
 
 	@Override
 	public void fetch() {
-		List<Computer> comp = Main.computers.getList();
+		List<Computer> comp = ComputerDAOService.INSTANCE.getAll();
+
 		for (Computer c : comp) {
 			if (c != null)
 				Main.cli.simpleDisplay(c);

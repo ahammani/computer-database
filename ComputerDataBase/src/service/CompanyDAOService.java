@@ -5,18 +5,10 @@ import java.util.List;
 import model.Company;
 import dao.CompanyDAO;
 
-public class CompanyDAOService {
-	private CompanyDAO companies = new CompanyDAO();
-
-	public CompanyDAO getCompanies() {
-		return companies;
-	}
-
-	public void setCompanies(CompanyDAO companies) {
-		this.companies = companies;
-	}
+public enum CompanyDAOService {
+	INSTANCE;
 
 	public List<Company> getAll() {
-		return companies.findAll();
+		return CompanyDAO.INSTANCE.findAll();
 	}
 }

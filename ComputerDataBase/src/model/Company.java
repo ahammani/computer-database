@@ -15,9 +15,7 @@ public class Company {
 	}
 
 	public void setId(long l) {
-		if (l < 1) {
-			System.out.println("Impossible set to negative value");
-		} else {
+		if (l > 0) {
 			this.id = l;
 		}
 	}

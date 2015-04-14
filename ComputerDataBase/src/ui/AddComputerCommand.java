@@ -1,32 +1,38 @@
 package ui;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import data.Computer;
+import java.time.LocalDateTime;
+
+import service.ComputerDAOService;
 import main.Main;
+import mapper.Mapper;
+import model.Company;
+import model.Computer;
 
 public class AddComputerCommand extends Command {
 
 	@Override
 	public void fetch() {
 
-		Integer id = null;
-		Timestamp intro = null, dis = null;
+		Long id = null;
+		LocalDateTime intro = null, dis = null;
 
 		System.out.println("Enter a computer name >");
 		String name = Main.sc.next();
 		try {
 			if (chooseArgs("add introduced date")) {
-				intro = getDate();
+				intro = Mapper.TimestampToLocalDateTime(getDate());
 			}
 			if (chooseArgs("add discontinued date")) {
-				dis = getDate();
+				dis = Mapper.TimestampToLocalDateTime(getDate());
 			}
 			if (chooseArgs("add company id")) {
-				id = Main.getInt();
+				id = Main.getLong();
 			}
-			Computer comp = new Computer(name, intro, dis, id);
-			Main.computers.create(comp);
+			Company company = new Company();
+			company.setId(id);
+			Computer comp = new Computer(name, intro, dis, company);
+			ComputerDAOService.INSTANCE.addComputer(comp);
 			System.out.println("Creation done");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

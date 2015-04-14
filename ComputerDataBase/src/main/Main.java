@@ -3,18 +3,9 @@ package main;
 import java.util.Scanner;
 
 import ui.*;
-import data.Company;
-import data.CompanyDAO;
-import data.Computer;
-import data.ComputerDAO;
-import data.DAO;
-import database.*;
 
 public class Main {
 	public static CLI cli = new CLI();
-	public static DAO<Computer> computers = new ComputerDAO(
-			Connect.getInstance());
-	public static DAO<Company> companies = new CompanyDAO(Connect.getInstance());
 	public static Scanner sc = new Scanner(System.in);
 
 	public static final Command[] actions = { new CompanyListCommand(),
@@ -36,7 +27,7 @@ public class Main {
 		return true;
 	}
 
-	public static int getInt() {
+	public static long getLong() {
 		System.out.print("Enter an number > ");
 		String s = sc.next();
 		while (!isInt(s)) {
@@ -45,7 +36,7 @@ public class Main {
 			System.out.print("Enter an number > ");
 			s = sc.next();
 		}
-		int i = Integer.parseInt(s);
+		long i = Long.parseLong(s);
 		if (i < 0) {
 			wrongEntry();
 			return -1;
@@ -56,7 +47,7 @@ public class Main {
 	public static void main(String[] args) {
 		while (true) {
 			cli.displayMenu();
-			int i = getInt();
+			int i = (int) getLong();
 			if (i >= actions.length) {
 				wrongEntry();
 			} else

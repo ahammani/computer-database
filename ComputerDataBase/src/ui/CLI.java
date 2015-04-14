@@ -3,8 +3,8 @@ package ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.Computer;
 import main.Main;
+import model.Computer;
 
 /**
  * Command Line Interface

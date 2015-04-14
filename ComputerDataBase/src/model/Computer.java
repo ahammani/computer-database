@@ -23,9 +23,7 @@ public class Computer {
 	}
 
 	public void setCompany_id(Company company) {
-		if (company.getId() < 1) {
-			System.out.println("Impossible set to a negative number");
-		} else {
+		if (company.getId() > 0) {
 			this.company = company;
 		}
 	}

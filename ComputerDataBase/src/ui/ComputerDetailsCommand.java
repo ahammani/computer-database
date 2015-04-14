@@ -1,15 +1,16 @@
 package ui;
 
+import service.ComputerDAOService;
 import main.Main;
-import data.Computer;
+import model.Computer;
 
 public class ComputerDetailsCommand extends Command {
 
 	@Override
 	public void fetch() {
 		System.out.print("(computer's id)");
-		int id = Main.getInt();
-		Computer c = Main.computers.find(id);
+		long id = Main.getLong();
+		Computer c = ComputerDAOService.INSTANCE.getComputer(id);
 		if (c != null && c.getId() > 0)
 			System.out.println(c.toString());
 		else

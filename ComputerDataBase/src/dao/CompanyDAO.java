@@ -9,8 +9,8 @@ import java.util.List;
 
 import model.Company;
 
-public class CompanyDAO implements ICompanyDAO {
-
+public enum CompanyDAO implements ICompanyDAO {
+	INSTANCE;
 	@Override
 	public List<Company> findAll() {
 		Connection connect = FactoryConnection.INSTANCE.openConnection();
