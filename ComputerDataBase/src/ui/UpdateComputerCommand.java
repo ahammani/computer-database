@@ -36,7 +36,7 @@ public class UpdateComputerCommand extends Command {
 
 	@Override
 	public String toString() {
-		return "Modify computer's fields";
+		return "Update computer's fields";
 	}
 
 }

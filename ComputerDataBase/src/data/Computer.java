@@ -18,16 +18,16 @@ public class Computer {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public int getCompany_id() {
 		return company_id;
 	}
 
 	public void setCompany_id(int company_id) {
-		this.company_id = company_id;
+		if (company_id < 1) {
+			System.out.println("Impossible set to a negative number");
+		} else {
+			this.company_id = company_id;
+		}
 	}
 
 	public Computer() {
@@ -47,6 +47,14 @@ public class Computer {
 
 	public Computer(String name) {
 		this.name = name;
+	}
+
+	public Computer(String name, Timestamp intro, Timestamp dis, int cid, int id) {
+		this.name = name;
+		this.intro_date = intro;
+		this.dis_date = dis;
+		this.company_id = cid;
+		this.id = id;
 	}
 
 	public Computer(String name, Timestamp intro, Timestamp dis, int id) {

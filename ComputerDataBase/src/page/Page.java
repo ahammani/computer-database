@@ -45,21 +45,27 @@ public class Page<T> {
 
 	public void display() {
 		for (int i = currentPage; i < nbfield; i++) {
-			System.out
-					.println(data.get((currentPage * nbfield) + i).toString());
+			int index = (getCurrentPage() * getNbfield()) + i;
+			if (index < getData().size()) {
+				System.out.println(data.get(index).toString());
+			}
 		}
 		turnPages();
 	}
 
 	public void next() {
-		if (currentPage < (data.size() / nbfield) - 1) {
+		if ((currentPage * nbfield) <= (currentPage * nbfield) % data.size()) {
 			setCurrentPage(currentPage + 1);
+		} else {
+			System.out.println("No more pages");
 		}
 	}
 
 	public void previous() {
 		if (currentPage > 0) {
 			setCurrentPage(currentPage - 1);
+		} else {
+			System.out.println("It's the first page");
 		}
 	}
 

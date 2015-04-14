@@ -11,11 +11,13 @@ public class PageableComputerListCommand extends Command {
 	public void fetch() {
 		pages = new Page<Computer>(Main.computers.getList(), 20) {
 			public void display() {
-				for (int i = getCurrentPage(); i < getNbfield(); i++) {
-					Computer c = getData().get(
-							(getCurrentPage() * getNbfield()) + i);
-					if (c != null)
-						Main.cli.simpleDisplay(c);
+				for (int i = 0; i < getNbfield(); i++) {
+					int index = (getCurrentPage() * getNbfield()) + i;
+					if (index < getData().size()) {
+						Computer c = getData().get(index);
+						if (c != null)
+							Main.cli.simpleDisplay(c);
+					}
 				}
 				turnPages();
 			}

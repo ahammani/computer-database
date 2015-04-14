@@ -85,8 +85,7 @@ public class ComputerDAO extends DAO<Computer> {
 				computer = new Computer(result.getString("name"),
 						result.getTimestamp("introduced"),
 						result.getTimestamp("discontinued"),
-						result.getInt("company_id"));
-				computer.setId(result.getInt("id"));
+						result.getInt("company_id"), result.getInt("id"));
 			}
 			result.close();
 			state.close();
@@ -110,8 +109,8 @@ public class ComputerDAO extends DAO<Computer> {
 				Timestamp intro = result.getTimestamp("introduced");
 				Timestamp dis = result.getTimestamp("discontinued");
 				int cid = result.getInt("company_id");
-				Computer obj = new Computer(name, intro, dis, (int) cid);
-				obj.setId((int) id);
+				Computer obj = new Computer(name, intro, dis, (int) cid,
+						(int) id);
 				l.add(obj);
 			}
 			result.close();
