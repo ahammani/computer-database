@@ -1,7 +1,8 @@
-package data;
+package dao;
 
-import java.sql.Connection;
 import java.util.List;
+
+import model.Computer;
 
 /**
  * The Class DAO. DAO interact with database by SQL request
@@ -9,20 +10,7 @@ import java.util.List;
  * @param <T>
  *            the generic type
  */
-public abstract class DAO<T> {
-
-	/** The Database connection. */
-	protected Connection connect;
-
-	/**
-	 * Instantiates a new dao.
-	 *
-	 * @param conn
-	 *            the connection
-	 */
-	public DAO(Connection conn) {
-		this.connect = conn;
-	}
+public interface IComputerDAO {
 
 	/**
 	 * Creates a new raw in DB with obj's field.
@@ -30,7 +18,7 @@ public abstract class DAO<T> {
 	 * @param obj
 	 *            the object
 	 */
-	public abstract void create(T obj);
+	void create(Computer obj);
 
 	/**
 	 * Delete a raw with the id id.
@@ -38,7 +26,7 @@ public abstract class DAO<T> {
 	 * @param id
 	 *            the id
 	 */
-	public abstract void delete(int id);
+	void delete(int id);
 
 	/**
 	 * Update a raw.
@@ -46,7 +34,7 @@ public abstract class DAO<T> {
 	 * @param obj
 	 *            the object
 	 */
-	public abstract void update(T obj);
+	void update(Computer obj);
 
 	/**
 	 * Find an object by his id.
@@ -55,12 +43,12 @@ public abstract class DAO<T> {
 	 *            the id
 	 * @return an object T
 	 */
-	public abstract T find(int id);
+	public abstract Computer find(long id);
 
 	/**
 	 * Gets the list of all T elements. A raw represents one elements
 	 * 
 	 * @return the list
 	 */
-	public abstract List<T> getList();
+	public abstract List<Computer> findAll();
 }
