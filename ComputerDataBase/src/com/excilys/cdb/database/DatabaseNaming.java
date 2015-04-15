@@ -1,16 +1,12 @@
 package com.excilys.cdb.database;
 
-/**
- * 
- * @author syouon
- *
- */
 public class DatabaseNaming {
-	public static final String URL = "jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull";
-	public static final String USER = "admincdb";
+	public static final String USER = "admincdb-test";
 	public static final String PWD = "qwerty1234";
 	public static final String DRIVER = "com.mysql.jdbc.Driver";
-	public static final String DATABASE_NAME = "computer-database-db";
+	public static final String DATABASE_NAME = "computer-database-db-test";
+	public static final String URL = "jdbc:mysql://localhost:3306/"
+			+ DATABASE_NAME + "?zeroDateTimeBehavior=convertToNull";
 
 	// Nom des tables
 	/** The Constant COMPUTER_TABLE. */
