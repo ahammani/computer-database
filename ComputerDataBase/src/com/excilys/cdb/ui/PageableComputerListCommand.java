@@ -6,7 +6,7 @@ import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ComputerDAOService;
 
-public class PageableComputerListCommand extends Command {
+public class PageableComputerListCommand extends ICommand {
 	List<Computer> l;
 	private int offset = 0;
 	private int limit = 10;

@@ -6,7 +6,7 @@ import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ComputerDAOService;
 
-public class ComputerListCommand extends Command {
+public class ComputerListCommand extends ICommand {
 
 	@Override
 	public void fetch() {

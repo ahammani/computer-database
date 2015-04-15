@@ -2,7 +2,7 @@ package com.excilys.cdb.ui;
 
 import com.excilys.cdb.main.Main;
 
-public class ExitCommand extends Command {
+public class ExitCommand extends ICommand {
 
 	@Override
 	public void fetch() {

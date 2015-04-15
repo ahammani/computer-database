@@ -14,6 +14,54 @@ public class Computer {
 	private Company company;
 	private long id;
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
+		result = prime * result
+				+ ((dis_date == null) ? 0 : dis_date.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((intro_date == null) ? 0 : intro_date.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Computer other = (Computer) obj;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
+			return false;
+		if (dis_date == null) {
+			if (other.dis_date != null)
+				return false;
+		} else if (!dis_date.equals(other.dis_date))
+			return false;
+		if (id != other.id)
+			return false;
+		if (intro_date == null) {
+			if (other.intro_date != null)
+				return false;
+		} else if (!intro_date.equals(other.intro_date))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
 	public long getId() {
 		return id;
 	}

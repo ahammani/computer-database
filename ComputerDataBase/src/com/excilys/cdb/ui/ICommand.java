@@ -17,7 +17,7 @@ import com.excilys.cdb.main.Main;
  *
  * @author ahammani
  */
-public abstract class Command {
+public abstract class ICommand {
 
 	/**
 	 * Execute command's instruction and display the result.

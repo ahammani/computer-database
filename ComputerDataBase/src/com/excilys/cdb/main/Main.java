@@ -8,7 +8,7 @@ public class Main {
 	public static CLI cli = new CLI();
 	public static Scanner sc = new Scanner(System.in);
 
-	public static final Command[] actions = { new CompanyListCommand(),
+	public static final ICommand[] actions = { new CompanyListCommand(),
 			new ComputerListCommand(), new PageableComputerListCommand(10),
 			new ComputerDetailsCommand(), new AddComputerCommand(),
 			new UpdateComputerCommand(), new DeleteComputerCommand(),

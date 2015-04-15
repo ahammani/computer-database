@@ -3,7 +3,7 @@ package com.excilys.cdb.ui;
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.service.ComputerDAOService;
 
-public class DeleteComputerCommand extends Command {
+public class DeleteComputerCommand extends ICommand {
 
 	@Override
 	public void fetch() {

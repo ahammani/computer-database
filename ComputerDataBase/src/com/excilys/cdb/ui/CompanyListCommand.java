@@ -5,7 +5,7 @@ import java.util.List;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.service.CompanyDAOService;
 
-public class CompanyListCommand extends Command {
+public class CompanyListCommand extends ICommand {
 
 	@Override
 	public void fetch() {

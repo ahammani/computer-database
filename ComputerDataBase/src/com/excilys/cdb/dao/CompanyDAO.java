@@ -18,12 +18,13 @@ public enum CompanyDAO implements ICompanyDAO {
 		List<Company> l = new ArrayList<>();
 		try {
 			state = connect
-					.prepareStatement("SELECT DISTINCT name FROM computer ORDER BY name ASC");
+					.prepareStatement("SELECT DISTINCT * FROM company ORDER BY name ASC");
 			ResultSet result = state.executeQuery();
 
 			while (result.next()) {
-				String s = (String) result.getObject(1);
-				Company obj = new Company(s);
+				long id = result.getLong("id");
+				String s = result.getString("name");
+				Company obj = new Company(id, s);
 				l.add(obj);
 			}
 			return l;

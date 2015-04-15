@@ -9,7 +9,7 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ComputerDAOService;
 
-public class AddComputerCommand extends Command {
+public class AddComputerCommand extends ICommand {
 
 	@Override
 	public void fetch() {
