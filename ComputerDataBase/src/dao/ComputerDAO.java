@@ -169,7 +169,9 @@ public enum ComputerDAO implements IComputerDAO {
 		ResultSet result = null;
 		try {
 			state = connect
-					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id LIMIT 10 OFFSET 10");
+					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id LIMIT ? OFFSET ?");
+			state.setInt(1, limit);
+			state.setInt(2, offset);
 			result = state.executeQuery();
 			return getComputers(result);
 		} catch (SQLException e) {

@@ -9,7 +9,7 @@ public class Main {
 	public static Scanner sc = new Scanner(System.in);
 
 	public static final Command[] actions = { new CompanyListCommand(),
-			new ComputerListCommand(), new PageableComputerListCommand(),
+			new ComputerListCommand(), new PageableComputerListCommand(10),
 			new ComputerDetailsCommand(), new AddComputerCommand(),
 			new UpdateComputerCommand(), new DeleteComputerCommand(),
 			new ExitCommand() };

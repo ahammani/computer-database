@@ -4,27 +4,67 @@ import java.util.List;
 
 import main.Main;
 import model.Computer;
-import page.Page;
 import service.ComputerDAOService;
 
 public class PageableComputerListCommand extends Command {
-	Page<Computer> pages;
+	List<Computer> l;
+	private int offset = 0;
+	private int limit = 10;
+
+	public PageableComputerListCommand(int limit) {
+		l = ComputerDAOService.INSTANCE.getAll(offset, limit);
+		this.limit = limit;
+	}
+
+	private void next() {
+		if (l.size() == limit) {
+			offset += limit;
+		} else {
+			System.out.println("No more pages");
+		}
+	}
+
+	private void previous() {
+		if (offset > 0) {
+			offset -= limit;
+		} else {
+			System.out.println("It's the first page");
+		}
+	}
+
+	private void turnPages() {
+		System.out.println("< p 	e (exit)	 n >");
+		System.out.print(" > ");
+		String ans = Main.sc.next().substring(0, 1).toLowerCase();
+		switch (ans) {
+		case "p":
+			previous();
+			display();
+			break;
+		case "n":
+			next();
+			display();
+			break;
+		case "e":
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void display() {
+		l = ComputerDAOService.INSTANCE.getAll(offset, limit);
+		for (int i = 0; i < l.size(); i++) {
+			Computer c = l.get(i);
+			if (c != null)
+				Main.cli.simpleDisplay(c);
+		}
+		turnPages();
+	}
 
 	@Override
 	public void fetch() {
-		List<Computer> l = ComputerDAOService.INSTANCE.getAll();
-		pages = new Page<Computer>(l, 20) {
-			public void display() {
-				for (int i = 0; i < getData().size(); i++) {
-					Computer c = getData().get(i);
-					if (c != null)
-						Main.cli.simpleDisplay(c);
-				}
-				turnPages();
-			}
-		};
-		pages.display();
-
+		display();
 	}
 
 	@Override
