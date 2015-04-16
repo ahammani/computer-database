@@ -7,6 +7,9 @@ package com.excilys.cdb.model;
 
 public class Company {
 
+	private long id;
+	private String name;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,9 +37,6 @@ public class Company {
 			return false;
 		return true;
 	}
-
-	private long id;
-	private String name;
 
 	public long getId() {
 		return id;

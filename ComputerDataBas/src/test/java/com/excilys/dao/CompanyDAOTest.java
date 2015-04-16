@@ -1,3 +1,4 @@
+package com.excilys.dao;
 
 
 import static org.junit.Assert.*;
