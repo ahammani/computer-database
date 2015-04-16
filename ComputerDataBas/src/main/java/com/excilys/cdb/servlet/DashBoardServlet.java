@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,14 +19,15 @@ import com.excilys.cdb.servlet.dto.ComputerDTO;
 /**
  * Servlet implementation class CDBServlet
  */
-public class CDBServlet extends HttpServlet {
+@WebServlet("/DashBoardServlet")
+public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ComputerDAOService service = ComputerDAOService.INSTANCE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CDBServlet() {
+	public DashBoardServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
