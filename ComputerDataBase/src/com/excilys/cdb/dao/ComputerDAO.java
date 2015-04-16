@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.List;
 
 import com.excilys.cdb.mapper.Mapper;
@@ -80,7 +81,10 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setString(1, name);
 			state.setTimestamp(2, introduced);
 			state.setTimestamp(3, discontinued);
-			state.setLong(4, id_company);
+			if (id_company == 0)
+				state.setNull(4, Types.NULL);
+			else
+				state.setLong(4, id_company);
 			state.setLong(5, id);
 			state.executeUpdate();
 		} catch (SQLException e) {

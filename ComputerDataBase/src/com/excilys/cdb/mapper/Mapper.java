@@ -26,16 +26,18 @@ public class Mapper {
 
 	public static Computer ResultSetToComputer(ResultSet result)
 			throws SQLException {
+
 		if (result.next()) {
 			String name = result.getString("c_name");
 			LocalDateTime intro = Mapper.TimestampToLocalDateTime(result
 					.getTimestamp("introduced"));
 			LocalDateTime dis = Mapper.TimestampToLocalDateTime(result
 					.getTimestamp("discontinued"));
-			Company comp = new Company(result.getLong("id"),
+			long c_id = result.getLong("c_id");
+
+			Company comp = new Company(result.getLong("company_id"),
 					result.getString("name"));
 			comp.setId(result.getLong("company_id"));
-			long c_id = result.getLong("c_id");
 			return new Computer(name, intro, dis, comp, c_id);
 		}
 		return null;

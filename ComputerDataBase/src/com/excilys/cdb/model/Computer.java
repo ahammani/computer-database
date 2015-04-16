@@ -12,7 +12,7 @@ public class Computer {
 	private LocalDateTime intro_date;
 	private LocalDateTime dis_date;
 	private Company company;
-	private long id;
+	private long id = 0;
 
 	@Override
 	public int hashCode() {
