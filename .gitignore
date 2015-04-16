@@ -23,3 +23,6 @@ hs_err_pid*
 /config/db/1-SCHEMA.sql
 /config/db/2-PRIVILEGES.sql
 /config/db/3-ENTRIES.sql
+/ComputerDataBase/1-SCHEMA.sql
+/ComputerDataBase/2-PRIVILEGES.sql
+/ComputerDataBase/3-ENTRIES.sql
