@@ -1,6 +1,7 @@
 package com.excilys.cdb.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -9,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.excilys.cdb.dao.ComputerDAO;
+import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.servlet.dto.ComputerDTO;
 
 /**
  * Servlet implementation class CDBServlet
@@ -35,7 +37,10 @@ public class CDBServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		List<Computer> computers = service.getAll();
+		List<ComputerDTO> computers = new ArrayList<>();
+		for (Computer c : service.getAll()) {
+			computers.add(DTOMapper.toDTO(c));
+		}
 		request.setAttribute("computers", computers);
 
 		ServletContext context = this.getServletContext();

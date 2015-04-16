@@ -74,11 +74,10 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="0"></td>
-							<td><a href="editComputer.html" onclick=""><c:out
-										value="${computer.name}" /></a></td>
-							<td>2006-01-10</td>
-							<td></td>
-							<td>Apple Inc.</td>
+							<td><a href="editComputer.html" onclick="">${computer.name}</a></td>
+							<td>${computer.intro_date}</td>
+							<td>${computer.dis_date}</td>
+							<td>${computer.company_name}</td>
 					</tbody>
 				</c:forEach>
 

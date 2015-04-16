@@ -2,7 +2,6 @@ package com.excilys.cdb.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +9,13 @@ import java.util.List;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
-public class Mapper {
-
+public class SQLMapper {
 	public static List<Computer> getComputers(ResultSet result)
 			throws SQLException {
 
 		List<Computer> l = new ArrayList<>();
 		Computer computer = null;
-		while ((computer = Mapper.ResultSetToComputer(result)) != null) {
+		while ((computer = SQLMapper.ResultSetToComputer(result)) != null) {
 			l.add(computer);
 		}
 		return l;
@@ -29,9 +27,9 @@ public class Mapper {
 
 		if (result.next()) {
 			String name = result.getString("c_name");
-			LocalDateTime intro = Mapper.TimestampToLocalDateTime(result
+			LocalDateTime intro = TimeMapper.TimestampToLocalDateTime(result
 					.getTimestamp("introduced"));
-			LocalDateTime dis = Mapper.TimestampToLocalDateTime(result
+			LocalDateTime dis = TimeMapper.TimestampToLocalDateTime(result
 					.getTimestamp("discontinued"));
 			long c_id = result.getLong("c_id");
 
@@ -42,19 +40,4 @@ public class Mapper {
 		}
 		return null;
 	}
-
-	public static Timestamp LocalDateTimeToTimestamp(LocalDateTime ldt) {
-		if (ldt != null)
-			return Timestamp.valueOf(ldt);
-		else
-			return null;
-	}
-
-	public static LocalDateTime TimestampToLocalDateTime(Timestamp ts) {
-		if (ts != null)
-			return ts.toLocalDateTime();
-		else
-			return null;
-	}
-
 }

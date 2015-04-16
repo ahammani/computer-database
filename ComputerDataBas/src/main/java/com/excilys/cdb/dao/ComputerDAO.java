@@ -8,7 +8,8 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
-import com.excilys.cdb.mapper.Mapper;
+import com.excilys.cdb.mapper.SQLMapper;
+import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Computer;
 
 public enum ComputerDAO implements IComputerDAO {
@@ -27,9 +28,9 @@ public enum ComputerDAO implements IComputerDAO {
 		try {
 
 			String name = obj.getName();
-			Timestamp introduced = Mapper.LocalDateTimeToTimestamp(obj
+			Timestamp introduced = TimeMapper.LocalDateTimeToTimestamp(obj
 					.getIntro_date());
-			Timestamp discontinued = Mapper.LocalDateTimeToTimestamp(obj
+			Timestamp discontinued = TimeMapper.LocalDateTimeToTimestamp(obj
 					.getDis_date());
 			long id_company = obj.getCompany().getId();
 			state = connect
@@ -69,9 +70,9 @@ public enum ComputerDAO implements IComputerDAO {
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
-			Timestamp introduced = Mapper.LocalDateTimeToTimestamp(obj
+			Timestamp introduced = TimeMapper.LocalDateTimeToTimestamp(obj
 					.getIntro_date());
-			Timestamp discontinued = Mapper.LocalDateTimeToTimestamp(obj
+			Timestamp discontinued = TimeMapper.LocalDateTimeToTimestamp(obj
 					.getDis_date());
 			long id_company = obj.getCompany().getId();
 			long id = obj.getId();
@@ -104,7 +105,7 @@ public enum ComputerDAO implements IComputerDAO {
 					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id WHERE computer.id=?");
 			state.setLong(1, id);
 			result = state.executeQuery();
-			return Mapper.ResultSetToComputer(result);
+			return SQLMapper.ResultSetToComputer(result);
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
@@ -122,7 +123,7 @@ public enum ComputerDAO implements IComputerDAO {
 					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id");
 			result = state.executeQuery();
 
-			return Mapper.getComputers(result);
+			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
@@ -142,7 +143,7 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setInt(1, limit);
 			state.setInt(2, offset);
 			result = state.executeQuery();
-			return Mapper.getComputers(result);
+			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {

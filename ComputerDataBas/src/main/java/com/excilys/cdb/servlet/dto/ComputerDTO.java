@@ -1,28 +1,22 @@
 package com.excilys.cdb.servlet.dto;
 
-import java.time.LocalDateTime;
-
-import com.excilys.cdb.model.Company;
-
 public class ComputerDTO {
 	private String name = "";
-	private String intro_date;
-	private LocalDateTime dis_date;
-	private Company company;
+	private String intro_date = "";
+	private String dis_date = "";
 	private long id = 0;
-	private long company_id;
-	private String company_name;
+	private long company_id = 0;
+	private String company_name = "";
 
-	public ComputerDTO(String name, String intro_date, LocalDateTime dis_date,
-			Company company, long id, long company_id, String company_name) {
+	public ComputerDTO(String name, String intro_date, String dis_date,
+			long id, long company_id, String company_name) {
 		super();
 		this.name = name;
-		this.intro_date = intro_date;
-		this.dis_date = dis_date;
-		this.company = company;
+		this.intro_date = (intro_date != null) ? intro_date : "";
+		this.dis_date = (dis_date != null) ? dis_date : "";
 		this.id = id;
 		this.company_id = company_id;
-		this.company_name = company_name;
+		this.company_name = (company_name != null) ? company_name : "";
 	}
 
 	public String getName() {
@@ -30,7 +24,8 @@ public class ComputerDTO {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if (name != null)
+			this.name = name;
 	}
 
 	public String getIntro_date() {
@@ -41,20 +36,12 @@ public class ComputerDTO {
 		this.intro_date = intro_date;
 	}
 
-	public LocalDateTime getDis_date() {
+	public String getDis_date() {
 		return dis_date;
 	}
 
-	public void setDis_date(LocalDateTime dis_date) {
+	public void setDis_date(String dis_date) {
 		this.dis_date = dis_date;
-	}
-
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
 	}
 
 	public long getId() {
@@ -62,7 +49,8 @@ public class ComputerDTO {
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		if (id > 0)
+			this.id = id;
 	}
 
 	public long getCompany_id() {
@@ -70,7 +58,8 @@ public class ComputerDTO {
 	}
 
 	public void setCompany_id(long company_id) {
-		this.company_id = company_id;
+		if (company_id > 0)
+			this.company_id = company_id;
 	}
 
 	public String getCompany_name() {

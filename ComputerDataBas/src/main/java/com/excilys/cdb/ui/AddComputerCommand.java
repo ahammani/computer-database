@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import com.excilys.cdb.main.Main;
-import com.excilys.cdb.mapper.Mapper;
+import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ComputerDAOService;
@@ -21,10 +21,10 @@ public class AddComputerCommand extends ICommand {
 		String name = Main.sc.next();
 		try {
 			if (chooseArgs("add introduced date")) {
-				intro = Mapper.TimestampToLocalDateTime(getDate());
+				intro = TimeMapper.TimestampToLocalDateTime(getDate());
 			}
 			if (chooseArgs("add discontinued date")) {
-				dis = Mapper.TimestampToLocalDateTime(getDate());
+				dis = TimeMapper.TimestampToLocalDateTime(getDate());
 			}
 			if (chooseArgs("add company id")) {
 				id = Main.getLong();
