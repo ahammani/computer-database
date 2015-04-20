@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1>Add Computer</h1>
-					<form id="addComputer" action="AddComputerServlet" method="POST">
+					<form id="addComputerForm" action="AddComputerServlet" method="POST">
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
@@ -50,6 +50,7 @@
 	</section>
 	
 	<script src="static/js/jquery.min.js"></script>
+	<script src="static/js/jquery.validate.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/dashboard.js"></script>
 	<script src="static/js/addComputer.js"></script>

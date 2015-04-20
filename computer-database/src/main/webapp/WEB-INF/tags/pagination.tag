@@ -11,9 +11,6 @@
 	<ul class="pagination">
 
 		<c:if test="${page > 1}">
-			<%-- 					<li><a href="DashBoardServlet?page=${page -1}&limit=${limit}" --%>
-			<!-- 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span> -->
-			<!-- 					</a></li> -->
 			<li><mylib:link target="DashBoardServlet" page="1"
 					limit="${limit}" aria_label="Previous"
 					body="<span aria-hidden='true'>&laquo;</span>" /></li>
@@ -24,21 +21,16 @@
 				<c:forEach var="i" begin="${page}" end="${maxPages}">
 					<li><mylib:link target="DashBoardServlet" page="${i}"
 							limit="${limit}" body="${i}" /></li>
-					<%-- <li><a href="DashBoardServlet?page=${i}&limit=${limit}">${i}</a></li> --%>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="i" begin="${page}" end="${page+3}">
 					<li><mylib:link target="DashBoardServlet" page="${i}"
 							limit="${limit}" body="${i}" /></li>
-					<%-- <li><a href="DashBoardServlet?page=${i}&limit=${limit}">${i}</a></li> --%>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 		<c:if test="${page < maxPages}">
-			<%-- 			<li><a href="DashBoardServlet?page=${page+1}&limit=${limit}" --%>
-			<!-- 				aria-label="Next"> <span aria-pagination hidden="true">&raquo;</span> -->
-			<!-- 			</a></li> -->
 			<li><mylib:link target="DashBoardServlet" page="${page+1}"
 					limit="${limit}" aria_label="Next"
 					body="<span aria-hidden='true'>&raquo</span>" /></li>

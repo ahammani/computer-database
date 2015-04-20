@@ -9,7 +9,7 @@
 	<c:import url="import/header.jsp" />
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${maxComputers} computersfound</h1>
+			<h1 id="homeTitle">${maxComputers} computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
