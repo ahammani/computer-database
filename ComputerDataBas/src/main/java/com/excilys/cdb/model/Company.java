@@ -7,7 +7,7 @@ package com.excilys.cdb.model;
 
 public class Company {
 
-	private long id;
+	private long id = 0;
 	private String name;
 
 	@Override
@@ -39,13 +39,17 @@ public class Company {
 	}
 
 	public long getId() {
-		return id;
+		if (id > 0)
+			return id;
+		else
+			return 0;
 	}
 
 	public void setId(long l) {
 		if (l > 0) {
 			this.id = l;
-		}
+		} else
+			this.id = 0;
 	}
 
 	@Override

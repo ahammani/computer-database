@@ -1,6 +1,10 @@
 package com.excilys.cdb.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.excilys.cdb.model.*;
+import com.excilys.cdb.service.ComputerDAOService;
 import com.excilys.cdb.servlet.dto.ComputerDTO;
 
 public class DTOMapper {
@@ -15,4 +19,13 @@ public class DTOMapper {
 		return new ComputerDTO(name, intro_date, dis_date, id, company_id,
 				company_name);
 	}
+
+	public static List<ComputerDTO> toDTOList(List<Computer> computers) {
+		List<ComputerDTO> res = new ArrayList<>();
+		for (Computer c : computers) {
+			res.add(DTOMapper.toDTO(c));
+		}
+		return res;
+	}
+
 }

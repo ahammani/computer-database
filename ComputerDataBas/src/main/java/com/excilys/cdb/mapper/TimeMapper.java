@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.excilys.cdb.utils.Utils;
+
 public class TimeMapper {
 
 	public static Timestamp LocalDateTimeToTimestamp(LocalDateTime ldt) {
@@ -26,6 +28,15 @@ public class TimeMapper {
 			return t.format(formatter);
 		}
 		return "";
+	}
+
+	public static LocalDateTime StringToLocalDateTime(String s) {
+		if (Utils.checkDate(s)) {
+			DateTimeFormatter formatter = DateTimeFormatter
+					.ofPattern("yyyy-MM-dd");
+			return LocalDateTime.parse(s + "T00:00:00");
+		} else
+			return null;
 	}
 
 }

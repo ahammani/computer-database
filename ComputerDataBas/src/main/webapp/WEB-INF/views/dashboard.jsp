@@ -1,12 +1,14 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
+
 <c:import url="import/head.jsp" />
 <body>
 
 	<c:import url="import/header.jsp" />
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">121 Computer> computers found</h1>
+			<h1 id="homeTitle">${maxComputers}computersfound</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -18,8 +20,9 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="AddComputerServlet">Add
-						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
+					<a class="btn btn-success" id="addComputer"
+						href="AddComputerServlet">Add Computer</a> <a
+						class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
@@ -71,8 +74,12 @@
 			</table>
 		</div>
 	</section>
-
-	<c:import url="import/footer.jsp" />
+	<footer class="navbar-fixed-bottom">
+		<mylib:pagination page="${page}" limit="${limit}" maxPages="${maxPages}"/>
+	</footer>
+	<script src="static/js/jquery.min.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/dashboard.js"></script>
 
 
 </body>

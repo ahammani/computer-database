@@ -40,4 +40,16 @@ public class SQLMapper {
 		}
 		return null;
 	}
+
+	public static Company ResultSetToCompany(ResultSet result)
+			throws SQLException {
+		if (result.next()) {
+			String name = result.getString("name");
+			long id = result.getLong("id");
+
+			Company comp = new Company(id, name);
+			return comp;
+		}
+		return null;
+	}
 }

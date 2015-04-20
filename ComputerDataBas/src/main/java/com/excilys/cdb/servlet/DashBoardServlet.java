@@ -1,7 +1,6 @@
 package com.excilys.cdb.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -12,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.mapper.DTOMapper;
-import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.CompanyDAOService;
 import com.excilys.cdb.service.ComputerDAOService;
 import com.excilys.cdb.servlet.dto.ComputerDTO;
+import com.excilys.cdb.utils.Utils;
 
 /**
  * Servlet implementation class CDBServlet
@@ -22,7 +22,9 @@ import com.excilys.cdb.servlet.dto.ComputerDTO;
 @WebServlet("/DashBoardServlet")
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ComputerDAOService service = ComputerDAOService.INSTANCE;
+	private static ComputerDAOService computerService = ComputerDAOService.INSTANCE;
+	private static List<ComputerDTO> allComputers = DTOMapper
+			.toDTOList(computerService.getAll());
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,12 +41,22 @@ public class DashBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		List<ComputerDTO> computers = new ArrayList<>();
-		for (Computer c : service.getAll()) {
-			computers.add(DTOMapper.toDTO(c));
-		}
+		String p = request.getParameter("page");
+		String lim = request.getParameter("limit");
+		int page = Utils.StringToInt(p, 1);
+		int limit = Utils.StringToInt(lim, 3);
+		int maxComputers = allComputers.size();
+		int maxPages = (maxComputers / limit) + 1;
+		int offset = (page - 1) * limit;
+		offset = (offset < 0) ? 0 : offset;
+		page = (page > maxPages) ? (maxPages - 1) : page;
+		List<ComputerDTO> computers = DTOMapper.toDTOList(computerService
+				.getAll(offset, limit));
+		request.setAttribute("maxPages", maxPages);
+		request.setAttribute("maxComputers", maxComputers);
 		request.setAttribute("computers", computers);
-
+		request.setAttribute("page", page);
+		request.setAttribute("limit", limit);
 		ServletContext context = this.getServletContext();
 		context.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(
 				request, response);

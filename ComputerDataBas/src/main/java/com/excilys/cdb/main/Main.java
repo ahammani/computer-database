@@ -3,6 +3,7 @@ package com.excilys.cdb.main;
 import java.util.Scanner;
 
 import com.excilys.cdb.ui.*;
+import com.excilys.cdb.utils.Utils;
 
 public class Main {
 	public static CLI cli = new CLI();
@@ -18,19 +19,10 @@ public class Main {
 		System.out.println("Wrong entry !");
 	}
 
-	public static boolean isInt(String s) {
-		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) < 48 || s.charAt(i) > 57) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public static long getLong() {
 		System.out.print("Enter an number > ");
 		String s = sc.next();
-		while (!isInt(s)) {
+		while (!Utils.isNumber(s)) {
 			wrongEntry();
 			System.out.println("Only numbers 0-9");
 			System.out.print("Enter an number > ");

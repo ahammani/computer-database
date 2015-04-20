@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.excilys.cdb.mapper.SQLMapper;
 import com.excilys.cdb.mapper.TimeMapper;
+import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
 public enum ComputerDAO implements IComputerDAO {
@@ -26,21 +27,32 @@ public enum ComputerDAO implements IComputerDAO {
 		Connection connect = FactoryConnection.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		try {
-
+			long id_company;
 			String name = obj.getName();
 			Timestamp introduced = TimeMapper.LocalDateTimeToTimestamp(obj
 					.getIntro_date());
 			Timestamp discontinued = TimeMapper.LocalDateTimeToTimestamp(obj
 					.getDis_date());
-			long id_company = obj.getCompany().getId();
+			Company company = obj.getCompany();
+
+			if (company != null)
+				id_company = company.getId();
+			else
+				id_company = 0;
+
 			state = connect
 					.prepareStatement("INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)");
 			state.setString(1, name);
 			state.setTimestamp(2, introduced);
 			state.setTimestamp(3, discontinued);
-			state.setLong(4, id_company);
+			if (id_company == 0) {
+				state.setNull(4, Types.NULL);
+			} else {
+				state.setLong(4, id_company);
+			}
 			state.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println(obj.toString());
 			throw new DAOException();
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(connect, state);

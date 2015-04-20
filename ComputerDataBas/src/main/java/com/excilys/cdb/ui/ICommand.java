@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.excilys.cdb.main.Main;
+import com.excilys.cdb.utils.Utils;
 
 /**
  * Class which represents A command given by user.
@@ -50,19 +51,6 @@ public abstract class ICommand {
 	}
 
 	/**
-	 * Check if the string d represents a date with yyyy-MM-dd form
-	 * 
-	 * @param d
-	 *            the string which represent a date
-	 * @return true if successful
-	 */
-	public boolean checkDate(String d) {
-		Pattern p = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-		Matcher m = p.matcher(d);
-		return m.matches();
-	}
-
-	/**
 	 * Gets the date.
 	 *
 	 * @return the date
@@ -75,7 +63,7 @@ public abstract class ICommand {
 		System.out
 				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 		String date = Main.sc.next();
-		while (!checkDate(date)) {
+		while (!Utils.checkDate(date)) {
 			Main.wrongEntry();
 			System.out
 					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
@@ -93,7 +81,7 @@ public abstract class ICommand {
 		System.out
 				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 		String date = Main.sc.next();
-		while (!checkDate(date)) {
+		while (!Utils.checkDate(date)) {
 			Main.wrongEntry();
 			System.out
 					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");

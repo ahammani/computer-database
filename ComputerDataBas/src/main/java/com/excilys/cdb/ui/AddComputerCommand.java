@@ -14,7 +14,7 @@ public class AddComputerCommand extends ICommand {
 	@Override
 	public void fetch() {
 
-		Long id = null;
+		long id = 0;
 		LocalDateTime intro = null, dis = null;
 
 		System.out.println("Enter a computer name >");

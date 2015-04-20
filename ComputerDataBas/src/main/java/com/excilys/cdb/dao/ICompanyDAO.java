@@ -3,7 +3,10 @@ package com.excilys.cdb.dao;
 import java.util.List;
 
 import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
 
 public interface ICompanyDAO {
-	public abstract List<Company> findAll();
+	List<Company> findAll();
+
+	Company find(long id);
 }
