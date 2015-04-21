@@ -17,8 +17,9 @@ public interface IComputerDAO {
 	 *
 	 * @param obj
 	 *            the object
+	 * @return
 	 */
-	void create(Computer obj);
+	int create(Computer obj);
 
 	/**
 	 * Delete a raw with the id id.

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
@@ -40,7 +41,7 @@ public enum ComputerDAO implements IComputerDAO {
 	}
 
 	@Override
-	public void create(Computer obj) {
+	public int create(Computer obj) {
 		Connection connect = FactoryConnection.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		try {
@@ -58,7 +59,9 @@ public enum ComputerDAO implements IComputerDAO {
 				id_company = 0;
 
 			state = connect
-					.prepareStatement("INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)");
+					.prepareStatement(
+							"INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)",
+							Statement.RETURN_GENERATED_KEYS);
 			state.setString(1, name);
 			state.setTimestamp(2, introduced);
 			state.setTimestamp(3, discontinued);
@@ -67,7 +70,7 @@ public enum ComputerDAO implements IComputerDAO {
 			} else {
 				state.setLong(4, id_company);
 			}
-			state.executeUpdate();
+			return state.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(obj.toString());
 			throw new DAOException();
