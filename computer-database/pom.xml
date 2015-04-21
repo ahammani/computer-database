@@ -4,6 +4,7 @@
 	<groupId>computer-database</groupId>
 	<artifactId>computer-database</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
 	<properties>
 		<mysql.version>5.1.35</mysql.version>
 		<mockito.version>2.0.2-beta</mockito.version>
@@ -19,6 +20,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 
@@ -42,6 +44,7 @@
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>

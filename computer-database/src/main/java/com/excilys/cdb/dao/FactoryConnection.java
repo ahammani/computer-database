@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.excilys.cdb.exception.DAOException;
+
 import static com.excilys.cdb.database.DatabaseNaming.*;
 
 public enum FactoryConnection {
@@ -38,26 +40,22 @@ public enum FactoryConnection {
 
 	public void closeConnection(Connection c, PreparedStatement p) {
 		try {
-			if (c != null)
-				c.close();
 			if (p != null)
 				p.close();
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
+		closeConnection(c);
 	}
 
 	public void closeConnection(Connection c, PreparedStatement p, ResultSet r) {
 		try {
-			if (c != null)
-				c.close();
-			if (p != null)
-				p.close();
 			if (r != null)
 				r.close();
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
+		closeConnection(c, p);
 	}
 
 }

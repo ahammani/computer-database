@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
-import com.excilys.cdb.mapper.SQLMapper;
+import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -29,9 +29,9 @@ public enum ComputerDAO implements IComputerDAO {
 		try {
 			long id_company;
 			String name = obj.getName();
-			Timestamp introduced = TimeMapper.LocalDateTimeToTimestamp(obj
+			Timestamp introduced = SQLMapper.LocalDateTimeToTimestamp(obj
 					.getIntro_date());
-			Timestamp discontinued = TimeMapper.LocalDateTimeToTimestamp(obj
+			Timestamp discontinued = SQLMapper.LocalDateTimeToTimestamp(obj
 					.getDis_date());
 			Company company = obj.getCompany();
 
@@ -82,9 +82,9 @@ public enum ComputerDAO implements IComputerDAO {
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
-			Timestamp introduced = TimeMapper.LocalDateTimeToTimestamp(obj
+			Timestamp introduced = SQLMapper.LocalDateTimeToTimestamp(obj
 					.getIntro_date());
-			Timestamp discontinued = TimeMapper.LocalDateTimeToTimestamp(obj
+			Timestamp discontinued = SQLMapper.LocalDateTimeToTimestamp(obj
 					.getDis_date());
 			long id_company = obj.getCompany().getId();
 			long id = obj.getId();

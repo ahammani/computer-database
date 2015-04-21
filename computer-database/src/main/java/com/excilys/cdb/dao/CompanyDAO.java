@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.excilys.cdb.mapper.SQLMapper;
+import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 
 public enum CompanyDAO implements ICompanyDAO {
