@@ -17,10 +17,10 @@ public class UpdateComputerCommand extends ICommand {
 			return;
 		try {
 			if (chooseArgs("modify introduced date")) {
-				comp.setIntro_date(getLocalDateTime());
+				comp.setIntroduced(getLocalDateTime());
 			}
 			if (chooseArgs("modify discontinued date")) {
-				comp.setDis_date(getLocalDateTime());
+				comp.setDiscontinued(getLocalDateTime());
 			}
 			if (chooseArgs("modify company id")) {
 				comp.getCompany().setId(Main.getLong());

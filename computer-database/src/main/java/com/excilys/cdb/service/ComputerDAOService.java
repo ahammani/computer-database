@@ -20,8 +20,8 @@ public enum ComputerDAOService {
 		return ComputerDAO.INSTANCE.find(id);
 	}
 
-	public void addComputer(Computer c) {
-		ComputerDAO.INSTANCE.create(c);
+	public int addComputer(Computer c) {
+		return ComputerDAO.INSTANCE.create(c);
 	}
 
 	public void updateComputer(Computer c) {

@@ -2,18 +2,18 @@ package com.excilys.cdb.servlet.dto;
 
 public class ComputerDTO {
 	private String name = "";
-	private String intro_date = "";
-	private String dis_date = "";
+	private String introduced = "";
+	private String discontinued = "";
 	private long id = 0;
 	private long company_id = 0;
 	private String company_name = "";
 
-	public ComputerDTO(String name, String intro_date, String dis_date,
+	public ComputerDTO(String name, String introduced, String discontinued,
 			long id, long company_id, String company_name) {
 		super();
 		this.name = name;
-		this.intro_date = (intro_date != null) ? intro_date : "";
-		this.dis_date = (dis_date != null) ? dis_date : "";
+		this.introduced = (introduced != null) ? introduced : "";
+		this.discontinued = (discontinued != null) ? discontinued : "";
 		this.id = id;
 		this.company_id = company_id;
 		this.company_name = (company_name != null) ? company_name : "";
@@ -28,20 +28,20 @@ public class ComputerDTO {
 			this.name = name;
 	}
 
-	public String getIntro_date() {
-		return intro_date;
+	public String getIntroduced() {
+		return introduced;
 	}
 
-	public void setIntro_date(String intro_date) {
-		this.intro_date = intro_date;
+	public void setIntroduced(String introduced) {
+		this.introduced = introduced;
 	}
 
-	public String getDis_date() {
-		return dis_date;
+	public String getDiscontinued() {
+		return discontinued;
 	}
 
-	public void setDis_date(String dis_date) {
-		this.dis_date = dis_date;
+	public void setDiscontinued(String discontinued) {
+		this.discontinued = discontinued;
 	}
 
 	public long getId() {

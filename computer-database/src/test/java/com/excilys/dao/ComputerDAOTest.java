@@ -1,6 +1,5 @@
 package com.excilys.dao;
 
-
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
@@ -63,8 +62,8 @@ public class ComputerDAOTest {
 		ExecuteScript.execute();
 		Computer expected = new Computer("test", null, LocalDateTime.of(2000,
 				01, 02, 0, 0), c1, 4);
-		computers.addComputer(expected);
-		Computer actual = computers.getComputer(4);
+		int id = computers.addComputer(expected);
+		Computer actual = computers.getComputer(id);
 		assertFalse(actual.equals(null));
 		assertEquals(expected, actual);
 	}

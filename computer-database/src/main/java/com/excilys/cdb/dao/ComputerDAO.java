@@ -48,9 +48,9 @@ public enum ComputerDAO implements IComputerDAO {
 			long id_company;
 			String name = obj.getName();
 			Timestamp introduced = SQLMapper.LocalDateTimeToTimestamp(obj
-					.getIntro_date());
+					.getIntroduced());
 			Timestamp discontinued = SQLMapper.LocalDateTimeToTimestamp(obj
-					.getDis_date());
+					.getDiscontinued());
 			Company company = obj.getCompany();
 
 			if (company != null)
@@ -62,6 +62,7 @@ public enum ComputerDAO implements IComputerDAO {
 					.prepareStatement(
 							"INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)",
 							Statement.RETURN_GENERATED_KEYS);
+			System.out.println();
 			state.setString(1, name);
 			state.setTimestamp(2, introduced);
 			state.setTimestamp(3, discontinued);
@@ -70,7 +71,13 @@ public enum ComputerDAO implements IComputerDAO {
 			} else {
 				state.setLong(4, id_company);
 			}
-			return state.executeUpdate();
+			state.executeUpdate();
+
+			ResultSet rs = state.getGeneratedKeys();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
 		} catch (SQLException e) {
 			System.out.println(obj.toString());
 			throw new DAOException();
@@ -103,9 +110,9 @@ public enum ComputerDAO implements IComputerDAO {
 		try {
 			String name = obj.getName();
 			Timestamp introduced = SQLMapper.LocalDateTimeToTimestamp(obj
-					.getIntro_date());
+					.getIntroduced());
 			Timestamp discontinued = SQLMapper.LocalDateTimeToTimestamp(obj
-					.getDis_date());
+					.getDiscontinued());
 			long id_company = obj.getCompany().getId();
 			long id = obj.getId();
 

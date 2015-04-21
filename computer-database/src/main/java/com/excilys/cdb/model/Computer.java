@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 
 public class Computer {
 	private String name = "";
-	private LocalDateTime intro_date;
-	private LocalDateTime dis_date;
+	private LocalDateTime introduced;
+	private LocalDateTime discontinued;
 	private Company company;
 	private long id = 0;
 
@@ -20,10 +20,10 @@ public class Computer {
 		int result = 1;
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result
-				+ ((dis_date == null) ? 0 : dis_date.hashCode());
+				+ ((discontinued == null) ? 0 : discontinued.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result
-				+ ((intro_date == null) ? 0 : intro_date.hashCode());
+				+ ((introduced == null) ? 0 : introduced.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -42,17 +42,17 @@ public class Computer {
 				return false;
 		} else if (!company.equals(other.company))
 			return false;
-		if (dis_date == null) {
-			if (other.dis_date != null)
+		if (discontinued == null) {
+			if (other.discontinued != null)
 				return false;
-		} else if (!dis_date.equals(other.dis_date))
+		} else if (!discontinued.equals(other.discontinued))
 			return false;
 		if (id != other.id)
 			return false;
-		if (intro_date == null) {
-			if (other.intro_date != null)
+		if (introduced == null) {
+			if (other.introduced != null)
 				return false;
-		} else if (!intro_date.equals(other.intro_date))
+		} else if (!introduced.equals(other.introduced))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -81,10 +81,10 @@ public class Computer {
 
 	@Override
 	public String toString() {
-		String intro = (intro_date != null) ? "INTRODUCED : "
-				+ intro_date.toString() + "\t " : "";
-		String dis = (dis_date != null) ? "DISCONTINUED : "
-				+ dis_date.toString() + "\t " : "";
+		String intro = (introduced != null) ? "INTRODUCED : "
+				+ introduced.toString() + "\t " : "";
+		String dis = (discontinued != null) ? "DISCONTINUED : "
+				+ discontinued.toString() + "\t " : "";
 		String aid = "ID : " + id + "\t ";
 		String cname = "COMPUTER NAME : " + name + "\t ";
 		String cid = (company.getId() != 0) ? "COMPANY ID :" + company.getId()
@@ -99,8 +99,8 @@ public class Computer {
 	public Computer(String name, LocalDateTime intro, LocalDateTime dis,
 			Company comp, long c_id) {
 		this.name = name;
-		this.intro_date = intro;
-		this.dis_date = dis;
+		this.introduced = intro;
+		this.discontinued = dis;
 		this.company = comp;
 		this.id = c_id;
 	}
@@ -108,8 +108,8 @@ public class Computer {
 	public Computer(String name, LocalDateTime intro, LocalDateTime dis,
 			Company comp) {
 		this.name = name;
-		this.intro_date = intro;
-		this.dis_date = dis;
+		this.introduced = intro;
+		this.discontinued = dis;
 		this.company = comp;
 	}
 
@@ -121,20 +121,20 @@ public class Computer {
 		this.name = name;
 	}
 
-	public LocalDateTime getIntro_date() {
-		return intro_date;
+	public LocalDateTime getIntroduced() {
+		return introduced;
 	}
 
-	public void setIntro_date(LocalDateTime intro_date) {
-		this.intro_date = intro_date;
+	public void setIntroduced(LocalDateTime introduced) {
+		this.introduced = introduced;
 	}
 
-	public LocalDateTime getDis_date() {
-		return dis_date;
+	public LocalDateTime getDiscontinued() {
+		return discontinued;
 	}
 
-	public void setDis_date(LocalDateTime dis_date) {
-		this.dis_date = dis_date;
+	public void setDiscontinued(LocalDateTime discontinued) {
+		this.discontinued = discontinued;
 	}
 
 }

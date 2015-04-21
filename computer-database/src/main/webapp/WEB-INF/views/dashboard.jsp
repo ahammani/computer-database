@@ -23,7 +23,7 @@
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer"
 						href="AddComputerServlet">Add Computer</a> <a
-						class="btn btn-default" id="editComputer" href="#"
+						class="btn btn-default" id="editComputer" href="EditComputerServlet"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
@@ -64,9 +64,9 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="0"></td>
-							<td><a href="editComputer.html" onclick="">${computer.name}</a></td>
-							<td>${computer.intro_date}</td>
-							<td>${computer.dis_date}</td>
+							<td><a href="EditComputerServlet?id=${computer.id}" onclick="">${computer.name}</a></td>
+							<td>${computer.introduced}</td>
+							<td>${computer.discontinued}</td>
 							<td>${computer.company_name}</td>
 					</tbody>
 				</c:forEach>
@@ -79,9 +79,9 @@
 		<mylib:pagination page="${page}" limit="${limit}" maxPages="${maxPages}"/>
 	</footer>
 
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/dashboard.js"></script>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/dashboard.js"></script>
 
 </body>
 </html>
