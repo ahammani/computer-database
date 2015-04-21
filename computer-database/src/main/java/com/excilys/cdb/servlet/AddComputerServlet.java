@@ -81,7 +81,7 @@ public class AddComputerServlet extends HttpServlet {
 			LocalDateTime dis = TimeMapper.StringToLocalDateTime(discontinued);
 			Computer computer = new Computer(computerName, intro, dis, company);
 			computerService.addComputer(computer);
-			response.sendRedirect("DashBoardServlet?reload=true");
+			response.sendRedirect("DashBoardServlet");
 		} else {
 			response.sendRedirect("AddComputerServlet");
 		}

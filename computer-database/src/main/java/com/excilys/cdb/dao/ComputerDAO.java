@@ -9,7 +9,6 @@ import java.sql.Types;
 import java.util.List;
 
 import com.excilys.cdb.exception.DAOException;
-import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
@@ -21,6 +20,24 @@ public enum ComputerDAO implements IComputerDAO {
 	 * @param conn
 	 *            the connection
 	 */
+
+	public int count() {
+		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		PreparedStatement state = null;
+		ResultSet result = null;
+		try {
+			state = connect.prepareStatement("SELECT COUNT(*) FROM computer");
+			result = state.executeQuery();
+			if (result.next())
+				return result.getInt("COUNT(*)");
+			else
+				return 0;
+		} catch (SQLException e) {
+			throw new DAOException();
+		} finally {
+			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+		}
+	}
 
 	@Override
 	public void create(Computer obj) {

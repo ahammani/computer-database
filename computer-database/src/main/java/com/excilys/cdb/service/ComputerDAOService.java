@@ -31,4 +31,8 @@ public enum ComputerDAOService {
 	public void deleteComputer(long id) {
 		ComputerDAO.INSTANCE.delete(id);
 	}
+
+	public int count() {
+		return ComputerDAO.INSTANCE.count();
+	}
 }

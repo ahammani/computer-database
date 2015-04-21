@@ -1,6 +1,7 @@
 package com.excilys.cdb.servlet;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -22,8 +23,6 @@ import com.excilys.cdb.utils.Utils;
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ComputerDAOService computerService = ComputerDAOService.INSTANCE;
-	private static List<ComputerDTO> allComputers = DTOMapper
-			.toDTOList(computerService.getAll());
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,15 +38,11 @@ public class DashBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String b = request.getParameter("reload");
-		if (b != null && b.equals("true")) {
-			allComputers = DTOMapper.toDTOList(computerService.getAll());
-		}
 		String p = request.getParameter("page");
 		String lim = request.getParameter("limit");
 		int page = Utils.StringToInt(p, 1);
 		int limit = Utils.StringToInt(lim, 3);
-		int maxComputers = allComputers.size();
+		int maxComputers = computerService.count();
 		int maxPages = (maxComputers % limit == 0) ? (maxComputers / limit)
 				: (maxComputers / limit) + 1;
 		int offset = (page - 1) * limit;
