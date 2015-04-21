@@ -32,9 +32,33 @@ public class Utils {
 	 * @return true if successful
 	 */
 	public static boolean checkDate(String d) {
-		Pattern p = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		Pattern p = Pattern
+				.compile("[0-9]{4}-(0[1-9]|1[1-2])-([0-2][0-9]|3[01])");
 		Matcher m = p.matcher(d);
-		return m.matches();
+		Pattern month31 = Pattern
+				.compile("[0-9]{4}-[01|03|05|07|08|10|12]-([0-2][0-9]|3[01])");
+		Pattern month30 = Pattern
+				.compile("[0-9]{4}-[04|06|08|09|11]-([0-2][0-9]|30)");
+		Pattern february = Pattern.compile("[0-9]{4}-02-[0-2][0-9]");
+		if (m.matches()) {
+			String[] date = d.split("-");
+			int year = Integer.parseInt(date[0]);
+			int month = Integer.parseInt(date[1]);
+			int day = Integer.parseInt(date[2]);
+			// Timestamp limit 2038-01-19 should not be here
+			if (year == 2038 && ((month == 01 && day > 19) || month > 01)
+					|| year > 2038)
+				return false;
+			// bissextile year
+			if (month == 02
+					&& !((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+					&& day == 29)
+				return false;
+			else
+				return month31.matcher(d).matches()
+						|| month30.matcher(d).matches()
+						|| february.matcher(d).matches();
+		} else
+			return false;
 	}
-
 }
