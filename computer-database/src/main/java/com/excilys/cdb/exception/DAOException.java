@@ -1,4 +1,4 @@
-package com.excilys.cdb.dao;
+package com.excilys.cdb.exception;
 
 public class DAOException extends RuntimeException {
 
