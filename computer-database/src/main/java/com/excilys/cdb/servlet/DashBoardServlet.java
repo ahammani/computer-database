@@ -18,7 +18,7 @@ import com.excilys.cdb.utils.Utils;
 /**
  * Servlet implementation class CDBServlet
  */
-@WebServlet("/DashBoardServlet")
+@WebServlet("/DashboardServlet")
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ComputerDAOService computerService = ComputerDAOService.INSTANCE;

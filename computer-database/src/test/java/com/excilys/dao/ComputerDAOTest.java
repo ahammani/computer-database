@@ -2,7 +2,7 @@ package com.excilys.dao;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +28,9 @@ public class ComputerDAOTest {
 		ExecuteScript.execute();
 		expectedList = new ArrayList<Computer>();
 
-		LocalDateTime t1 = LocalDateTime.of(1991, 03, 03, 0, 0);
-		LocalDateTime t2 = LocalDateTime.of(1991, 04, 03, 0, 0);
-		LocalDateTime t3 = LocalDateTime.of(1991, 04, 04, 0, 0);
+		LocalDate t1 = LocalDate.of(1991, 03, 03);
+		LocalDate t2 = LocalDate.of(1991, 04, 03);
+		LocalDate t3 = LocalDate.of(1991, 04, 04);
 		comp1 = new Computer("MacBook Pro 15.4 inch", null, null, c1, 1);
 		comp2 = new Computer("CM-200", t1, t2, c2, 2);
 		comp3 = new Computer("CM-5e", null, t3, c3, 3);
@@ -60,8 +60,8 @@ public class ComputerDAOTest {
 	@Test
 	public void testCreate() {
 		ExecuteScript.execute();
-		Computer expected = new Computer("test", null, LocalDateTime.of(2000,
-				01, 02, 0, 0), c1, 4);
+		Computer expected = new Computer("test", null, LocalDate.of(2000, 01,
+				02), c1, 4);
 		int id = computers.addComputer(expected);
 		Computer actual = computers.getComputer(id);
 		assertFalse(actual.equals(null));

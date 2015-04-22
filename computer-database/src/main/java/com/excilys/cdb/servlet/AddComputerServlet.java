@@ -1,7 +1,6 @@
 package com.excilys.cdb.servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,12 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.CompanyDAOService;
 import com.excilys.cdb.service.ComputerDAOService;
-import com.excilys.cdb.utils.Utils;
 
 /**
  * Servlet implementation class AddComputer
@@ -24,7 +21,6 @@ import com.excilys.cdb.utils.Utils;
 @WebServlet("/AddComputerServlet")
 public class AddComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ComputerDAOService computerService = ComputerDAOService.INSTANCE;
 	private CompanyDAOService companyService = CompanyDAOService.INSTANCE;
 
 	/**
@@ -58,7 +54,7 @@ public class AddComputerServlet extends HttpServlet {
 		Computer computer = UtilsServlet.postComputer(request, false);
 		if (computer != null) {
 			ComputerDAOService.INSTANCE.addComputer(computer);
-			response.sendRedirect("DashBoardServlet");
+			response.sendRedirect("DashboardServlet");
 		} else {
 			response.sendRedirect("AddComputerServlet");
 		}

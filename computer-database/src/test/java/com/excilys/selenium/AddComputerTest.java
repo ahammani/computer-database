@@ -28,7 +28,7 @@ public class AddComputerTest {
 
 	@Test
 	public void testEmptyAddComputer() throws Exception {
-		driver.get(baseUrl + "/computer-database/DashBoardServlet");
+		driver.get(baseUrl + "/computer-database/DashboardServlet");
 		driver.findElement(By.id("addComputer")).click();
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 	}
@@ -43,7 +43,7 @@ public class AddComputerTest {
 
 	@Test
 	public void testFullAddComputer() throws Exception {
-		driver.get(baseUrl + "/computer-database/DashBoardServlet");
+		driver.get(baseUrl + "/computer-database/DashboardServlet");
 		previous = driver.findElement(By.id("homeTitle")).getText().split(" ")[0];
 
 		driver.get(baseUrl + "/computer-database/AddComputerServlet");
@@ -57,7 +57,7 @@ public class AddComputerTest {
 				.selectByVisibleText("Apple Inc.");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
-		driver.get(baseUrl + "/computer-database/DashBoardServlet");
+		driver.get(baseUrl + "/computer-database/DashboardServlet");
 		String next = driver.findElement(By.id("homeTitle")).getText()
 				.split(" ")[0];
 		assertEquals(Integer.parseInt(previous) + 1, Integer.parseInt(next));

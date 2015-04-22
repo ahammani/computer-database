@@ -45,13 +45,17 @@ public class EditComputerServlet extends HttpServlet {
 		request.setAttribute("companies", companies);
 
 		String sid = request.getParameter("id");
-		int id = Utils.StringToInt(sid, 1);
+		long id = Utils.StringToLong(sid, 1);
 		ComputerDTO computer = DTOMapper.toDTO(computerService.getComputer(id));
-		request.setAttribute("computer", computer);
+		if (computer != null) {
+			request.setAttribute("computer", computer);
 
-		ServletContext context = this.getServletContext();
-		context.getRequestDispatcher("/WEB-INF/views/editComputer.jsp")
-				.forward(request, response);
+			ServletContext context = this.getServletContext();
+			context.getRequestDispatcher("/WEB-INF/views/editComputer.jsp")
+					.forward(request, response);
+		} else {
+			response.sendRedirect("DashboardServlet");
+		}
 	}
 
 	/**
@@ -63,7 +67,7 @@ public class EditComputerServlet extends HttpServlet {
 		Computer computer = UtilsServlet.postComputer(request, true);
 		if (computer != null) {
 			ComputerDAOService.INSTANCE.updateComputer(computer);
-			response.sendRedirect("DashBoardServlet");
+			response.sendRedirect("DashboardServlet");
 		} else {
 			response.sendRedirect("EditComputerServlet");
 		}

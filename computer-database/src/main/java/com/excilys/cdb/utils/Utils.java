@@ -24,6 +24,13 @@ public class Utils {
 			return bad;
 	}
 
+	public static long StringToLong(String s, long bad) {
+		if (Utils.isNumber(s))
+			return Integer.parseInt(s);
+		else
+			return bad;
+	}
+
 	/**
 	 * Check if the string d represents a date with yyyy-MM-dd form
 	 * 

@@ -9,6 +9,8 @@ import com.excilys.cdb.servlet.dto.ComputerDTO;
 public class DTOMapper {
 
 	public static ComputerDTO toDTO(Computer c) {
+		if (c == null)
+			return null;
 		String name = c.getName();
 		String introduced = TimeMapper.LocalDateToString(c.getIntroduced());
 		String discontinued = TimeMapper.LocalDateToString(c.getDiscontinued());
