@@ -16,6 +16,10 @@ public enum ComputerDAOService {
 		return ComputerDAO.INSTANCE.findAll(offset, limit);
 	}
 
+	public List<Computer> getAll(String search, int offset, int limit) {
+		return ComputerDAO.INSTANCE.findAll(search, offset, limit);
+	}
+
 	public Computer getComputer(long id) {
 		return ComputerDAO.INSTANCE.find(id);
 	}

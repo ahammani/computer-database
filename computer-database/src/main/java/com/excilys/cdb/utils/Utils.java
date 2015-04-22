@@ -18,6 +18,13 @@ public class Utils {
 	}
 
 	public static int StringToInt(String s, int bad) {
+		if (s == null || s == "")
+			return bad;
+		Integer max = Integer.MAX_VALUE;
+		int max_size = max.toString().length();
+		if (max_size < s.length()
+				|| (max_size == s.length() && max.toString().compareTo(s) < 0))
+			return bad;
 		if (Utils.isNumber(s))
 			return Integer.parseInt(s);
 		else
@@ -25,8 +32,15 @@ public class Utils {
 	}
 
 	public static long StringToLong(String s, long bad) {
-		if (Utils.isNumber(s))
-			return Integer.parseInt(s);
+		if (s == null || s == "")
+			return bad;
+		Long max = Long.MAX_VALUE;
+		int max_size = max.toString().length();
+		if (max_size < s.length()
+				|| (max_size == s.length() && max.toString().compareTo(s) < 0))
+			return bad;
+		else if (Utils.isNumber(s))
+			return Long.parseLong(s);
 		else
 			return bad;
 	}

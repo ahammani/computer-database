@@ -37,6 +37,7 @@ public class DashBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String search = request.getParameter("search");
 		String p = request.getParameter("page");
 		String lim = request.getParameter("limit");
 		int page = Utils.StringToInt(p, 1);
@@ -47,8 +48,15 @@ public class DashBoardServlet extends HttpServlet {
 		int offset = (page - 1) * limit;
 		offset = (offset < 0) ? 0 : offset;
 		page = (page > maxPages) ? (maxPages - 1) : page;
-		List<ComputerDTO> computers = DTOMapper.toDTOList(computerService
-				.getAll(offset, limit));
+		List<ComputerDTO> computers;
+		if (search == null || search == "") {
+			computers = DTOMapper.toDTOList(computerService.getAll(offset,
+					limit));
+		} else {
+			computers = DTOMapper.toDTOList(computerService.getAll(search,
+					offset, limit));
+			request.setAttribute("search", search);
+		}
 		request.setAttribute("maxPages", maxPages);
 		request.setAttribute("maxComputers", maxComputers);
 		request.setAttribute("computers", computers);

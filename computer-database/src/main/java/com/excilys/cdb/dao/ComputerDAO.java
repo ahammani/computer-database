@@ -15,12 +15,6 @@ import com.excilys.cdb.model.Computer;
 
 public enum ComputerDAO implements IComputerDAO {
 	INSTANCE;
-	/**
-	 * Instantiates a new dao.
-	 *
-	 * @param conn
-	 *            the connection
-	 */
 
 	public int count() {
 		Connection connect = FactoryConnection.INSTANCE.openConnection();
@@ -188,6 +182,28 @@ public enum ComputerDAO implements IComputerDAO {
 			result = state.executeQuery();
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
+			throw new DAOException();
+		} finally {
+			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+		}
+	}
+
+	public List<Computer> findAll(String search, int offset, int limit) {
+		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		PreparedStatement state = null;
+		ResultSet result = null;
+		try {
+			state = connect
+					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id  "
+							+ "WHERE computer.name LIKE ? OR company.name LIKE ? LIMIT ?  OFFSET ?");
+			state.setString(1, "%" + search + "%");
+			state.setString(2, "%" + search + "%");
+			state.setInt(3, limit);
+			state.setInt(4, offset);
+			result = state.executeQuery();
+			return SQLMapper.getComputers(result);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DAOException();
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(connect, state, result);

@@ -12,7 +12,7 @@
 			<h1 id="homeTitle">${maxComputers} computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="#" method="GET" class="form-inline">
+					<form id="searchForm" action="DashboardServlet" method="GET" class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" /> <input
@@ -76,7 +76,7 @@
 		</div>
 	</section>
 	<footer class="navbar-fixed-bottom">
-		<mylib:pagination page="${page}" limit="${limit}" maxPages="${maxPages}"/>
+		<mylib:pagination page="${page}" limit="${limit}" maxPages="${maxPages}" search="${search}"/>
 	</footer>
 
 <script src="static/js/jquery.min.js"></script>
