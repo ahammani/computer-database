@@ -17,7 +17,7 @@ public enum ComputerDAO implements IComputerDAO {
 	INSTANCE;
 
 	public int count() {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -30,13 +30,13 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
 		}
 	}
 
 	@Override
 	public int create(Computer obj) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		try {
 			long id_company;
@@ -76,14 +76,14 @@ public enum ComputerDAO implements IComputerDAO {
 			System.out.println(obj.toString());
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state);
 		}
 
 	}
 
 	@Override
 	public void delete(long id) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		try {
 			state = connect.prepareStatement("DELETE FROM computer WHERE id=?");
@@ -92,14 +92,14 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state);
 		}
 
 	}
 
 	@Override
 	public void update(Computer obj) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
@@ -128,13 +128,13 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state);
 		}
 	}
 
 	@Override
 	public Computer find(long id) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -146,13 +146,13 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
 		}
 	}
 
 	@Override
 	public List<Computer> findAll() {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -164,14 +164,14 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
 		}
 
 	}
 
 	@Override
 	public List<Computer> findAll(int offset, int limit) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -184,12 +184,12 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
 		}
 	}
 
 	public List<Computer> findAll(String search, int offset, int limit) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -206,7 +206,7 @@ public enum ComputerDAO implements IComputerDAO {
 			System.out.println(e.getMessage());
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
 		}
 	}
 }

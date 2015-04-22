@@ -15,7 +15,7 @@ public enum CompanyDAO implements ICompanyDAO {
 
 	@Override
 	public Company find(long id) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -27,13 +27,13 @@ public enum CompanyDAO implements ICompanyDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
 		}
 	}
 
 	@Override
 	public List<Company> findAll() {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		List<Company> l = new ArrayList<>();
 		try {
@@ -51,7 +51,7 @@ public enum CompanyDAO implements ICompanyDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state);
 		}
 
 	}

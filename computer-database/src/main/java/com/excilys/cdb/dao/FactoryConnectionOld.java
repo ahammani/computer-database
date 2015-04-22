@@ -11,49 +11,40 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.excilys.cdb.exception.DAOException;
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 
-public enum FactoryConnection {
+public enum FactoryConnectionOld {
 	INSTANCE;
 
 	private InputStream input;
 	private Properties prop = new Properties();
-	private BoneCP connectionPool = null;
 
-	FactoryConnection() {
+	FactoryConnectionOld() {
 		try {
 			input = this.getClass().getClassLoader()
 					.getResourceAsStream("config.properties");
 			prop.load(input);
 			Class.forName(prop.getProperty("driver"));
-
-			BoneCPConfig config = new BoneCPConfig();
-			config.setJdbcUrl(getProp("url"));
-			config.setUsername(getProp("user"));
-			config.setPassword(getProp("pwd"));
-			config.setMinConnectionsPerPartition(1);
-			config.setMaxConnectionsPerPartition(5);
-			config.setPartitionCount(2);
-			connectionPool = new BoneCP(config);
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			throw new DAOException();
 		}
 	}
 
 	public String getProp(String s) {
-		return prop.getProperty(s);
+		return FactoryConnectionOld.INSTANCE.prop.getProperty(s);
 	}
 
 	public Connection openConnection() {
 		try {
-			return connectionPool.getConnection();
+			return DriverManager.getConnection(
+					FactoryConnectionOld.INSTANCE.getProp("url"),
+					FactoryConnectionOld.INSTANCE.getProp("user"),
+					FactoryConnectionOld.INSTANCE.getProp("pwd"));
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
