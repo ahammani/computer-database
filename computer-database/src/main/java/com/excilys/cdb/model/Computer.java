@@ -1,16 +1,16 @@
 package com.excilys.cdb.model;
 
+import java.time.LocalDate;
+
 /**
  * 
- * @author ahammani
- * Class which represents Computer Entity
+ * @author ahammani Class which represents Computer Entity
  */
-import java.time.LocalDateTime;
 
 public class Computer {
 	private String name = "";
-	private LocalDateTime introduced;
-	private LocalDateTime discontinued;
+	private LocalDate introduced;
+	private LocalDate discontinued;
 	private Company company;
 	private long id = 0;
 
@@ -96,8 +96,8 @@ public class Computer {
 		this.name = name;
 	}
 
-	public Computer(String name, LocalDateTime intro, LocalDateTime dis,
-			Company comp, long c_id) {
+	public Computer(String name, LocalDate intro, LocalDate dis, Company comp,
+			long c_id) {
 		this.name = name;
 		this.introduced = intro;
 		this.discontinued = dis;
@@ -105,8 +105,7 @@ public class Computer {
 		this.id = c_id;
 	}
 
-	public Computer(String name, LocalDateTime intro, LocalDateTime dis,
-			Company comp) {
+	public Computer(String name, LocalDate intro, LocalDate dis, Company comp) {
 		this.name = name;
 		this.introduced = intro;
 		this.discontinued = dis;
@@ -121,19 +120,19 @@ public class Computer {
 		this.name = name;
 	}
 
-	public LocalDateTime getIntroduced() {
+	public LocalDate getIntroduced() {
 		return introduced;
 	}
 
-	public void setIntroduced(LocalDateTime introduced) {
+	public void setIntroduced(LocalDate introduced) {
 		this.introduced = introduced;
 	}
 
-	public LocalDateTime getDiscontinued() {
+	public LocalDate getDiscontinued() {
 		return discontinued;
 	}
 
-	public void setDiscontinued(LocalDateTime discontinued) {
+	public void setDiscontinued(LocalDate discontinued) {
 		this.discontinued = discontinued;
 	}
 

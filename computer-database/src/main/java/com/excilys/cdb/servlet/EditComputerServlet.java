@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.CompanyDAOService;
 import com.excilys.cdb.service.ComputerDAOService;
 import com.excilys.cdb.servlet.dto.ComputerDTO;
@@ -59,7 +60,13 @@ public class EditComputerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		Computer computer = UtilsServlet.postComputer(request, true);
+		if (computer != null) {
+			ComputerDAOService.INSTANCE.updateComputer(computer);
+			response.sendRedirect("DashBoardServlet");
+		} else {
+			response.sendRedirect("EditComputerServlet");
+		}
 	}
 
 }

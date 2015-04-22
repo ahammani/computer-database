@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -56,8 +57,7 @@ public abstract class ICommand {
 	 *             the parse exception
 	 */
 	public Timestamp getDate() throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss.SSS");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		System.out
 				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 		String date = Main.sc.next();
@@ -67,15 +67,13 @@ public abstract class ICommand {
 					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 			date = Main.sc.next();
 		}
-		date += " 00:00:00.000";
 		Date parsedDate = dateFormat.parse(date);
 		return (new java.sql.Timestamp(parsedDate.getTime()));
 
 	}
 
-	public LocalDateTime getLocalDateTime() throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss.SSS");
+	public LocalDate getLocalDate() throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		System.out
 				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 		String date = Main.sc.next();
@@ -85,11 +83,10 @@ public abstract class ICommand {
 					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 			date = Main.sc.next();
 		}
-		date += " 00:00:00.000";
 		Date parsedDate = dateFormat.parse(date);
 		Instant instant = Instant.ofEpochMilli(parsedDate.getTime());
-		LocalDateTime res = LocalDateTime.ofInstant(instant,
-				ZoneId.systemDefault());
+		LocalDate res = (LocalDateTime.ofInstant(instant,
+				ZoneId.systemDefault())).toLocalDate();
 		return res;
 
 	}

@@ -47,9 +47,9 @@ public enum ComputerDAO implements IComputerDAO {
 		try {
 			long id_company;
 			String name = obj.getName();
-			Timestamp introduced = SQLMapper.LocalDateTimeToTimestamp(obj
+			Timestamp introduced = SQLMapper.LocalDateToTimestamp(obj
 					.getIntroduced());
-			Timestamp discontinued = SQLMapper.LocalDateTimeToTimestamp(obj
+			Timestamp discontinued = SQLMapper.LocalDateToTimestamp(obj
 					.getDiscontinued());
 			Company company = obj.getCompany();
 
@@ -109,11 +109,12 @@ public enum ComputerDAO implements IComputerDAO {
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
-			Timestamp introduced = SQLMapper.LocalDateTimeToTimestamp(obj
+			Timestamp introduced = SQLMapper.LocalDateToTimestamp(obj
 					.getIntroduced());
-			Timestamp discontinued = SQLMapper.LocalDateTimeToTimestamp(obj
+			Timestamp discontinued = SQLMapper.LocalDateToTimestamp(obj
 					.getDiscontinued());
-			long id_company = obj.getCompany().getId();
+			Company company = obj.getCompany();
+			long id_company = company.getId();
 			long id = obj.getId();
 
 			state = connect
@@ -126,6 +127,9 @@ public enum ComputerDAO implements IComputerDAO {
 			else
 				state.setLong(4, id_company);
 			state.setLong(5, id);
+			System.out.println("UPDATE name : " + name + " intro : "
+					+ introduced + " dis :" + discontinued + " company_id :"
+					+ id_company + " computer_id : " + id);
 			state.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException();

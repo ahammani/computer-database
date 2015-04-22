@@ -27,19 +27,6 @@ public class AddComputerServlet extends HttpServlet {
 	private ComputerDAOService computerService = ComputerDAOService.INSTANCE;
 	private CompanyDAOService companyService = CompanyDAOService.INSTANCE;
 
-	private boolean checkDate(String s) {
-		return Utils.checkDate(s) || (s == "");
-	}
-
-	private boolean checkName(String computerName) {
-		return computerName != "";
-	}
-
-	private boolean checkNumber(String companyId) {
-		// TODO Auto-generated method stub
-		return Utils.isNumber(companyId) || (companyId == "");
-	}
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -68,19 +55,9 @@ public class AddComputerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		String computerName = request.getParameter("computerName");
-		String introduced = request.getParameter("introduced");
-		String discontinued = request.getParameter("discontinued");
-		String companyId = request.getParameter("companyId");
-		if (checkName(computerName) && checkDate(introduced)
-				&& checkDate(discontinued) && checkNumber(companyId)) {
-			Company company = companyService.getCompany(Long
-					.parseLong(companyId));
-			LocalDateTime intro = TimeMapper.StringToLocalDateTime(introduced);
-			LocalDateTime dis = TimeMapper.StringToLocalDateTime(discontinued);
-			Computer computer = new Computer(computerName, intro, dis, company);
-			computerService.addComputer(computer);
+		Computer computer = UtilsServlet.postComputer(request, false);
+		if (computer != null) {
+			ComputerDAOService.INSTANCE.addComputer(computer);
 			response.sendRedirect("DashBoardServlet");
 		} else {
 			response.sendRedirect("AddComputerServlet");

@@ -1,7 +1,7 @@
 package com.excilys.cdb.ui;
 
 import java.text.ParseException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.excilys.cdb.dao.SQLMapper;
 import com.excilys.cdb.main.Main;
@@ -15,16 +15,16 @@ public class AddComputerCommand extends ICommand {
 	public void fetch() {
 
 		long id = 0;
-		LocalDateTime intro = null, dis = null;
+		LocalDate intro = null, dis = null;
 
 		System.out.println("Enter a computer name >");
 		String name = Main.sc.next();
 		try {
 			if (chooseArgs("add introduced date")) {
-				intro = SQLMapper.TimestampToLocalDateTime(getDate());
+				intro = SQLMapper.TimestampToLocalDate(getDate());
 			}
 			if (chooseArgs("add discontinued date")) {
-				dis = SQLMapper.TimestampToLocalDateTime(getDate());
+				dis = SQLMapper.TimestampToLocalDate(getDate());
 			}
 			if (chooseArgs("add company id")) {
 				id = Main.getLong();

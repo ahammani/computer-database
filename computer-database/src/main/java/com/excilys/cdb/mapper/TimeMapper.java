@@ -1,5 +1,6 @@
 package com.excilys.cdb.mapper;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +8,7 @@ import com.excilys.cdb.utils.Utils;
 
 public class TimeMapper {
 
-	public static String LocalDateTimeToString(LocalDateTime t) {
+	public static String LocalDateToString(LocalDate t) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		if (t != null) {
 			return t.format(formatter);
@@ -15,11 +16,9 @@ public class TimeMapper {
 		return "";
 	}
 
-	public static LocalDateTime StringToLocalDateTime(String s) {
+	public static LocalDate StringToLocalDate(String s) {
 		if (Utils.checkDate(s)) {
-			// DateTimeFormatter formatter = DateTimeFormatter
-			// .ofPattern("yyyy-MM-dd");
-			return LocalDateTime.parse(s + "T00:00:00");
+			return LocalDate.parse(s);
 		} else
 			return null;
 	}

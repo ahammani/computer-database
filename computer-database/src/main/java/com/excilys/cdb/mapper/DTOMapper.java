@@ -10,9 +10,8 @@ public class DTOMapper {
 
 	public static ComputerDTO toDTO(Computer c) {
 		String name = c.getName();
-		String introduced = TimeMapper.LocalDateTimeToString(c.getIntroduced());
-		String discontinued = TimeMapper.LocalDateTimeToString(c
-				.getDiscontinued());
+		String introduced = TimeMapper.LocalDateToString(c.getIntroduced());
+		String discontinued = TimeMapper.LocalDateToString(c.getDiscontinued());
 		long id = c.getId();
 		long company_id = c.getCompany().getId();
 		String company_name = c.getCompany().getName();

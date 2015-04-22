@@ -3,6 +3,7 @@ package com.excilys.cdb.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +13,16 @@ import com.excilys.cdb.model.Computer;
 
 public class SQLMapper {
 
-	public static Timestamp LocalDateTimeToTimestamp(LocalDateTime ldt) {
+	public static Timestamp LocalDateToTimestamp(LocalDate ldt) {
 		if (ldt != null)
-			return Timestamp.valueOf(ldt);
+			return Timestamp.valueOf(ldt.atStartOfDay());
 		else
 			return null;
 	}
 
-	public static LocalDateTime TimestampToLocalDateTime(Timestamp ts) {
+	public static LocalDate TimestampToLocalDate(Timestamp ts) {
 		if (ts != null)
-			return ts.toLocalDateTime();
+			return ts.toLocalDateTime().toLocalDate();
 		else
 			return null;
 	}
@@ -43,9 +44,9 @@ public class SQLMapper {
 
 		if (result.next()) {
 			String name = result.getString("c_name");
-			LocalDateTime intro = SQLMapper.TimestampToLocalDateTime(result
+			LocalDate intro = SQLMapper.TimestampToLocalDate(result
 					.getTimestamp("introduced"));
-			LocalDateTime dis = SQLMapper.TimestampToLocalDateTime(result
+			LocalDate dis = SQLMapper.TimestampToLocalDate(result
 					.getTimestamp("discontinued"));
 			long c_id = result.getLong("c_id");
 
