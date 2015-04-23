@@ -48,7 +48,7 @@ public class DashBoardServlet extends HttpServlet {
 		String order = request.getParameter("order");
 		int page = Utils.StringToInt(p, 1);
 		int limit = Utils.StringToInt(lim, 3);
-		int maxComputers = computerService.count();
+		int maxComputers;
 		int offset = (page - 1) * limit;
 		offset = (offset < 0) ? 0 : offset;
 		List<ComputerDTO> computers;
@@ -60,9 +60,11 @@ public class DashBoardServlet extends HttpServlet {
 			order = "ASC";
 		}
 		if (search == null || search.isEmpty()) {
+			maxComputers = computerService.count();
 			computers = DTOMapper.toDTOList(computerService.getAll(offset,
 					limit, field, order));
 		} else {
+			maxComputers = computerService.count(search);
 			computers = DTOMapper.toDTOList(computerService.getAll(search,
 					offset, limit, field, order));
 			request.setAttribute("search", search);

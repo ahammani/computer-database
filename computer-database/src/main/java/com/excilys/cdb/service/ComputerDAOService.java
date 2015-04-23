@@ -42,4 +42,11 @@ public enum ComputerDAOService {
 	public int count() {
 		return ComputerDAO.INSTANCE.count();
 	}
+
+	public int count(String search) {
+		if (search == null || search.isEmpty())
+			return 0;
+		else
+			return ComputerDAO.INSTANCE.count(search);
+	}
 }

@@ -13,7 +13,7 @@ public class Main {
 			new ComputerListCommand(), new PageableComputerListCommand(10),
 			new ComputerDetailsCommand(), new AddComputerCommand(),
 			new UpdateComputerCommand(), new DeleteComputerCommand(),
-			new ExitCommand() };
+			new DeleteCompanyCommand(), new ExitCommand() };
 
 	public static void wrongEntry() {
 		System.out.println("Wrong entry !");

@@ -8,4 +8,5 @@ public interface ICompanyDAO {
 	List<Company> findAll();
 
 	Company find(long id);
+
 }
