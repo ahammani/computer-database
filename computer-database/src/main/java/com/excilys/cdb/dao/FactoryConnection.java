@@ -29,6 +29,7 @@ public enum FactoryConnection {
 
 			BoneCPConfig config = new BoneCPConfig();
 			config.setJdbcUrl(getProp("url"));
+			config.setLazyInit(true);
 			config.setUsername(getProp("user"));
 			config.setPassword(getProp("pwd"));
 			config.setMinConnectionsPerPartition(1);

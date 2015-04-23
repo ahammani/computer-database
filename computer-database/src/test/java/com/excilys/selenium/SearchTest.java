@@ -1,11 +1,13 @@
 package com.excilys.selenium;
 
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.*;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,14 +18,19 @@ import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ComputerDAOService;
 import com.excilys.cdb.utils.ExecuteScript;
 
-public class EditComputerTest {
+//TODO Comment faire le test
+public class SearchTest {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
-	Company c = new Company(3, "RCA");
-	LocalDate t = LocalDate.of(1991, 04, 04);
-	Computer expected = new Computer("Test", null, t, c, 3);
+	Company c1 = new Company(1, "Apple Inc.");
+	Company c2 = new Company(2, "Thinking Machines");
+	LocalDate t1 = LocalDate.of(1991, 03, 03);
+	LocalDate t2 = LocalDate.of(1991, 04, 03);
+	LocalDate t3 = LocalDate.of(1991, 04, 04);
+	Computer comp1 = new Computer("MacBook Pro 15.4 inch", null, null, c1, 1);
+	Computer comp2 = new Computer("CM-200", t1, t2, c2, 2);
 
 	@Before
 	public void setUp() throws Exception {
@@ -33,17 +40,13 @@ public class EditComputerTest {
 	}
 
 	@Test
-	public void testEditComputer() throws Exception {
+	public void SearchByName() throws Exception {
 		ExecuteScript.execute();
 		driver.get(baseUrl + "/computer-database/DashboardServlet");
-		driver.findElement(By.linkText("CM-5e")).click();
-		driver.findElement(By.id("computerName")).clear();
-		driver.findElement(By.id("computerName")).sendKeys("Test");
-		new Select(driver.findElement(By.id("companyId")))
-				.selectByVisibleText("RCA");
-		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
-		Computer found = ComputerDAOService.INSTANCE.getComputer(3);
-		assertEquals(expected, found);
+		driver.findElement(By.id("searchbox")).clear();
+		driver.findElement(By.id("searchbox")).sendKeys("Mac");
+		driver.findElement(By.id("searchsubmit")).click();
+		assertTrue(ComputerDAOService.INSTANCE.count("Mac") == 2);
 	}
 
 	@After

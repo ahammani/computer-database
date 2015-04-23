@@ -1,7 +1,6 @@
 package com.excilys.cdb.service;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,7 +22,6 @@ public enum CompanyDAOService {
 	}
 
 	public void deleteCompany(long company_id) {
-		PreparedStatement state = null;
 		Connection conn = null;
 		try {
 			conn = FactoryConnection.INSTANCE.openConnection();
@@ -39,7 +37,7 @@ public enum CompanyDAOService {
 			}
 			throw new ServiceException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(conn, state);
+			FactoryConnection.INSTANCE.closeConnection(conn);
 		}
 
 	}
