@@ -9,6 +9,9 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -17,6 +20,7 @@ public enum ComputerDAO implements IComputerDAO {
 	INSTANCE;
 
 	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
+	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	public int count() {
 		Connection connect = FactoryConnection.INSTANCE.openConnection();
@@ -81,7 +85,6 @@ public enum ComputerDAO implements IComputerDAO {
 					.prepareStatement(
 							"INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)",
 							Statement.RETURN_GENERATED_KEYS);
-			System.out.println();
 			state.setString(1, name);
 			state.setTimestamp(2, introduced);
 			state.setTimestamp(3, discontinued);
@@ -98,7 +101,7 @@ public enum ComputerDAO implements IComputerDAO {
 			}
 			return -1;
 		} catch (SQLException e) {
-			System.out.println(obj.toString());
+			logger.info("OBJ : {}", obj.toString());
 			throw new DAOException();
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(connect, state);
@@ -206,7 +209,7 @@ public enum ComputerDAO implements IComputerDAO {
 		if (order.isEmpty())
 			order = "ASC";
 
-		System.out.println("FIELD" + field_order + " ORDER " + order);
+		logger.info("FIELD=" + field_order + " ORDER=" + order);
 		try {
 			state = connect.prepareStatement(FIND_ALL + " ORDER BY "
 					+ field_order + " " + order + " LIMIT ? OFFSET ? ");

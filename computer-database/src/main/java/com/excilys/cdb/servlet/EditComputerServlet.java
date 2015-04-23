@@ -67,10 +67,8 @@ public class EditComputerServlet extends HttpServlet {
 		Computer computer = UtilsServlet.postComputer(request, true);
 		if (computer != null) {
 			ComputerDAOService.INSTANCE.updateComputer(computer);
-			response.sendRedirect("DashboardServlet");
-		} else {
-			response.sendRedirect("EditComputerServlet");
 		}
+		response.sendRedirect("DashoardServlet");
 	}
 
 }

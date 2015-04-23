@@ -90,7 +90,6 @@ public class Utils {
 				return (m2.matches() || m3.matches() || m4.matches());
 			}
 		} else {
-			System.out.println("Wrong date");
 			return false;
 		}
 	}
