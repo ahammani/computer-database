@@ -12,5 +12,9 @@
 	description=""%>
 <%@ attribute name="search" required="false" type="java.lang.String"
 	description=""%>
+<%@ attribute name="field_order" required="false" type="java.lang.String"
+	description=""%>
+<%@ attribute name="order" required="false" type="java.lang.String"
+	description=""%>
 		
-<a href="${target}?page=${page}&limit=${limit}&search=${search}">${body}</a>
+<a href="${target}?page=${page}&limit=${limit}&search=${search}&field_order=${field_order}&order=${order}">${body}</a>

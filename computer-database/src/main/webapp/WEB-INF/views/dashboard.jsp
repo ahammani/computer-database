@@ -47,12 +47,27 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name</th>
-						<th>Introduced date</th>
+						<th>
+							Computer name
+							<mylib:link body="&uarr;" order="desc" field_order="c_name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="c_name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+						</th>
+						<th>
+							Introduced date	
+							<mylib:link body="&uarr;" order="desc" field_order="introduced" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="introduced" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+						</th>
+						
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date</th>
+						<th>Discontinued date
+							<mylib:link body="&uarr;" order="desc" field_order="discontinued" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="discontinued" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+						</th>
 						<!-- Table header for Company -->
-						<th>Company</th>
+						<th>Company
+							<mylib:link body="&uarr;" order="desc" field_order="name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+						</th>
 
 					</tr>
 				</thead>

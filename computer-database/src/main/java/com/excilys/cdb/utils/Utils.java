@@ -55,6 +55,7 @@ public class Utils {
 	public static boolean checkDate(String d) {
 		if (d == null)
 			return false;
+		d = d.split(" ")[0];
 		Pattern p = Pattern
 				.compile("[0-9]{4}-(0[1-9]|1[1-2])-([0-2][0-9]|3[01])");
 		Matcher m = p.matcher(d);
@@ -74,6 +75,8 @@ public class Utils {
 				System.out.println("Wrong entry : " + d);
 				return false;
 			}
+			if (year <= 1970)
+				return false;
 			// bissextile year
 			if (month == 02
 					&& !((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))

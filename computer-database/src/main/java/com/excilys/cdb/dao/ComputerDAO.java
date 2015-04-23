@@ -16,6 +16,8 @@ import com.excilys.cdb.model.Computer;
 public enum ComputerDAO implements IComputerDAO {
 	INSTANCE;
 
+	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
+
 	public int count() {
 		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
@@ -30,7 +32,8 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state,
+					result);
 		}
 	}
 
@@ -126,6 +129,7 @@ public enum ComputerDAO implements IComputerDAO {
 					+ id_company + " computer_id : " + id);
 			state.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DAOException();
 		} finally {
 			FactoryConnectionOld.INSTANCE.closeConnection(connect, state);
@@ -146,7 +150,8 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state,
+					result);
 		}
 	}
 
@@ -156,46 +161,62 @@ public enum ComputerDAO implements IComputerDAO {
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
-			state = connect
-					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id");
+			state = connect.prepareStatement(FIND_ALL);
 			result = state.executeQuery();
 
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state,
+					result);
 		}
 
 	}
 
 	@Override
-	public List<Computer> findAll(int offset, int limit) {
+	public List<Computer> findAll(int offset, int limit, String field_order,
+			String order) {
+
 		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
+		if (field_order.isEmpty())
+			field_order = "c_id";
+		if (order.isEmpty())
+			order = "ASC";
+
+		System.out.println("FIELD" + field_order + " ORDER " + order);
 		try {
-			state = connect
-					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id LIMIT ? OFFSET ?");
+			state = connect.prepareStatement(FIND_ALL + " ORDER BY "
+					+ field_order + " " + order + " LIMIT ? OFFSET ? ");
 			state.setInt(1, limit);
 			state.setInt(2, offset);
+			System.out.println("STATE" + state.toString());
 			result = state.executeQuery();
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state,
+					result);
 		}
 	}
 
-	public List<Computer> findAll(String search, int offset, int limit) {
+	public List<Computer> findAll(String search, int offset, int limit,
+			String field_order, String order) {
 		Connection connect = FactoryConnectionOld.INSTANCE.openConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
+		if (field_order.isEmpty())
+			field_order = "c_id";
+		if (order.isEmpty())
+			order = "ASC";
 		try {
-			state = connect
-					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id  "
-							+ "WHERE computer.name LIKE ? OR company.name LIKE ? LIMIT ?  OFFSET ?");
+			state = connect.prepareStatement(FIND_ALL
+					+ " WHERE computer.name LIKE ? OR company.name LIKE ? "
+					+ "  ORDER BY " + field_order + " " + order
+					+ " LIMIT ?  OFFSET ? ");
 			state.setString(1, "%" + search + "%");
 			state.setString(2, "%" + search + "%");
 			state.setInt(3, limit);
@@ -206,7 +227,8 @@ public enum ComputerDAO implements IComputerDAO {
 			System.out.println(e.getMessage());
 			throw new DAOException();
 		} finally {
-			FactoryConnectionOld.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnectionOld.INSTANCE.closeConnection(connect, state,
+					result);
 		}
 	}
 }

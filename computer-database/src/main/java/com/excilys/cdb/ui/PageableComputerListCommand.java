@@ -12,7 +12,7 @@ public class PageableComputerListCommand extends ICommand {
 	private int limit = 10;
 
 	public PageableComputerListCommand(int limit) {
-		l = ComputerDAOService.INSTANCE.getAll(offset, limit);
+		l = ComputerDAOService.INSTANCE.getAll(offset, limit, "", "");
 		this.limit = limit;
 	}
 
@@ -53,7 +53,7 @@ public class PageableComputerListCommand extends ICommand {
 	}
 
 	private void display() {
-		l = ComputerDAOService.INSTANCE.getAll(offset, limit);
+		l = ComputerDAOService.INSTANCE.getAll(offset, limit, "", "");
 		for (int i = 0; i < l.size(); i++) {
 			Computer c = l.get(i);
 			if (c != null)

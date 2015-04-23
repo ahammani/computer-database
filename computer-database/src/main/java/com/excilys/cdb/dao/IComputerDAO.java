@@ -53,6 +53,7 @@ public interface IComputerDAO {
 	 */
 	List<Computer> findAll();
 
-	List<Computer> findAll(int offset, int limit);
+	List<Computer> findAll(int offset, int limit, String field_order,
+			String order);
 
 }

@@ -12,12 +12,15 @@ public enum ComputerDAOService {
 		return ComputerDAO.INSTANCE.findAll();
 	}
 
-	public List<Computer> getAll(int offset, int limit) {
-		return ComputerDAO.INSTANCE.findAll(offset, limit);
+	public List<Computer> getAll(int offset, int limit, String field_order,
+			String order) {
+		return ComputerDAO.INSTANCE.findAll(offset, limit, field_order, order);
 	}
 
-	public List<Computer> getAll(String search, int offset, int limit) {
-		return ComputerDAO.INSTANCE.findAll(search, offset, limit);
+	public List<Computer> getAll(String search, int offset, int limit,
+			String field_order, String order) {
+		return ComputerDAO.INSTANCE.findAll(search, offset, limit, field_order,
+				order);
 	}
 
 	public Computer getComputer(long id) {
