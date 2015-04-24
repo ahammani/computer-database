@@ -1,6 +1,5 @@
 package com.excilys.cdb.service;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,22 +21,15 @@ public enum CompanyDAOService {
 	}
 
 	public void deleteCompany(long company_id) {
-		Connection conn = null;
 		try {
-			conn = FactoryConnection.INSTANCE.openConnection();
-			conn.setAutoCommit(false);
-			ComputerDAO.INSTANCE.deleteByCompany(company_id, conn);
-			CompanyDAO.INSTANCE.delete(company_id, conn);
-			conn.commit();
+			FactoryConnection.INSTANCE.startTransaction();
+			ComputerDAO.INSTANCE.deleteByCompany(company_id);
+			CompanyDAO.INSTANCE.delete(company_id);
 		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				throw new ServiceException();
-			}
+			FactoryConnection.INSTANCE.rollback();
 			throw new ServiceException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(conn);
+			FactoryConnection.INSTANCE.closeConnection();
 		}
 
 	}

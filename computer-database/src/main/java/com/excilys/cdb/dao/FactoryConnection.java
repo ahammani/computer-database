@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.excilys.cdb.exception.DAOException;
+import com.excilys.cdb.exception.ServiceException;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
@@ -19,6 +20,16 @@ public enum FactoryConnection {
 	private InputStream input;
 	private Properties prop = new Properties();
 	private BoneCP connectionPool = null;
+	private final ThreadLocal<Connection> CONNECTION = new ThreadLocal<Connection>() {
+		@Override
+		protected Connection initialValue() {
+			try {
+				return connectionPool.getConnection();
+			} catch (SQLException e) {
+				throw new DAOException();
+			}
+		}
+	};
 
 	FactoryConnection() {
 		try {
@@ -51,41 +62,94 @@ public enum FactoryConnection {
 		return prop.getProperty(s);
 	}
 
-	public Connection openConnection() {
+	public Connection getConnection() {
+		return CONNECTION.get();
+	}
+
+	public void closeConnection() {
+		Connection c = CONNECTION.get();
 		try {
-			return connectionPool.getConnection();
+			if (c != null && c.getAutoCommit())
+				c.close();
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
+		CONNECTION.remove();
 	}
 
-	public void closeConnection(Connection c) {
+	public void forcedCloseConnection() {
+		Connection c = CONNECTION.get();
 		try {
 			if (c != null)
 				c.close();
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
+		CONNECTION.remove();
 	}
 
-	public void closeConnection(Connection c, PreparedStatement p) {
+	public void closeConnection(PreparedStatement p) {
 		try {
 			if (p != null)
 				p.close();
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
-		closeConnection(c);
+		closeConnection();
 	}
 
-	public void closeConnection(Connection c, PreparedStatement p, ResultSet r) {
+	public void closeConnection(PreparedStatement p, ResultSet r) {
 		try {
 			if (r != null)
 				r.close();
 		} catch (SQLException e) {
 			throw new DAOException();
 		}
-		closeConnection(c, p);
+		closeConnection(p);
+	}
+
+	public void startTransaction() {
+		Connection conn = CONNECTION.get();
+		try {
+			if (conn != null)
+				conn.setAutoCommit(false);
+		} catch (SQLException e) {
+			e.getMessage();
+			throw new ServiceException();
+		}
+	}
+
+	public void endTransaction() {
+		Connection conn = CONNECTION.get();
+		try {
+			if (conn != null)
+				conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.getMessage();
+			throw new ServiceException();
+		}
+	}
+
+	public void commit() {
+		Connection conn = CONNECTION.get();
+		try {
+			if (conn != null)
+				conn.commit();
+		} catch (SQLException e) {
+			e.getMessage();
+			throw new ServiceException();
+		}
+	}
+
+	public void rollback() {
+		Connection conn = CONNECTION.get();
+		try {
+			if (conn != null)
+				conn.rollback();
+		} catch (SQLException e) {
+			e.getMessage();
+			throw new ServiceException();
+		}
 	}
 
 }

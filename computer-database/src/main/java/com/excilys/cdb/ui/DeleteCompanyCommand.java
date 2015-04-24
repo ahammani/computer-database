@@ -9,6 +9,7 @@ public class DeleteCompanyCommand extends ICommand {
 	public void fetch() {
 		System.out.println("You have to enter the company's id");
 		long id = Main.getLong();
+		System.out.println("Let's go !");
 		CompanyDAOService.INSTANCE.deleteCompany(id);
 		System.out.println("Operation done");
 	}

@@ -23,7 +23,7 @@ public enum ComputerDAO implements IComputerDAO {
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	public int count() {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -36,12 +36,12 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	public int count(String search) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -59,13 +59,13 @@ public enum ComputerDAO implements IComputerDAO {
 			System.out.println(e.getMessage());
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public int create(Computer obj) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		try {
 			long id_company;
@@ -104,14 +104,14 @@ public enum ComputerDAO implements IComputerDAO {
 			logger.info("OBJ : {}", obj.toString());
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state);
+			FactoryConnection.INSTANCE.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void delete(long id) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		try {
 			state = connect.prepareStatement("DELETE FROM computer WHERE id=?");
@@ -120,14 +120,14 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state);
+			FactoryConnection.INSTANCE.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void update(Computer obj) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
@@ -157,13 +157,13 @@ public enum ComputerDAO implements IComputerDAO {
 			System.out.println(e.getMessage());
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state);
+			FactoryConnection.INSTANCE.closeConnection(state);
 		}
 	}
 
 	@Override
 	public Computer find(long id) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -175,13 +175,13 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public List<Computer> findAll() {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -192,7 +192,7 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
 
 	}
@@ -201,7 +201,7 @@ public enum ComputerDAO implements IComputerDAO {
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
 
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		if (field_order.isEmpty())
@@ -221,13 +221,13 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	public List<Computer> findAll(String search, int offset, int limit,
 			String field_order, String order) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		if (field_order.isEmpty())
@@ -250,7 +250,7 @@ public enum ComputerDAO implements IComputerDAO {
 			System.out.println(e.getMessage());
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
 	}
 
@@ -261,7 +261,7 @@ public enum ComputerDAO implements IComputerDAO {
 	 * @return
 	 */
 	public List<Computer> findAllCompany(long company_id) {
-		Connection connect = FactoryConnection.INSTANCE.openConnection();
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -272,16 +272,17 @@ public enum ComputerDAO implements IComputerDAO {
 		} catch (SQLException e) {
 			throw new DAOException();
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(connect, state, result);
+			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
 	}
 
-	public void deleteByCompany(long company_id, Connection connect)
-			throws SQLException {
+	public void deleteByCompany(long company_id) throws SQLException {
+		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		state = connect
 				.prepareStatement("DELETE FROM computer WHERE company_id=?");
 		state.setLong(1, company_id);
 		state.executeUpdate();
+		// FactoryConnection.INSTANCE.closeConnection(state);
 	}
 }
