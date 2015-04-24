@@ -9,10 +9,10 @@
 	<c:import url="import/header.jsp" />
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${maxComputers} computers found</h1>
+			<h1 id="homeTitle">${pages.maxComputers } computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="DashboardServlet?page='${page}'&limit='${limit}'&search='${search}'" method="GET" class="form-inline">
+					<form id="searchForm" action="DashboardServlet?page='${pages.page}'&limit='${pages.limit}'&search='${search}'" method="GET" class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" /> <input
@@ -49,24 +49,24 @@
 						</span></th>
 						<th>
 							Computer name
-							<mylib:link body="&uarr;" order="desc" field_order="c_name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="c_name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
 						</th>
 						<th>
 							Introduced date	
-							<mylib:link body="&uarr;" order="desc" field_order="introduced" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="introduced" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
 						</th>
 						
 						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date
-							<mylib:link body="&uarr;" order="desc" field_order="discontinued" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="discontinued" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
 						</th>
 						<!-- Table header for Company -->
 						<th>Company
-							<mylib:link body="&uarr;" order="desc" field_order="name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="name" limit="${limit}" page="${page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
 						</th>
 
 					</tr>
@@ -74,7 +74,7 @@
 
 
 				<!-- Browse attribute computers -->
-				<c:forEach items="${computers}" var="computer">
+				<c:forEach items="${pages.computers}" var="computer">
 					<tbody id="results">
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
@@ -91,7 +91,7 @@
 		</div>
 	</section>
 	<footer class="navbar-fixed-bottom">
-		<mylib:pagination page="${page}" limit="${limit}" maxPages="${maxPages}" search="${search}"/>
+		<mylib:pagination page="${pages.page}" limit="${pages.limit}" maxPages="${pages.maxPages}" search="${search}"/>
 	</footer>
 
 <script src="static/js/jquery.min.js"></script>

@@ -2,6 +2,8 @@ package com.excilys.cdb.service;
 
 import java.util.List;
 
+import page.Page;
+
 import com.excilys.cdb.dao.ComputerDAO;
 import com.excilys.cdb.model.Computer;
 
@@ -12,15 +14,15 @@ public enum ComputerDAOService {
 		return ComputerDAO.INSTANCE.findAll();
 	}
 
-	public List<Computer> getAll(int offset, int limit, String field_order,
-			String order) {
-		return ComputerDAO.INSTANCE.findAll(offset, limit, field_order, order);
+	public List<Computer> getAll(Page pages, String field_order, String order) {
+		return ComputerDAO.INSTANCE.findAll(pages.getOffset(),
+				pages.getLimit(), field_order, order);
 	}
 
-	public List<Computer> getAll(String search, int offset, int limit,
-			String field_order, String order) {
-		return ComputerDAO.INSTANCE.findAll(search, offset, limit, field_order,
-				order);
+	public List<Computer> getAll(String search, Page pages, String field_order,
+			String order) {
+		return ComputerDAO.INSTANCE.findAll(search, pages.getOffset(),
+				pages.getLimit(), field_order, order);
 	}
 
 	public Computer getComputer(long id) {

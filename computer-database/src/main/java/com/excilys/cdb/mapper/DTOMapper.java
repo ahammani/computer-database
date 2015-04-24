@@ -1,7 +1,7 @@
 package com.excilys.cdb.mapper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.servlet.dto.ComputerDTO;
@@ -22,11 +22,8 @@ public class DTOMapper {
 	}
 
 	public static List<ComputerDTO> toDTOList(List<Computer> computers) {
-		List<ComputerDTO> res = new ArrayList<>();
-		for (Computer c : computers) {
-			res.add(DTOMapper.toDTO(c));
-		}
-		return res;
+		return computers.stream().map(x -> toDTO(x))
+				.collect(Collectors.toList());
 	}
 
 }

@@ -8,39 +8,43 @@
 	description=""%>
 <%@ attribute name="search" required="false" type="java.lang.String"
 	description=""%>
-<%@ attribute name="field_order" required="false" type="java.lang.String"
-	description=""%>
+<%@ attribute name="field_order" required="false"
+	type="java.lang.String" description=""%>
 <%@ attribute name="order" required="false" type="java.lang.String"
 	description=""%>
-	
+
 <div class="container text-center">
 	<ul class="pagination">
 
-		<c:if test="${page > 1}">
-			<li><mylib:link target="DashboardServlet" page="${page-1}"
-					limit="${limit}" aria_label="Previous" search="${search}" field_order="${field_order}" order="${order}"
-					body="<span aria-hidden='true'>&laquo;</span>" /></li>
-		</c:if>
+			<c:if test="${page > 1}">
+				<li><mylib:link target="DashboardServlet" page="${page-1}"
+						limit="${limit}" aria_label="Previous" search="${search}"
+						field_order="${field_order}" order="${order}"
+						body="<span aria-hidden='true'>&laquo;</span>" /></li>
+			</c:if>
 
-		<c:choose>
-			<c:when test="${page+3 > maxPages}">
-				<c:forEach var="i" begin="${page}" end="${maxPages}">
-					<li><mylib:link target="DashboardServlet" page="${i}"
-							limit="${limit}" body="${i}" search="${search}" field_order="${field_order}" order="${order}" /></li>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="i" begin="${page}" end="${page+3}">
-					<li><mylib:link target="DashboardServlet" page="${i}"
-							limit="${limit}" body="${i}" search="${search}" field_order="${field_order}" order="${order}"/></li>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-		<c:if test="${page < maxPages}">
-			<li><mylib:link target="DashboardServlet" page="${page+1}"
-					limit="${limit}" aria_label="Next"
-					body="<span aria-hidden='true'>&raquo</span>" search="${search}" field_order="${field_order}" order="${order}"/></li>
-		</c:if>
+			<c:choose>
+				<c:when test="${page+3 > maxPages}">
+					<c:forEach var="i" begin="${page}" end="${maxPages}">
+						<li><mylib:link target="DashboardServlet" page="${i}"
+								limit="${limit}" body="${i}" search="${search}"
+								field_order="${field_order}" order="${order}" /></li>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="i" begin="${page}" end="${page+3}">
+						<li><mylib:link target="DashboardServlet" page="${i}"
+								limit="${limit}" body="${i}" search="${search}"
+								field_order="${field_order}" order="${order}" /></li>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			<c:if test="${page < maxPages}">
+				<li><mylib:link target="DashboardServlet" page="${page+1}"
+						limit="${limit}" aria_label="Next"
+						body="<span aria-hidden='true'>&raquo</span>" search="${search}"
+						field_order="${field_order}" order="${order}" /></li>
+			</c:if>
 
 	</ul>
 	<div class="btn-group btn-group-sm pull-right" role="group">

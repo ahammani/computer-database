@@ -244,6 +244,7 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setInt(3, limit);
 			state.setInt(4, offset);
 			result = state.executeQuery();
+			System.out.println("STATE" + state);
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

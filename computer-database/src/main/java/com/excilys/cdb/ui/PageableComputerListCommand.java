@@ -2,6 +2,8 @@ package com.excilys.cdb.ui;
 
 import java.util.List;
 
+import page.Page;
+
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ComputerDAOService;
@@ -12,7 +14,8 @@ public class PageableComputerListCommand extends ICommand {
 	private int limit = 10;
 
 	public PageableComputerListCommand(int limit) {
-		l = ComputerDAOService.INSTANCE.getAll(offset, limit, "", "");
+		Page p = new Page(1, limit);
+		l = ComputerDAOService.INSTANCE.getAll(p, "", "");
 		this.limit = limit;
 	}
 
@@ -53,7 +56,8 @@ public class PageableComputerListCommand extends ICommand {
 	}
 
 	private void display() {
-		l = ComputerDAOService.INSTANCE.getAll(offset, limit, "", "");
+		Page p = new Page(1, limit);
+		l = ComputerDAOService.INSTANCE.getAll(p, "", "");
 		for (int i = 0; i < l.size(); i++) {
 			Computer c = l.get(i);
 			if (c != null)

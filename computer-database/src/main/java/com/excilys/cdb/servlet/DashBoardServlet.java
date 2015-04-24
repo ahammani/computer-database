@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import page.Page;
+
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.service.ComputerDAOService;
-import com.excilys.cdb.servlet.dto.ComputerDTO;
-import com.excilys.cdb.utils.Utils;
 
 /**
  * Servlet implementation class CDBServlet
@@ -46,12 +46,8 @@ public class DashBoardServlet extends HttpServlet {
 		String search = request.getParameter("search");
 		String field = request.getParameter("field_order");
 		String order = request.getParameter("order");
-		int page = Utils.StringToInt(p, 1);
-		int limit = Utils.StringToInt(lim, 3);
-		int maxComputers;
-		int offset = (page - 1) * limit;
-		offset = (offset < 0) ? 0 : offset;
-		List<ComputerDTO> computers;
+
+		Page pages = new Page(p, lim);
 
 		if (field == null || !fields.contains(field)) {
 			field = "";
@@ -60,24 +56,20 @@ public class DashBoardServlet extends HttpServlet {
 			order = "ASC";
 		}
 		if (search == null || search.isEmpty()) {
-			maxComputers = computerService.count();
-			computers = DTOMapper.toDTOList(computerService.getAll(offset,
-					limit, field, order));
+			pages.setMaxComputers(computerService.count());
+			pages.setComputers(DTOMapper.toDTOList(computerService.getAll(
+					pages, field, order)));
 		} else {
-			maxComputers = computerService.count(search);
-			computers = DTOMapper.toDTOList(computerService.getAll(search,
-					offset, limit, field, order));
+			pages.setMaxComputers(computerService.count(search));
+			pages.setComputers(DTOMapper.toDTOList(computerService.getAll(
+					search, pages, field, order)));
 			request.setAttribute("search", search);
 		}
-		int maxPages = (maxComputers % limit == 0) ? (maxComputers / limit)
-				: (maxComputers / limit) + 1;
-		page = (page > maxPages) ? (maxPages - 1) : page;
-		request.setAttribute("maxPages", maxPages);
-		request.setAttribute("maxComputers", maxComputers);
-		request.setAttribute("computers", computers);
-		request.setAttribute("page", page);
-		request.setAttribute("limit", limit);
+
+		pages.setMaxPages(pages.getMaxComputers());
+		request.setAttribute("pages", pages);
 		ServletContext context = this.getServletContext();
+		System.out.println(pages);
 		context.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(
 				request, response);
 	}
