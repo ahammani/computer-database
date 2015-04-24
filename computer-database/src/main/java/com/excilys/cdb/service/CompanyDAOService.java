@@ -24,7 +24,8 @@ public enum CompanyDAOService {
 		try {
 			FactoryConnection.INSTANCE.startTransaction();
 			ComputerDAO.INSTANCE.deleteByCompany(company_id);
-			CompanyDAO.INSTANCE.delete(company_id);
+			throw new SQLException();
+			// CompanyDAO.INSTANCE.delete(company_id);
 		} catch (SQLException e) {
 			FactoryConnection.INSTANCE.rollback();
 			throw new ServiceException();

@@ -63,13 +63,21 @@ public enum FactoryConnection {
 	}
 
 	public Connection getConnection() {
-		return CONNECTION.get();
+		try {
+			if (CONNECTION.get() == null || CONNECTION.get().isClosed()) {
+				CONNECTION.set(connectionPool.getConnection());
+			}
+			return CONNECTION.get();
+		} catch (SQLException e) {
+			e.getMessage();
+			throw new DAOException();
+		}
 	}
 
 	public void closeConnection() {
 		Connection c = CONNECTION.get();
 		try {
-			if (c != null && c.getAutoCommit())
+			if (c != null)// && c.getAutoCommit())
 				c.close();
 		} catch (SQLException e) {
 			throw new DAOException();
