@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-  <servlet>
-    <servlet-name>CDBServlet</servlet-name>
-    <servlet-class>com.excilys.cdb.servlet.CDBServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CDBServlet</servlet-name>
-    <url-pattern>/CDBServlet</url-pattern>
-  </servlet-mapping>
+  <display-name>computer-database</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>DashboardServlet</welcome-file>
+  </welcome-file-list>
+  <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/404.jsp</location>
+</error-page>
+<error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/500.jsp</location>
+</error-page>
+<error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/views/403.jsp</location>
+</error-page>
 </web-app>
