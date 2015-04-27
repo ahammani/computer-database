@@ -5,32 +5,29 @@ import java.util.List;
 import com.excilys.cdb.model.Computer;
 
 /**
- * The Class DAO. DAO interact with database by SQL request
+ * The Computer DAO interface. DAO interact with database by SQL request
  * 
- * @param <T>
- *            the generic type
  */
 public interface IComputerDAO {
 
 	/**
-	 * Creates a new raw in DB with obj's field.
+	 * Creates a new computer in DB with obj's field.
 	 *
 	 * @param obj
-	 *            the object
-	 * @return
+	 *            the computer
+	 * @return the new computers'id
 	 */
 	int create(Computer obj);
 
 	/**
-	 * Delete a raw with the id id.
+	 * Delete a computer with the id id.
 	 *
 	 * @param id
-	 *            the id
 	 */
 	void delete(long id);
 
 	/**
-	 * Update a raw.
+	 * Update a computer
 	 *
 	 * @param obj
 	 *            the object
@@ -38,18 +35,18 @@ public interface IComputerDAO {
 	void update(Computer obj);
 
 	/**
-	 * Find an object by his id.
+	 * Find an computer by his id.
 	 *
 	 * @param id
-	 *            the id
-	 * @return an object T
+	 *            computers id
+	 * @return the computer found or null if doesn't
 	 */
 	Computer find(long id);
 
 	/**
-	 * Gets the list of all T elements. A raw represents one elements
+	 * Gets the list of all computers.
 	 * 
-	 * @return the list
+	 * @return the computers list
 	 */
 	List<Computer> findAll();
 

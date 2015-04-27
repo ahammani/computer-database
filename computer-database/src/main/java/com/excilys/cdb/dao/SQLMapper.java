@@ -10,6 +10,10 @@ import java.util.List;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
+/**
+ * 
+ * @author ahammani Utils for converting sql stuff
+ */
 public class SQLMapper {
 
 	public static Timestamp LocalDateToTimestamp(LocalDate ldt) {

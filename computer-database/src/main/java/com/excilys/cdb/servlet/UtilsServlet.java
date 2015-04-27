@@ -10,6 +10,12 @@ import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.CompanyDAOService;
 import com.excilys.cdb.utils.Utils;
 
+/**
+ * Utils for Servlet
+ * 
+ * @author ahammani
+ *
+ */
 public class UtilsServlet {
 
 	private static boolean checkDate(String s) {

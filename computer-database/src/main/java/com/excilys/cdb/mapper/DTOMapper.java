@@ -6,6 +6,12 @@ import java.util.stream.Collectors;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.servlet.dto.ComputerDTO;
 
+/**
+ * Convertion in DTO
+ * 
+ * @author ahammani
+ *
+ */
 public class DTOMapper {
 
 	public static ComputerDTO toDTO(Computer c) {

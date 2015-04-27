@@ -25,7 +25,7 @@ public enum CompanyDAO implements ICompanyDAO {
 			result = state.executeQuery();
 			return SQLMapper.ResultSetToCompany(result);
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
@@ -49,22 +49,22 @@ public enum CompanyDAO implements ICompanyDAO {
 			}
 			return l;
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state);
 		}
 
 	}
 
+	@Override
 	public void delete(Long company_id) throws SQLException {
 		Connection connect = FactoryConnection.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		state = connect.prepareStatement("DELETE FROM company WHERE id=?");
 		state.setLong(1, company_id);
 		state.executeUpdate();
-		FactoryConnection.INSTANCE.commit();
-		FactoryConnection.INSTANCE.endTransaction();
-		FactoryConnection.INSTANCE.closeConnection(state);
+		if (state != null)
+			state.close();
 
 	}
 

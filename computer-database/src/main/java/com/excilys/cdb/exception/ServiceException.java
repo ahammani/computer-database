@@ -2,6 +2,10 @@ package com.excilys.cdb.exception;
 
 public class ServiceException extends RuntimeException {
 
+	public ServiceException(Exception e) {
+		e.getMessage();
+	}
+
 	/**
 	 * 
 	 */

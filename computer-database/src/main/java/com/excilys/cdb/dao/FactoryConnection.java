@@ -26,7 +26,7 @@ public enum FactoryConnection {
 			try {
 				return connectionPool.getConnection();
 			} catch (SQLException e) {
-				throw new DAOException();
+				throw new DAOException(e);
 			}
 		}
 	};
@@ -54,7 +54,7 @@ public enum FactoryConnection {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		}
 	}
 
@@ -70,7 +70,7 @@ public enum FactoryConnection {
 			return CONNECTION.get();
 		} catch (SQLException e) {
 			e.getMessage();
-			throw new DAOException();
+			throw new DAOException(e);
 		}
 	}
 
@@ -80,18 +80,7 @@ public enum FactoryConnection {
 			if (c != null)// && c.getAutoCommit())
 				c.close();
 		} catch (SQLException e) {
-			throw new DAOException();
-		}
-		CONNECTION.remove();
-	}
-
-	public void forcedCloseConnection() {
-		Connection c = CONNECTION.get();
-		try {
-			if (c != null)
-				c.close();
-		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		}
 		CONNECTION.remove();
 	}
@@ -101,7 +90,7 @@ public enum FactoryConnection {
 			if (p != null)
 				p.close();
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		}
 		closeConnection();
 	}
@@ -111,7 +100,7 @@ public enum FactoryConnection {
 			if (r != null)
 				r.close();
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		}
 		closeConnection(p);
 	}
@@ -122,8 +111,7 @@ public enum FactoryConnection {
 			if (conn != null)
 				conn.setAutoCommit(false);
 		} catch (SQLException e) {
-			e.getMessage();
-			throw new ServiceException();
+			throw new DAOException(e);
 		}
 	}
 
@@ -133,8 +121,7 @@ public enum FactoryConnection {
 			if (conn != null)
 				conn.setAutoCommit(true);
 		} catch (SQLException e) {
-			e.getMessage();
-			throw new ServiceException();
+			throw new DAOException(e);
 		}
 	}
 
@@ -145,7 +132,7 @@ public enum FactoryConnection {
 				conn.commit();
 		} catch (SQLException e) {
 			e.getMessage();
-			throw new ServiceException();
+			throw new DAOException(e);
 		}
 	}
 
@@ -155,8 +142,7 @@ public enum FactoryConnection {
 			if (conn != null)
 				conn.rollback();
 		} catch (SQLException e) {
-			e.getMessage();
-			throw new ServiceException();
+			throw new DAOException(e);
 		}
 	}
 

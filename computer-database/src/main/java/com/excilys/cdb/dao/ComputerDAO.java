@@ -34,7 +34,7 @@ public enum ComputerDAO implements IComputerDAO {
 			else
 				return 0;
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
@@ -57,7 +57,7 @@ public enum ComputerDAO implements IComputerDAO {
 				return 0;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
@@ -102,7 +102,7 @@ public enum ComputerDAO implements IComputerDAO {
 			return -1;
 		} catch (SQLException e) {
 			logger.info("OBJ : {}", obj.toString());
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state);
 		}
@@ -118,7 +118,7 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setLong(1, id);
 			state.executeUpdate();
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state);
 		}
@@ -155,7 +155,7 @@ public enum ComputerDAO implements IComputerDAO {
 			state.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state);
 		}
@@ -173,7 +173,7 @@ public enum ComputerDAO implements IComputerDAO {
 			result = state.executeQuery();
 			return SQLMapper.ResultSetToComputer(result);
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
@@ -190,7 +190,7 @@ public enum ComputerDAO implements IComputerDAO {
 
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
@@ -219,7 +219,7 @@ public enum ComputerDAO implements IComputerDAO {
 			result = state.executeQuery();
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
@@ -248,7 +248,7 @@ public enum ComputerDAO implements IComputerDAO {
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
@@ -270,7 +270,7 @@ public enum ComputerDAO implements IComputerDAO {
 			result = state.executeQuery();
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
-			throw new DAOException();
+			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state, result);
 		}
