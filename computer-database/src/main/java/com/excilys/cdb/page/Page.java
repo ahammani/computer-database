@@ -28,8 +28,8 @@ public class Page {
 	}
 
 	public Page(String number, String lim) {
-		this.page = Utils.StringToInt(number, 1);
-		this.limit = Utils.StringToInt(lim, 3);
+		this.page = Utils.stringToInt(number, 1);
+		this.limit = Utils.stringToInt(lim, 3);
 		this.offset = (this.page - 1) * this.limit;
 		this.offset = (offset < 0) ? 0 : offset;
 	}

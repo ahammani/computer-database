@@ -27,7 +27,7 @@ public enum CompanyDAO implements ICompanyDAO {
 					.prepareStatement("SELECT * FROM company WHERE id=?");
 			state.setLong(1, id);
 			result = state.executeQuery();
-			return SQLMapper.ResultSetToCompany(result);
+			return SQLMapper.resultSetToCompany(result);
 		} catch (SQLException e) {
 			logger.error("Error on find with ID={}", id);
 			throw new DAOException(e);

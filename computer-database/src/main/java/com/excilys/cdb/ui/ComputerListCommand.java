@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.ComputerService;
 
 public class ComputerListCommand extends ICommand {
 
 	@Override
 	public void fetch() {
-		List<Computer> comp = ComputerDAOService.INSTANCE.getAll();
+		List<Computer> comp = ComputerService.INSTANCE.getAll();
 
 		for (Computer c : comp) {
 			if (c != null)

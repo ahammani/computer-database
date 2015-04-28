@@ -3,14 +3,18 @@ package com.excilys.cdb.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.dao.CompanyDAO;
 import com.excilys.cdb.dao.ComputerDAO;
 import com.excilys.cdb.dao.ConnectionFactory;
 import com.excilys.cdb.exception.ServiceException;
 import com.excilys.cdb.model.Company;
 
-public enum CompanyDAOService implements ICompanyDAOService {
+public enum CompanyService implements ICompanyService {
 	INSTANCE;
+	Logger logger = LoggerFactory.getLogger(CompanyService.class);
 
 	@Override
 	public Company getCompany(long id) {
@@ -32,6 +36,7 @@ public enum CompanyDAOService implements ICompanyDAOService {
 			ConnectionFactory.INSTANCE.closeConnection();
 		} catch (SQLException e) {
 			ConnectionFactory.INSTANCE.rollback();
+			logger.error("deleteCompany on CompanyService error !");
 			throw new ServiceException(e);
 		} finally {
 			ConnectionFactory.INSTANCE.closeConnection();

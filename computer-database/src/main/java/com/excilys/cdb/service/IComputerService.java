@@ -8,7 +8,7 @@ import com.excilys.cdb.page.Page;
 /**
  * The Interface IComputerDAOService.
  */
-public interface IComputerDAOService {
+public interface IComputerService {
 
 	/**
 	 * Get all computers.

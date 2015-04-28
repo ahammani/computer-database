@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.CompanyDAOService;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.CompanyService;
+import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.servlet.dto.ComputerDTO;
 import com.excilys.cdb.utils.Utils;
 
@@ -24,8 +24,8 @@ import com.excilys.cdb.utils.Utils;
 @WebServlet("/EditComputerServlet")
 public class EditComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerDAOService computerService = ComputerDAOService.INSTANCE;
-	private static CompanyDAOService companyService = CompanyDAOService.INSTANCE;
+	private static ComputerService computerService = ComputerService.INSTANCE;
+	private static CompanyService companyService = CompanyService.INSTANCE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -44,7 +44,7 @@ public class EditComputerServlet extends HttpServlet {
 		request.setAttribute("companies", companies);
 
 		String sid = request.getParameter("id");
-		long id = Utils.StringToLong(sid, 1);
+		long id = Utils.stringToLong(sid, 1);
 		ComputerDTO computer = DTOMapper.toDTO(computerService.getComputer(id));
 		if (computer != null) {
 			request.setAttribute("computer", computer);
@@ -65,7 +65,7 @@ public class EditComputerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Computer computer = UtilsServlet.postComputer(request, true);
 		if (computer != null) {
-			ComputerDAOService.INSTANCE.updateComputer(computer);
+			ComputerService.INSTANCE.updateComputer(computer);
 		}
 		response.sendRedirect("DashboardServlet");
 	}

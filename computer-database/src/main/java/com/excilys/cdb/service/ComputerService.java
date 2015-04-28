@@ -6,7 +6,7 @@ import com.excilys.cdb.dao.ComputerDAO;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
 
-public enum ComputerDAOService implements IComputerDAOService {
+public enum ComputerService implements IComputerService {
 	INSTANCE;
 
 	public List<Computer> getAll() {

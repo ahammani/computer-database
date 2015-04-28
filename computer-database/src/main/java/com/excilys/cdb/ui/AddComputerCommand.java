@@ -7,7 +7,7 @@ import com.excilys.cdb.dao.SQLMapper;
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.ComputerService;
 
 public class AddComputerCommand extends ICommand {
 
@@ -21,10 +21,10 @@ public class AddComputerCommand extends ICommand {
 		String name = Main.sc.next();
 		try {
 			if (chooseArgs("add introduced date")) {
-				intro = SQLMapper.TimestampToLocalDate(getDate());
+				intro = SQLMapper.timestampToLocaldate(getDate());
 			}
 			if (chooseArgs("add discontinued date")) {
-				dis = SQLMapper.TimestampToLocalDate(getDate());
+				dis = SQLMapper.timestampToLocaldate(getDate());
 			}
 			if (chooseArgs("add company id")) {
 				id = Main.getLong();
@@ -32,7 +32,7 @@ public class AddComputerCommand extends ICommand {
 			Company company = new Company();
 			company.setId(id);
 			Computer comp = new Computer(name, intro, dis, company);
-			ComputerDAOService.INSTANCE.addComputer(comp);
+			ComputerService.INSTANCE.addComputer(comp);
 			System.out.println("Creation done");
 		} catch (ParseException e) {
 			e.printStackTrace();

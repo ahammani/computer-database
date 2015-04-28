@@ -68,8 +68,8 @@ public enum ComputerDAO implements IComputerDAO {
 				int res = result.getInt("COUNT(*)");
 				logger.debug("Count(search) done. {} computers found", res);
 				return res;
-			} else
-				return 0;
+			}
+			return 0;
 		} catch (SQLException e) {
 			logger.error("Error on search count !");
 			throw new DAOException(e);
@@ -85,9 +85,9 @@ public enum ComputerDAO implements IComputerDAO {
 		try {
 			long id_company;
 			String name = obj.getName();
-			Timestamp introduced = SQLMapper.LocalDateToTimestamp(obj
+			Timestamp introduced = SQLMapper.localdateToTimestamp(obj
 					.getIntroduced());
-			Timestamp discontinued = SQLMapper.LocalDateToTimestamp(obj
+			Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
 					.getDiscontinued());
 			Company company = obj.getCompany();
 
@@ -150,9 +150,9 @@ public enum ComputerDAO implements IComputerDAO {
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
-			Timestamp introduced = SQLMapper.LocalDateToTimestamp(obj
+			Timestamp introduced = SQLMapper.localdateToTimestamp(obj
 					.getIntroduced());
-			Timestamp discontinued = SQLMapper.LocalDateToTimestamp(obj
+			Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
 					.getDiscontinued());
 			Company company = obj.getCompany();
 			long id_company = company.getId();
@@ -193,7 +193,7 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setLong(1, id);
 			result = state.executeQuery();
 			logger.debug("Computer with id {} found", id);
-			return SQLMapper.ResultSetToComputer(result);
+			return SQLMapper.resultSetToComputer(result);
 		} catch (SQLException e) {
 			logger.error("Error on computer with id {} !", id);
 			throw new DAOException(e);

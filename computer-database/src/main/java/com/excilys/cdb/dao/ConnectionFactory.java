@@ -1,6 +1,5 @@
 package com.excilys.cdb.dao;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -9,7 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.excilys.cdb.exception.DAOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.excilys.cdb.exception.ConnectionException;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
@@ -20,6 +22,8 @@ public enum ConnectionFactory {
 	private Properties prop = new Properties();
 	private BoneCP connectionPool = null;
 	private final ThreadLocal<Connection> CONNECTION = new ThreadLocal<Connection>();
+	private final Logger logger = LoggerFactory
+			.getLogger(ConnectionFactory.class);
 
 	ConnectionFactory() {
 		try {
@@ -37,14 +41,9 @@ public enum ConnectionFactory {
 			config.setMaxConnectionsPerPartition(5);
 			config.setPartitionCount(2);
 			connectionPool = new BoneCP(config);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			throw new DAOException(e);
+		} catch (IOException | ClassNotFoundException | SQLException e) {
+			logger.error("Error on ConnectionFactory constructor");
+			throw new ConnectionException();
 		}
 	}
 
@@ -55,8 +54,8 @@ public enum ConnectionFactory {
 			}
 			return CONNECTION.get();
 		} catch (SQLException e) {
-			e.getMessage();
-			throw new DAOException(e);
+			logger.error("SQLError on getConnection");
+			throw new ConnectionException();
 		}
 	}
 
@@ -66,7 +65,8 @@ public enum ConnectionFactory {
 			if (c != null && c.getAutoCommit())
 				c.close();
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			logger.error("SQLError on closeConnection");
+			throw new ConnectionException();
 		}
 		CONNECTION.remove();
 	}
@@ -76,7 +76,8 @@ public enum ConnectionFactory {
 			if (p != null)
 				p.close();
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			logger.error("SQLError on closeConnection with preparedStatement");
+			throw new ConnectionException();
 		}
 		closeConnection();
 	}
@@ -86,7 +87,8 @@ public enum ConnectionFactory {
 			if (r != null)
 				r.close();
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			logger.error("SQLError on closeConnection with ResultSet");
+			throw new ConnectionException();
 		}
 		closeConnection(p);
 	}
@@ -97,7 +99,8 @@ public enum ConnectionFactory {
 			if (conn != null)
 				conn.setAutoCommit(false);
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			logger.error("SQLError on startTransaction");
+			throw new ConnectionException();
 		}
 	}
 
@@ -107,8 +110,8 @@ public enum ConnectionFactory {
 			if (conn != null)
 				conn.commit();
 		} catch (SQLException e) {
-			e.getMessage();
-			throw new DAOException(e);
+			logger.error("SQLError on commit");
+			throw new ConnectionException();
 		}
 	}
 
@@ -118,7 +121,8 @@ public enum ConnectionFactory {
 			if (conn != null)
 				conn.rollback();
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			logger.error("SQLError on rollback");
+			throw new ConnectionException();
 		}
 	}
 

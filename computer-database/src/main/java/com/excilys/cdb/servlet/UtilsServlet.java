@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.CompanyDAOService;
+import com.excilys.cdb.service.CompanyService;
 import com.excilys.cdb.utils.Utils;
 
 /**
@@ -46,7 +46,7 @@ public class UtilsServlet {
 				company = new Company();
 				company.setId(0);
 			} else {
-				company = CompanyDAOService.INSTANCE.getCompany(cid);
+				company = CompanyService.INSTANCE.getCompany(cid);
 			}
 			LocalDate intro = TimeMapper.StringToLocalDate(introduced);
 			LocalDate dis = TimeMapper.StringToLocalDate(discontinued);

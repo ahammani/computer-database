@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.page.Page;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.ComputerService;
 
 /**
  * Servlet implementation class CDBServlet
@@ -21,7 +21,7 @@ import com.excilys.cdb.service.ComputerDAOService;
 @WebServlet("/DashboardServlet")
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerDAOService computerService = ComputerDAOService.INSTANCE;
+	private static ComputerService computerService = ComputerService.INSTANCE;
 	private static final List<String> fields = Arrays.asList("c_name",
 			"introduced", "discontinued", "name");
 	private static final List<String> orders = Arrays.asList("asc", "desc");

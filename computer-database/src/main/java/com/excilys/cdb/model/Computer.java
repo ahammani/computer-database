@@ -70,7 +70,7 @@ public class Computer {
 		return company;
 	}
 
-	public void setCompany_id(Company company) {
+	public void setCompany(Company company) {
 		if (company.getId() > 0) {
 			this.company = company;
 		}
@@ -97,12 +97,12 @@ public class Computer {
 	}
 
 	public Computer(String name, LocalDate intro, LocalDate dis, Company comp,
-			long c_id) {
+			long cId) {
 		this.name = name;
 		this.introduced = intro;
 		this.discontinued = dis;
 		this.company = comp;
-		this.id = c_id;
+		this.id = cId;
 	}
 
 	public Computer(String name, LocalDate intro, LocalDate dis, Company comp) {

@@ -7,7 +7,7 @@ import com.excilys.cdb.model.Company;
 /**
  * The Interface ICompanyDAOService.
  */
-public interface ICompanyDAOService {
+public interface ICompanyService {
 
 	/**
 	 * Get the company with the id id.

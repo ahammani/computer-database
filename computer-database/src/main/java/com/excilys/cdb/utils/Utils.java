@@ -17,7 +17,7 @@ public class Utils {
 		return true;
 	}
 
-	public static int StringToInt(String s, int bad) {
+	public static int stringToInt(String s, int bad) {
 		if (s == null || s == "")
 			return bad;
 		Integer max = Integer.MAX_VALUE;
@@ -31,7 +31,7 @@ public class Utils {
 			return bad;
 	}
 
-	public static long StringToLong(String s, long bad) {
+	public static long stringToLong(String s, long bad) {
 		if (s == null || s == "")
 			return bad;
 		Long max = Long.MAX_VALUE;
@@ -81,7 +81,6 @@ public class Utils {
 			if (month == 02
 					&& !((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
 					&& day == 29) {
-				System.out.println("Wrong entry : " + d);
 				return false;
 			} else {
 				Matcher m2 = month31.matcher(d);

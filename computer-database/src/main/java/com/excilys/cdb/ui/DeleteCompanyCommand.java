@@ -1,7 +1,7 @@
 package com.excilys.cdb.ui;
 
 import com.excilys.cdb.main.Main;
-import com.excilys.cdb.service.CompanyDAOService;
+import com.excilys.cdb.service.CompanyService;
 
 public class DeleteCompanyCommand extends ICommand {
 
@@ -10,7 +10,7 @@ public class DeleteCompanyCommand extends ICommand {
 		System.out.println("You have to enter the company's id");
 		long id = Main.getLong();
 		System.out.println("Let's go !");
-		CompanyDAOService.INSTANCE.deleteCompany(id);
+		CompanyService.INSTANCE.deleteCompany(id);
 		System.out.println("Operation done");
 	}
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.Utils;
 
 /**
@@ -17,7 +17,7 @@ import com.excilys.cdb.utils.Utils;
 @WebServlet("/DeleteComputerServlet")
 public class DeleteComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerDAOService computerService = ComputerDAOService.INSTANCE;
+	private static ComputerService computerService = ComputerService.INSTANCE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -42,7 +42,7 @@ public class DeleteComputerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String[] ids = request.getParameter("selection").split(",");
 		for (String s : ids) {
-			long id = Utils.StringToLong(s, 0);
+			long id = Utils.stringToLong(s, 0);
 			if (id != 0)
 				computerService.deleteComputer(id);
 		}

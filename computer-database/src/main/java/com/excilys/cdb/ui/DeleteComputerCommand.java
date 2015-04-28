@@ -1,7 +1,7 @@
 package com.excilys.cdb.ui;
 
 import com.excilys.cdb.main.Main;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.ComputerService;
 
 public class DeleteComputerCommand extends ICommand {
 
@@ -9,7 +9,7 @@ public class DeleteComputerCommand extends ICommand {
 	public void fetch() {
 		System.out.println("You have to enter the computer's id");
 		long id = Main.getLong();
-		ComputerDAOService.INSTANCE.deleteComputer(id);
+		ComputerService.INSTANCE.deleteComputer(id);
 		System.out.println("Operation done");
 	}
 

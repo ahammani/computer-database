@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.CompanyDAOService;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.CompanyService;
+import com.excilys.cdb.service.ComputerService;
 
 /**
  * Servlet implementation class AddComputer
@@ -21,7 +21,7 @@ import com.excilys.cdb.service.ComputerDAOService;
 @WebServlet("/AddComputerServlet")
 public class AddComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CompanyDAOService companyService = CompanyDAOService.INSTANCE;
+	private CompanyService companyService = CompanyService.INSTANCE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -52,7 +52,7 @@ public class AddComputerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Computer computer = UtilsServlet.postComputer(request, false);
 		if (computer != null) {
-			ComputerDAOService.INSTANCE.addComputer(computer);
+			ComputerService.INSTANCE.addComputer(computer);
 			response.sendRedirect("DashboardServlet");
 		} else {
 			response.sendRedirect("AddComputerServlet");
