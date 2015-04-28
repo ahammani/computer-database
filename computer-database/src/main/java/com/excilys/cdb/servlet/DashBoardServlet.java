@@ -32,7 +32,6 @@ public class DashBoardServlet extends HttpServlet {
 	 */
 	public DashBoardServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -69,7 +68,6 @@ public class DashBoardServlet extends HttpServlet {
 		pages.setMaxPages(pages.getMaxComputers());
 		request.setAttribute("pages", pages);
 		ServletContext context = this.getServletContext();
-		System.out.println(pages);
 		context.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(
 				request, response);
 	}
@@ -80,7 +78,6 @@ public class DashBoardServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }

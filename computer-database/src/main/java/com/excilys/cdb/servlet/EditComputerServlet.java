@@ -32,7 +32,6 @@ public class EditComputerServlet extends HttpServlet {
 	 */
 	public EditComputerServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

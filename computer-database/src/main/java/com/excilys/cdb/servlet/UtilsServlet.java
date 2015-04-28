@@ -27,7 +27,6 @@ public class UtilsServlet {
 	}
 
 	private static boolean checkNumber(String companyId) {
-		// TODO Auto-generated method stub
 		return Utils.isNumber(companyId) || (companyId == "");
 	}
 

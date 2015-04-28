@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 
 public enum CompanyDAO implements ICompanyDAO {
 	INSTANCE;
+	private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
 
 	@Override
 	public Company find(long id) {

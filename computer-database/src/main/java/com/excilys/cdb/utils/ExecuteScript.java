@@ -26,7 +26,6 @@ public class ExecuteScript {
 			while ((br.readLine()) != null)
 				;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

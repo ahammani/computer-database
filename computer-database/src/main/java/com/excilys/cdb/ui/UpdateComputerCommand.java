@@ -29,7 +29,6 @@ public class UpdateComputerCommand extends ICommand {
 			System.out.println("Modification done");
 			System.out.println();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

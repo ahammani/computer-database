@@ -29,9 +29,11 @@ public enum ComputerDAO implements IComputerDAO {
 		try {
 			state = connect.prepareStatement("SELECT COUNT(*) FROM computer");
 			result = state.executeQuery();
-			if (result.next())
-				return result.getInt("COUNT(*)");
-			else
+			if (result.next()) {
+				int res = result.getInt("COUNT(*)");
+				logger.info("Count done. {} computers found", res);
+				return res;
+			} else
 				return 0;
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -51,9 +53,11 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setString(1, "%" + search + "%");
 			state.setString(2, "%" + search + "%");
 			result = state.executeQuery();
-			if (result.next())
-				return result.getInt("COUNT(*)");
-			else
+			if (result.next()) {
+				int res = result.getInt("COUNT(*)");
+				logger.info("Count(search) done. {} computers found", res);
+				return res;
+			} else
 				return 0;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -97,11 +101,13 @@ public enum ComputerDAO implements IComputerDAO {
 
 			ResultSet rs = state.getGeneratedKeys();
 			if (rs.next()) {
-				return rs.getInt(1);
+				int res = rs.getInt(1);
+				logger.info("Creation done. computer's id {} ", res);
+				return res;
 			}
 			return -1;
 		} catch (SQLException e) {
-			logger.info("OBJ : {}", obj.toString());
+			logger.error("OBJ : {}", obj.toString());
 			throw new DAOException(e);
 		} finally {
 			FactoryConnection.INSTANCE.closeConnection(state);
@@ -117,6 +123,7 @@ public enum ComputerDAO implements IComputerDAO {
 			state = connect.prepareStatement("DELETE FROM computer WHERE id=?");
 			state.setLong(1, id);
 			state.executeUpdate();
+			logger.info("Deletion done.Computers'id deleted :{}", id);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
@@ -149,10 +156,10 @@ public enum ComputerDAO implements IComputerDAO {
 			else
 				state.setLong(4, id_company);
 			state.setLong(5, id);
-			System.out.println("UPDATE name : " + name + " intro : "
-					+ introduced + " dis :" + discontinued + " company_id :"
-					+ id_company + " computer_id : " + id);
 			state.executeUpdate();
+			logger.info(
+					"Computer update done.ID:{} NAME:{} INTRO:{} DIS:{} ID_COMPANY:{}",
+					id, name, introduced, discontinued, id_company);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			throw new DAOException(e);
@@ -171,6 +178,7 @@ public enum ComputerDAO implements IComputerDAO {
 					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id WHERE computer.id=?");
 			state.setLong(1, id);
 			result = state.executeQuery();
+			logger.info("Computer with id {} found", id);
 			return SQLMapper.ResultSetToComputer(result);
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -188,6 +196,7 @@ public enum ComputerDAO implements IComputerDAO {
 			state = connect.prepareStatement(FIND_ALL);
 			result = state.executeQuery();
 
+			logger.info("FindAll done.");
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -209,14 +218,14 @@ public enum ComputerDAO implements IComputerDAO {
 		if (order.isEmpty())
 			order = "ASC";
 
-		logger.info("FIELD=" + field_order + " ORDER=" + order);
 		try {
 			state = connect.prepareStatement(FIND_ALL + " ORDER BY "
 					+ field_order + " " + order + " LIMIT ? OFFSET ? ");
 			state.setInt(1, limit);
 			state.setInt(2, offset);
-			System.out.println("STATE " + state.toString());
 			result = state.executeQuery();
+			logger.info("FindAll with FIELD=" + field_order + " ORDER=" + order
+					+ " done.");
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -244,7 +253,8 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setInt(3, limit);
 			state.setInt(4, offset);
 			result = state.executeQuery();
-			System.out.println("STATE" + state);
+			logger.info("FindAll with SEARCH={} FIELD={} ORDER={} done.",
+					search, field_order, order);
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -283,6 +293,8 @@ public enum ComputerDAO implements IComputerDAO {
 				.prepareStatement("DELETE FROM computer WHERE company_id=?");
 		state.setLong(1, company_id);
 		state.executeUpdate();
+		if (state != null)
+			state.close();
 		// FactoryConnection.INSTANCE.closeConnection(state);
 	}
 }

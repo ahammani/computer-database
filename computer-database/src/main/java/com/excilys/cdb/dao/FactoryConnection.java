@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.excilys.cdb.exception.DAOException;
-import com.excilys.cdb.exception.ServiceException;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
@@ -77,7 +76,7 @@ public enum FactoryConnection {
 	public void closeConnection() {
 		Connection c = CONNECTION.get();
 		try {
-			if (c != null)// && c.getAutoCommit())
+			if (c != null && c.getAutoCommit())
 				c.close();
 		} catch (SQLException e) {
 			throw new DAOException(e);

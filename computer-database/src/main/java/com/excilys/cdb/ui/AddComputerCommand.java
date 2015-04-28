@@ -35,7 +35,6 @@ public class AddComputerCommand extends ICommand {
 			ComputerDAOService.INSTANCE.addComputer(comp);
 			System.out.println("Creation done");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

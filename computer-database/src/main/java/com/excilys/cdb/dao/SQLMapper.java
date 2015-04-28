@@ -38,7 +38,6 @@ public class SQLMapper {
 		while ((computer = SQLMapper.ResultSetToComputer(result)) != null) {
 			l.add(computer);
 		}
-		System.out.println("LIST " + l);
 		return l;
 
 	}
