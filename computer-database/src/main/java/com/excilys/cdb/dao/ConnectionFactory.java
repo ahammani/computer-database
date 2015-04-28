@@ -13,24 +13,15 @@ import com.excilys.cdb.exception.DAOException;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
-public enum FactoryConnection {
+public enum ConnectionFactory {
 	INSTANCE;
 
 	private InputStream input;
 	private Properties prop = new Properties();
 	private BoneCP connectionPool = null;
-	private final ThreadLocal<Connection> CONNECTION = new ThreadLocal<Connection>() {
-		@Override
-		protected Connection initialValue() {
-			try {
-				return connectionPool.getConnection();
-			} catch (SQLException e) {
-				throw new DAOException(e);
-			}
-		}
-	};
+	private final ThreadLocal<Connection> CONNECTION = new ThreadLocal<Connection>();
 
-	FactoryConnection() {
+	ConnectionFactory() {
 		try {
 			input = this.getClass().getClassLoader()
 					.getResourceAsStream("config.properties");
@@ -38,10 +29,10 @@ public enum FactoryConnection {
 			Class.forName(prop.getProperty("driver"));
 
 			BoneCPConfig config = new BoneCPConfig();
-			config.setJdbcUrl(getProp("url"));
+			config.setJdbcUrl(prop.getProperty("url"));
 			config.setLazyInit(true);
-			config.setUsername(getProp("user"));
-			config.setPassword(getProp("pwd"));
+			config.setUsername(prop.getProperty("user"));
+			config.setPassword(prop.getProperty("pwd"));
 			config.setMinConnectionsPerPartition(1);
 			config.setMaxConnectionsPerPartition(5);
 			config.setPartitionCount(2);
@@ -55,10 +46,6 @@ public enum FactoryConnection {
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
-	}
-
-	public String getProp(String s) {
-		return prop.getProperty(s);
 	}
 
 	public Connection getConnection() {
@@ -109,16 +96,6 @@ public enum FactoryConnection {
 		try {
 			if (conn != null)
 				conn.setAutoCommit(false);
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		}
-	}
-
-	public void endTransaction() {
-		Connection conn = CONNECTION.get();
-		try {
-			if (conn != null)
-				conn.setAutoCommit(true);
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}

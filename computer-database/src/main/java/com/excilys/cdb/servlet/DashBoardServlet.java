@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import page.Page;
-
 import com.excilys.cdb.mapper.DTOMapper;
+import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.ComputerDAOService;
 
 /**

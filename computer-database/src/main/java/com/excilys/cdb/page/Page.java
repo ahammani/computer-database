@@ -1,4 +1,4 @@
-package page;
+package com.excilys.cdb.page;
 
 import java.util.ArrayList;
 import java.util.List;

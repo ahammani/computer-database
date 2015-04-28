@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.excilys.cdb.dao.CompanyDAO;
 import com.excilys.cdb.dao.ComputerDAO;
-import com.excilys.cdb.dao.FactoryConnection;
+import com.excilys.cdb.dao.ConnectionFactory;
 import com.excilys.cdb.exception.ServiceException;
 import com.excilys.cdb.model.Company;
 
@@ -25,17 +25,16 @@ public enum CompanyDAOService implements ICompanyDAOService {
 	@Override
 	public void deleteCompany(long company_id) {
 		try {
-			FactoryConnection.INSTANCE.startTransaction();
+			ConnectionFactory.INSTANCE.startTransaction();
 			ComputerDAO.INSTANCE.deleteByCompany(company_id);
 			CompanyDAO.INSTANCE.delete(company_id);
-			FactoryConnection.INSTANCE.commit();
-			FactoryConnection.INSTANCE.endTransaction();
-			FactoryConnection.INSTANCE.closeConnection();
+			ConnectionFactory.INSTANCE.commit();
+			ConnectionFactory.INSTANCE.closeConnection();
 		} catch (SQLException e) {
-			FactoryConnection.INSTANCE.rollback();
+			ConnectionFactory.INSTANCE.rollback();
 			throw new ServiceException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection();
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 
 	}

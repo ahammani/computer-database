@@ -23,27 +23,38 @@ public enum ComputerDAO implements IComputerDAO {
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	public int count() {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
-		PreparedStatement state = null;
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Statement state = null;
 		ResultSet result = null;
 		try {
-			state = connect.prepareStatement("SELECT COUNT(*) FROM computer");
-			result = state.executeQuery();
+			state = connect.createStatement();
+			result = state.executeQuery("SELECT COUNT(*) FROM computer");
 			if (result.next()) {
 				int res = result.getInt("COUNT(*)");
-				logger.info("Count done. {} computers found", res);
+				logger.debug("Count done. {} computers found", res);
 				return res;
 			} else
 				return 0;
 		} catch (SQLException e) {
+			logger.error("Error on count !");
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			try {
+				if (state != null) {
+					state.close();
+				}
+				if (result != null) {
+					result.close();
+				}
+			} catch (SQLException e) {
+				throw new DAOException(e);
+			}
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 	}
 
 	public int count(String search) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -55,21 +66,21 @@ public enum ComputerDAO implements IComputerDAO {
 			result = state.executeQuery();
 			if (result.next()) {
 				int res = result.getInt("COUNT(*)");
-				logger.info("Count(search) done. {} computers found", res);
+				logger.debug("Count(search) done. {} computers found", res);
 				return res;
 			} else
 				return 0;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error("Error on search count !");
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			ConnectionFactory.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public int create(Computer obj) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		try {
 			long id_company;
@@ -102,39 +113,40 @@ public enum ComputerDAO implements IComputerDAO {
 			ResultSet rs = state.getGeneratedKeys();
 			if (rs.next()) {
 				int res = rs.getInt(1);
-				logger.info("Creation done. computer's id {} ", res);
+				logger.debug("Creation done. computer's id {} ", res);
 				return res;
 			}
 			return -1;
 		} catch (SQLException e) {
-			logger.error("OBJ : {}", obj.toString());
+			logger.error("Error on create OBJ : {}", obj.toString());
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state);
+			ConnectionFactory.INSTANCE.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void delete(long id) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		try {
 			state = connect.prepareStatement("DELETE FROM computer WHERE id=?");
 			state.setLong(1, id);
 			state.executeUpdate();
-			logger.info("Deletion done.Computers'id deleted :{}", id);
+			logger.debug("Deletion done.Computers'id deleted :{}", id);
 		} catch (SQLException e) {
+			logger.error("Error on delete with id={} !", id);
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state);
+			ConnectionFactory.INSTANCE.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void update(Computer obj) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
@@ -157,20 +169,22 @@ public enum ComputerDAO implements IComputerDAO {
 				state.setLong(4, id_company);
 			state.setLong(5, id);
 			state.executeUpdate();
-			logger.info(
+			logger.debug(
 					"Computer update done.ID:{} NAME:{} INTRO:{} DIS:{} ID_COMPANY:{}",
 					id, name, introduced, discontinued, id_company);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error("Error on update  with ID:{} NAME:{} INTRO:{} DIS:{}",
+					obj.getId(), obj.getName(), obj.getIntroduced(),
+					obj.getDiscontinued());
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state);
+			ConnectionFactory.INSTANCE.closeConnection(state);
 		}
 	}
 
 	@Override
 	public Computer find(long id) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -178,30 +192,32 @@ public enum ComputerDAO implements IComputerDAO {
 					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id WHERE computer.id=?");
 			state.setLong(1, id);
 			result = state.executeQuery();
-			logger.info("Computer with id {} found", id);
+			logger.debug("Computer with id {} found", id);
 			return SQLMapper.ResultSetToComputer(result);
 		} catch (SQLException e) {
+			logger.error("Error on computer with id {} !", id);
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			ConnectionFactory.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public List<Computer> findAll() {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
 			state = connect.prepareStatement(FIND_ALL);
 			result = state.executeQuery();
 
-			logger.info("FindAll done.");
+			logger.debug("FindAll done.");
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
+			logger.error("Error on findAll !");
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			ConnectionFactory.INSTANCE.closeConnection(state, result);
 		}
 
 	}
@@ -210,7 +226,7 @@ public enum ComputerDAO implements IComputerDAO {
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
 
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		if (field_order.isEmpty())
@@ -224,19 +240,21 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setInt(1, limit);
 			state.setInt(2, offset);
 			result = state.executeQuery();
-			logger.info("FindAll with FIELD=" + field_order + " ORDER=" + order
-					+ " done.");
+			logger.debug("FindAll with FIELD=" + field_order + " ORDER="
+					+ order + " done.");
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
+			logger.error("Error on findAll with FIELD={} ORDER={} !",
+					field_order, order);
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			ConnectionFactory.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	public List<Computer> findAll(String search, int offset, int limit,
 			String field_order, String order) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		if (field_order.isEmpty())
@@ -253,14 +271,16 @@ public enum ComputerDAO implements IComputerDAO {
 			state.setInt(3, limit);
 			state.setInt(4, offset);
 			result = state.executeQuery();
-			logger.info("FindAll with SEARCH={} FIELD={} ORDER={} done.",
+			logger.debug("FindAll with SEARCH={} FIELD={} ORDER={} done.",
 					search, field_order, order);
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(
+					"Error on findAll(search) with SEARCH= {} FIELD={} ORDER={} !",
+					search, field_order, order);
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			ConnectionFactory.INSTANCE.closeConnection(state, result);
 		}
 	}
 
@@ -271,7 +291,7 @@ public enum ComputerDAO implements IComputerDAO {
 	 * @return
 	 */
 	public List<Computer> findAllCompany(long company_id) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -280,14 +300,16 @@ public enum ComputerDAO implements IComputerDAO {
 			result = state.executeQuery();
 			return SQLMapper.getComputers(result);
 		} catch (SQLException e) {
+			logger.error("Error on findAlCompanyl with company_id={} !",
+					company_id);
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			ConnectionFactory.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	public void deleteByCompany(long company_id) throws SQLException {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		state = connect
 				.prepareStatement("DELETE FROM computer WHERE company_id=?");
@@ -295,6 +317,5 @@ public enum ComputerDAO implements IComputerDAO {
 		state.executeUpdate();
 		if (state != null)
 			state.close();
-		// FactoryConnection.INSTANCE.closeConnection(state);
 	}
 }

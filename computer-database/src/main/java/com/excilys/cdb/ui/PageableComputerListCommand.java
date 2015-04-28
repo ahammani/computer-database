@@ -2,10 +2,9 @@ package com.excilys.cdb.ui;
 
 import java.util.List;
 
-import page.Page;
-
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.ComputerDAOService;
 
 public class PageableComputerListCommand extends ICommand {

@@ -19,7 +19,7 @@ public enum CompanyDAO implements ICompanyDAO {
 
 	@Override
 	public Company find(long id) {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -29,15 +29,16 @@ public enum CompanyDAO implements ICompanyDAO {
 			result = state.executeQuery();
 			return SQLMapper.ResultSetToCompany(result);
 		} catch (SQLException e) {
+			logger.error("Error on find with ID={}", id);
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state, result);
+			ConnectionFactory.INSTANCE.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public List<Company> findAll() {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		List<Company> l = new ArrayList<>();
 		try {
@@ -53,16 +54,17 @@ public enum CompanyDAO implements ICompanyDAO {
 			}
 			return l;
 		} catch (SQLException e) {
+			logger.error("Error on findAll !");
 			throw new DAOException(e);
 		} finally {
-			FactoryConnection.INSTANCE.closeConnection(state);
+			ConnectionFactory.INSTANCE.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void delete(Long company_id) throws SQLException {
-		Connection connect = FactoryConnection.INSTANCE.getConnection();
+		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		state = connect.prepareStatement("DELETE FROM company WHERE id=?");
 		state.setLong(1, company_id);
