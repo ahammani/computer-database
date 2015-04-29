@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.service.CompanyDAOService;
+import com.excilys.cdb.service.CompanyService;
 import com.excilys.cdb.utils.ExecuteScript;
 
 public class CompanyDAOTest {
@@ -28,9 +28,9 @@ public class CompanyDAOTest {
 	@Test
 	public void testFindAll() {
 
-		boolean isList = (CompanyDAOService.INSTANCE.getAll()) instanceof List<?>;
+		boolean isList = (CompanyService.INSTANCE.getAll()) instanceof List<?>;
 		assertTrue(isList);
-		List<Company> l = (CompanyDAOService.INSTANCE.getAll());
+		List<Company> l = (CompanyService.INSTANCE.getAll());
 		assertEquals(3, l.size());
 		assertTrue(expectedList.equals(l));
 		assertFalse(l.equals(null));

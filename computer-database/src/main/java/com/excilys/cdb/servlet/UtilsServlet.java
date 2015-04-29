@@ -30,14 +30,13 @@ public class UtilsServlet {
 		return Utils.isNumber(companyId) || (companyId == "");
 	}
 
-	public static Computer postComputer(HttpServletRequest request,
-			boolean update) {
+	public static Computer postComputer(HttpServletRequest request) {
 		String computerName = request.getParameter("computerName");
 		String introduced = request.getParameter("introduced");
 		String discontinued = request.getParameter("discontinued");
 		String companyId = request.getParameter("companyId");
-		System.out.println("UTILS name " + computerName + " intro "
-				+ introduced + " dis " + discontinued + " compID " + companyId);
+		// System.out.println("UTILS name " + computerName + " intro "
+		// + introduced + " dis " + discontinued + " compID " + companyId);
 		if (checkName(computerName) && checkDate(introduced)
 				&& checkDate(discontinued) && checkNumber(companyId)) {
 			long cid = Long.parseLong(companyId);
@@ -51,10 +50,11 @@ public class UtilsServlet {
 			LocalDate intro = TimeMapper.StringToLocalDate(introduced);
 			LocalDate dis = TimeMapper.StringToLocalDate(discontinued);
 
-			System.out.println("UTILS2 name " + computerName + " intro "
-					+ intro + " dis " + dis + " compID " + companyId);
-			if (update) {
-				long computerId = Long.parseLong(request.getParameter("id"));
+			// System.out.println("UTILS2 name " + computerName + " intro "
+			// + intro + " dis " + dis + " compID " + companyId);
+			String cId = request.getParameter("id");
+			if (cId != null) {
+				Long computerId = Long.parseLong(cId);
 				return new Computer(computerName, intro, dis, company,
 						computerId);
 			} else

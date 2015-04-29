@@ -63,7 +63,7 @@ public class EditComputerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Computer computer = UtilsServlet.postComputer(request, true);
+		Computer computer = UtilsServlet.postComputer(request);
 		if (computer != null) {
 			ComputerService.INSTANCE.updateComputer(computer);
 		}

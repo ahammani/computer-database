@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.excilys.cdb.model.*;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
 public class ComputerDAOTest {
@@ -21,7 +21,7 @@ public class ComputerDAOTest {
 	Company c1 = new Company(1, "Apple Inc.");
 	Company c2 = new Company(2, "Thinking Machines");
 	Company c3 = new Company(0, null);
-	ComputerDAOService computers = ComputerDAOService.INSTANCE;
+	ComputerService computers = ComputerService.INSTANCE;
 
 	@Before
 	public void prepare() {
@@ -50,9 +50,9 @@ public class ComputerDAOTest {
 	@Test
 	public void testFindAll() {
 		ExecuteScript.execute();
-		boolean isList = (ComputerDAOService.INSTANCE.getAll()) instanceof List<?>;
+		boolean isList = (ComputerService.INSTANCE.getAll()) instanceof List<?>;
 		assertTrue(isList);
-		List<Computer> l = (ComputerDAOService.INSTANCE.getAll());
+		List<Computer> l = (ComputerService.INSTANCE.getAll());
 		assertEquals(3, l.size());
 		assertTrue(expectedList.equals(l));
 	}

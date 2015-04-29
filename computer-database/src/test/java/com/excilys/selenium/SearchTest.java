@@ -15,7 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ComputerDAOService;
+import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
 public class SearchTest {
@@ -44,7 +44,7 @@ public class SearchTest {
 		driver.findElement(By.id("searchbox")).clear();
 		driver.findElement(By.id("searchbox")).sendKeys("Mac");
 		driver.findElement(By.id("searchsubmit")).click();
-		assertTrue(ComputerDAOService.INSTANCE.count("Mac") == 2);
+		assertTrue(ComputerService.INSTANCE.count("Mac") == 2);
 	}
 
 	@After
