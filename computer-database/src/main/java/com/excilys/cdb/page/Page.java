@@ -24,6 +24,7 @@ public class Page {
 	private int page = 1;
 	private String tmpLimit;
 	private int limit = 3;
+	private static final int MAX_LIMIT = 100;
 	private int offset = 0;
 	private int maxPages = 1;
 	private List<ComputerDTO> computers = new ArrayList<ComputerDTO>();
@@ -141,6 +142,7 @@ public class Page {
 	public void validate() {
 		this.page = Utils.stringToInt(tmpPage, 1);
 		this.limit = Utils.stringToInt(tmpLimit, 3);
+		this.limit = (limit > MAX_LIMIT) ? MAX_LIMIT : limit;
 		this.offset = (this.page - 1) * this.limit;
 		this.offset = (offset < 0) ? 0 : offset;
 

@@ -16,7 +16,7 @@ import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
-public enum ComputerDAO implements IComputerDAO {
+public enum ComputerDAO implements IDAO<Computer> {
 	INSTANCE;
 
 	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
@@ -222,7 +222,6 @@ public enum ComputerDAO implements IComputerDAO {
 
 	}
 
-	@Override
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
 

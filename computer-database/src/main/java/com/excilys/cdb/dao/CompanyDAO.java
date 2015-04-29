@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 
-public enum CompanyDAO implements ICompanyDAO {
+public enum CompanyDAO implements IDAO<Company> {
 	INSTANCE;
 	private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
 
@@ -63,7 +63,7 @@ public enum CompanyDAO implements ICompanyDAO {
 	}
 
 	@Override
-	public void delete(Long company_id) throws SQLException {
+	public void delete(long company_id) throws SQLException {
 		Connection connect = ConnectionFactory.INSTANCE.getConnection();
 		PreparedStatement state = null;
 		state = connect.prepareStatement("DELETE FROM company WHERE id=?");
