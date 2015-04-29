@@ -13,15 +13,16 @@ public enum ComputerService implements IComputerService {
 		return ComputerDAO.INSTANCE.findAll();
 	}
 
-	public List<Computer> getAll(Page pages, String field_order, String order) {
-		return ComputerDAO.INSTANCE.findAll(pages.getOffset(),
-				pages.getLimit(), field_order, order);
-	}
+	public List<Computer> getAll(Page page) {
+		if (page.getSearch().equals("")) {
+			return ComputerDAO.INSTANCE.findAll(page.getOffset(),
+					page.getLimit(), page.getField_order(), page.getOrder());
+		} else {
+			return ComputerDAO.INSTANCE.findAll(page.getSearch(),
+					page.getOffset(), page.getLimit(), page.getField_order(),
+					page.getOrder());
+		}
 
-	public List<Computer> getAll(String search, Page pages, String field_order,
-			String order) {
-		return ComputerDAO.INSTANCE.findAll(search, pages.getOffset(),
-				pages.getLimit(), field_order, order);
 	}
 
 	public Computer getComputer(long id) {

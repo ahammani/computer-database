@@ -18,26 +18,11 @@ public interface IComputerService {
 	List<Computer> getAll();
 
 	/**
-	 * Get all computers which contains all parameters .
+	 * Get all computers .
 	 *
-	 * @param pages
-	 * @param field_order
-	 * @param order
 	 * @return a list of all computers
 	 */
-	List<Computer> getAll(Page pages, String field_order, String order);
-
-	/**
-	 * Get all computers which contains all parameters .
-	 *
-	 * @param search
-	 * @param pages
-	 * @param field_order
-	 * @param order
-	 * @return the all
-	 */
-	List<Computer> getAll(String search, Page pages, String field_order,
-			String order);
+	List<Computer> getAll(Page page);
 
 	/**
 	 * Get the computer.

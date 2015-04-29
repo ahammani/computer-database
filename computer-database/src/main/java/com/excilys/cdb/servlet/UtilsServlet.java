@@ -30,7 +30,7 @@ public class UtilsServlet {
 		return Utils.isNumber(companyId) || (companyId == "");
 	}
 
-	public static Computer postComputer(HttpServletRequest request) {
+	public static Computer toComputer(HttpServletRequest request) {
 		String computerName = request.getParameter("computerName");
 		String introduced = request.getParameter("introduced");
 		String discontinued = request.getParameter("discontinued");

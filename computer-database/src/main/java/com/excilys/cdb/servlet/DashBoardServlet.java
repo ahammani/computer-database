@@ -22,9 +22,6 @@ import com.excilys.cdb.service.ComputerService;
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ComputerService computerService = ComputerService.INSTANCE;
-	private static final List<String> fields = Arrays.asList("c_name",
-			"introduced", "discontinued", "name");
-	private static final List<String> orders = Arrays.asList("asc", "desc");
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,25 +42,16 @@ public class DashBoardServlet extends HttpServlet {
 		String field = request.getParameter("field_order");
 		String order = request.getParameter("order");
 
-		Page pages = new Page(p, lim);
+		Page pages = new Page(p, lim, search, field, order);
+		pages.validate();
 
-		if (field == null || !fields.contains(field)) {
-			field = "";
-		}
-		if (order == null || !orders.contains(order.toLowerCase())) {
-			order = "ASC";
-		}
-		if (search == null || search.isEmpty()) {
+		if (pages.getSearch().isEmpty()) {
 			pages.setMaxComputers(computerService.count());
-			pages.setComputers(DTOMapper.toDTOList(computerService.getAll(
-					pages, field, order)));
 		} else {
 			pages.setMaxComputers(computerService.count(search));
-			pages.setComputers(DTOMapper.toDTOList(computerService.getAll(
-					search, pages, field, order)));
 			request.setAttribute("search", search);
 		}
-
+		pages.setComputers(DTOMapper.toDTOList(computerService.getAll(pages)));
 		pages.setMaxPages(pages.getMaxComputers());
 		request.setAttribute("pages", pages);
 		ServletContext context = this.getServletContext();
