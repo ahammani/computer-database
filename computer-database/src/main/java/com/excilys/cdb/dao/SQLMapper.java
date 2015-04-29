@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.Computer.ComputerBuilder;
 
 /**
  * 
@@ -56,7 +57,8 @@ public class SQLMapper {
 			Company comp = new Company(result.getLong("company_id"),
 					result.getString("name"));
 			comp.setId(result.getLong("company_id"));
-			return new Computer(name, intro, dis, comp, c_id);
+			return new ComputerBuilder(name).id(c_id).introduced(intro)
+					.discontinued(dis).company(comp).build();
 		}
 		return null;
 	}

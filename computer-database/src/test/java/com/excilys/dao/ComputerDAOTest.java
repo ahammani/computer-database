@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.excilys.cdb.model.*;
+import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
@@ -31,9 +32,12 @@ public class ComputerDAOTest {
 		LocalDate t1 = LocalDate.of(1991, 03, 03);
 		LocalDate t2 = LocalDate.of(1991, 04, 03);
 		LocalDate t3 = LocalDate.of(1991, 04, 04);
-		comp1 = new Computer("MacBook Pro 15.4 inch", null, null, c1, 1);
-		comp2 = new Computer("CM-200", t1, t2, c2, 2);
-		comp3 = new Computer("CM-5e", null, t3, c3, 3);
+		comp1 = new ComputerBuilder("MacBook Pro 15.4 inch").id(1).company(c1)
+				.build();
+		comp2 = new ComputerBuilder("CM-200").id(2).introduced(t1)
+				.discontinued(t2).company(c2).build();
+		comp3 = new ComputerBuilder("CM-5e").id(3).discontinued(t3).company(c3)
+				.build();
 		expectedList.add(comp1);
 		expectedList.add(comp2);
 		expectedList.add(comp3);
@@ -57,8 +61,8 @@ public class ComputerDAOTest {
 
 	@Test
 	public void testCreate() {
-		Computer expected = new Computer("test", null, LocalDate.of(2000, 01,
-				02), c1, 4);
+		Computer expected = new ComputerBuilder("test").id(4)
+				.discontinued(LocalDate.of(2000, 01, 02)).company(c1).build();
 		int id = computers.addComputer(expected);
 		Computer actual = computers.getComputer(id);
 		assertFalse(actual.equals(null));

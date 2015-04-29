@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
@@ -22,7 +23,8 @@ public class EditComputerTest {
 	private StringBuffer verificationErrors = new StringBuffer();
 	Company c = new Company(3, "RCA");
 	LocalDate t = LocalDate.of(1991, 04, 04);
-	Computer expected = new Computer("Test", null, t, c, 3);
+	Computer expected = new ComputerBuilder("Test").id(3).discontinued(t)
+			.company(c).build();
 
 	@Before
 	public void setUp() throws Exception {

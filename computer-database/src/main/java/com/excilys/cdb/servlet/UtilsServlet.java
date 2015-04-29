@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.CompanyService;
 import com.excilys.cdb.utils.Utils;
 
@@ -35,8 +36,6 @@ public class UtilsServlet {
 		String introduced = request.getParameter("introduced");
 		String discontinued = request.getParameter("discontinued");
 		String companyId = request.getParameter("companyId");
-		// System.out.println("UTILS name " + computerName + " intro "
-		// + introduced + " dis " + discontinued + " compID " + companyId);
 		if (checkName(computerName) && checkDate(introduced)
 				&& checkDate(discontinued) && checkNumber(companyId)) {
 			long cid = Long.parseLong(companyId);
@@ -49,16 +48,15 @@ public class UtilsServlet {
 			}
 			LocalDate intro = TimeMapper.StringToLocalDate(introduced);
 			LocalDate dis = TimeMapper.StringToLocalDate(discontinued);
-
-			// System.out.println("UTILS2 name " + computerName + " intro "
-			// + intro + " dis " + dis + " compID " + companyId);
 			String cId = request.getParameter("id");
 			if (cId != null) {
 				Long computerId = Long.parseLong(cId);
-				return new Computer(computerName, intro, dis, company,
-						computerId);
+				return new ComputerBuilder(computerName).id(computerId)
+						.introduced(intro).discontinued(dis).company(company)
+						.build();
 			} else
-				return new Computer(computerName, intro, dis, company);
+				return new ComputerBuilder(computerName).introduced(intro)
+						.discontinued(dis).company(company).build();
 
 		} else {
 			return null;

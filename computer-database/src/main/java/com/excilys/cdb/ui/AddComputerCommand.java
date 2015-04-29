@@ -7,6 +7,7 @@ import com.excilys.cdb.dao.SQLMapper;
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.ComputerService;
 
 public class AddComputerCommand extends ICommand {
@@ -31,7 +32,8 @@ public class AddComputerCommand extends ICommand {
 			}
 			Company company = new Company();
 			company.setId(id);
-			Computer comp = new Computer(name, intro, dis, company);
+			Computer comp = new ComputerBuilder(name).introduced(intro)
+					.discontinued(dis).company(company).build();
 			ComputerService.INSTANCE.addComputer(comp);
 			System.out.println("Creation done");
 		} catch (ParseException e) {

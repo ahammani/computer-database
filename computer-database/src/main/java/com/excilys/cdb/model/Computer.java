@@ -9,10 +9,86 @@ import java.time.LocalDate;
 
 public class Computer {
 	private String name = "";
-	private LocalDate introduced;
-	private LocalDate discontinued;
-	private Company company;
+	private LocalDate introduced = null;
+	private LocalDate discontinued = null;
+	private Company company = null;
 	private long id = 0;
+
+	public long getId() {
+		return id;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		if (company.getId() > 0) {
+			this.company = company;
+		}
+	}
+
+	public Computer() {
+	}
+
+	@Override
+	public String toString() {
+		String intro = (introduced != null) ? "INTRODUCED : "
+				+ introduced.toString() + "\t " : "";
+		String dis = (discontinued != null) ? "DISCONTINUED : "
+				+ discontinued.toString() + "\t " : "";
+		String aid = "ID : " + id + "\t ";
+		String cname = "COMPUTER NAME : " + name + "\t ";
+		String cid = (company.getId() != 0) ? "COMPANY ID :" + company.getId()
+				: "";
+		return aid + cname + intro + dis + cid;
+	}
+
+	public Computer(String name) {
+		this.name = name;
+	}
+
+	// public Computer(String name, LocalDate intro, LocalDate dis, Company
+	// comp,
+	// long cId) {
+	// this.name = name;
+	// this.introduced = intro;
+	// this.discontinued = dis;
+	// this.company = comp;
+	// this.id = cId;
+	// }
+	//
+	// public Computer(String name, LocalDate intro, LocalDate dis, Company
+	// comp) {
+	// this.name = name;
+	// this.introduced = intro;
+	// this.discontinued = dis;
+	// this.company = comp;
+	// }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public LocalDate getIntroduced() {
+		return introduced;
+	}
+
+	public void setIntroduced(LocalDate introduced) {
+		this.introduced = introduced;
+	}
+
+	public LocalDate getDiscontinued() {
+		return discontinued;
+	}
+
+	public void setDiscontinued(LocalDate discontinued) {
+		this.discontinued = discontinued;
+	}
 
 	@Override
 	public int hashCode() {
@@ -62,78 +138,41 @@ public class Computer {
 		return true;
 	}
 
-	public long getId() {
-		return id;
-	}
+	public static class ComputerBuilder {
+		private Computer computer;
 
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		if (company.getId() > 0) {
-			this.company = company;
+		public ComputerBuilder(String name) {
+			computer = new Computer(name);
 		}
-	}
 
-	public Computer() {
-	}
+		public ComputerBuilder id(long id) {
+			computer.id = id;
+			return this;
+		}
 
-	@Override
-	public String toString() {
-		String intro = (introduced != null) ? "INTRODUCED : "
-				+ introduced.toString() + "\t " : "";
-		String dis = (discontinued != null) ? "DISCONTINUED : "
-				+ discontinued.toString() + "\t " : "";
-		String aid = "ID : " + id + "\t ";
-		String cname = "COMPUTER NAME : " + name + "\t ";
-		String cid = (company.getId() != 0) ? "COMPANY ID :" + company.getId()
-				: "";
-		return aid + cname + intro + dis + cid;
-	}
+		public ComputerBuilder name(String name) {
+			computer.name = name;
+			return this;
+		}
 
-	public Computer(String name) {
-		this.name = name;
-	}
+		public ComputerBuilder introduced(LocalDate date) {
+			computer.introduced = date;
+			return this;
+		}
 
-	public Computer(String name, LocalDate intro, LocalDate dis, Company comp,
-			long cId) {
-		this.name = name;
-		this.introduced = intro;
-		this.discontinued = dis;
-		this.company = comp;
-		this.id = cId;
-	}
+		public ComputerBuilder discontinued(LocalDate date) {
+			computer.discontinued = date;
+			return this;
+		}
 
-	public Computer(String name, LocalDate intro, LocalDate dis, Company comp) {
-		this.name = name;
-		this.introduced = intro;
-		this.discontinued = dis;
-		this.company = comp;
-	}
+		public ComputerBuilder company(Company company) {
+			computer.company = company;
+			return this;
+		}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public LocalDate getIntroduced() {
-		return introduced;
-	}
-
-	public void setIntroduced(LocalDate introduced) {
-		this.introduced = introduced;
-	}
-
-	public LocalDate getDiscontinued() {
-		return discontinued;
-	}
-
-	public void setDiscontinued(LocalDate discontinued) {
-		this.discontinued = discontinued;
+		public Computer build() {
+			return computer;
+		}
 	}
 
 }

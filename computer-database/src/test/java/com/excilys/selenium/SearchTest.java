@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
@@ -27,8 +28,10 @@ public class SearchTest {
 	LocalDate t1 = LocalDate.of(1991, 03, 03);
 	LocalDate t2 = LocalDate.of(1991, 04, 03);
 	LocalDate t3 = LocalDate.of(1991, 04, 04);
-	Computer comp1 = new Computer("MacBook Pro 15.4 inch", null, null, c1, 1);
-	Computer comp2 = new Computer("CM-200", t1, t2, c2, 2);
+	Computer comp1 = new ComputerBuilder("MacBook Pro 15.4 inch").id(1)
+			.company(c1).build();
+	Computer comp2 = new ComputerBuilder("CM-200").id(2).introduced(t1)
+			.discontinued(t2).company(c2).build();
 
 	@Before
 	public void setUp() throws Exception {
