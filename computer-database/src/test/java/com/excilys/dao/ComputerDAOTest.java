@@ -41,7 +41,6 @@ public class ComputerDAOTest {
 
 	@Test
 	public void testFind() {
-		ExecuteScript.execute();
 		Computer expected = comp1;
 		Computer actual = computers.getComputer(1);
 		assertEquals(expected, actual);
@@ -49,7 +48,6 @@ public class ComputerDAOTest {
 
 	@Test
 	public void testFindAll() {
-		ExecuteScript.execute();
 		boolean isList = (ComputerService.INSTANCE.getAll()) instanceof List<?>;
 		assertTrue(isList);
 		List<Computer> l = (ComputerService.INSTANCE.getAll());
@@ -59,7 +57,6 @@ public class ComputerDAOTest {
 
 	@Test
 	public void testCreate() {
-		ExecuteScript.execute();
 		Computer expected = new Computer("test", null, LocalDate.of(2000, 01,
 				02), c1, 4);
 		int id = computers.addComputer(expected);
