@@ -47,7 +47,7 @@ public class SearchTest {
 		driver.findElement(By.id("searchbox")).clear();
 		driver.findElement(By.id("searchbox")).sendKeys("Mac");
 		driver.findElement(By.id("searchsubmit")).click();
-		assertTrue(ComputerService.INSTANCE.count("Mac") == 2);
+		assertTrue((new ComputerService()).count("Mac") == 2);
 	}
 
 	@After

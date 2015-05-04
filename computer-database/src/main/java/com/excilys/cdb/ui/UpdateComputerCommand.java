@@ -12,7 +12,7 @@ public class UpdateComputerCommand extends ICommand {
 	public void fetch() {
 		System.out.print("(You have to enter a computer's id)");
 		long id = Main.getLong();
-		Computer comp = ComputerService.INSTANCE.getComputer(id);
+		Computer comp = Main.computerService.getComputer(id);
 		if (comp == null)
 			return;
 		try {
@@ -25,7 +25,7 @@ public class UpdateComputerCommand extends ICommand {
 			if (chooseArgs("modify company id")) {
 				comp.getCompany().setId(Main.getLong());
 			}
-			ComputerService.INSTANCE.updateComputer(comp);
+			Main.computerService.updateComputer(comp);
 			System.out.println("Modification done");
 			System.out.println();
 		} catch (ParseException e) {

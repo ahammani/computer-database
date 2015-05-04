@@ -10,7 +10,7 @@ public class ComputerDetailsCommand extends ICommand {
 	public void fetch() {
 		System.out.print("(computer's id)");
 		long id = Main.getLong();
-		Computer c = ComputerService.INSTANCE.getComputer(id);
+		Computer c = Main.computerService.getComputer(id);
 		if (c != null && c.getId() > 0)
 			System.out.println(c.toString());
 		else

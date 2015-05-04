@@ -14,15 +14,16 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
-public enum ComputerDAO implements IDAO<Computer> {
-	INSTANCE;
-
-	private static ConnectionFactory connectionFactory = new ConnectionFactory();
+@Repository
+public class ComputerDAO implements IDAO<Computer> {
+	@Autowired
+	private ConnectionFactory connectionFactory;
 
 	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
@@ -229,7 +230,7 @@ public enum ComputerDAO implements IDAO<Computer> {
 
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
-		logger.debug("In ComputerDAO.findAll");
+		System.out.println("In ComputerDAO.findAll");
 		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;

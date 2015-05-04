@@ -7,21 +7,19 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="com.excilys.cdb" />
-	
-	<import resource="datasource.xml"/>
-	<context:annotation-config />
-	
-<!-- 	<bean id="connectionFactory" -->
-<!-- 		class="com.excilys.cdb.dao.ConnectionFactory"> -->
-<!-- 		<property name="dataSource" ref="dataSource" /> -->
-<!-- 	</bean> -->
-	
-	<!--     <bean id="computerDAO" -->
-<!--         class="com.excilys.cdb.dao.ComputerDAO"> -->
-<!--     </bean> -->
 
-<!--     <bean id="companyDAO" class="com.excilys.cdb.CompanyDAO"> -->
-<!--     </bean> -->
+	<import resource="datasource.xml" />
 
-<!-- 	<import resource="service.xml"/> -->
+	<!-- <bean id="connectionFactory" -->
+	<!-- class="com.excilys.cdb.dao.ConnectionFactory"> -->
+	<!-- <property name="dataSource" ref="dataSource" /> -->
+	<!-- </bean> -->
+
+	<!-- <bean id="computerDAO" class="com.excilys.cdb.dao.ComputerDAO"> -->
+	<!-- </bean> -->
+
+	<!-- <bean id="companyDAO" class="com.excilys.cdb.CompanyDAO"> -->
+	<!-- </bean> -->
+
+	<!-- <import resource="service.xml" /> -->
 </beans>

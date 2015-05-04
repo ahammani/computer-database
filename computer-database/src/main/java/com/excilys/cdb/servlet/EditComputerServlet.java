@@ -24,8 +24,8 @@ import com.excilys.cdb.utils.Utils;
 @WebServlet("/EditComputerServlet")
 public class EditComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerService computerService = ComputerService.INSTANCE;
-	private static CompanyService companyService = CompanyService.INSTANCE;
+	private static ComputerService computerService = new ComputerService();// ComputerService.INSTANCE;
+	private static CompanyService companyService = new CompanyService();// CompanyService.INSTANCE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -65,7 +65,7 @@ public class EditComputerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Computer computer = UtilsServlet.toComputer(request);
 		if (computer != null) {
-			ComputerService.INSTANCE.updateComputer(computer);
+			computerService.updateComputer(computer);
 		}
 		response.sendRedirect("DashboardServlet");
 	}

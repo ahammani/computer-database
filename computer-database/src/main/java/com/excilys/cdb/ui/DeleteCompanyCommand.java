@@ -10,7 +10,7 @@ public class DeleteCompanyCommand extends ICommand {
 		System.out.println("You have to enter the company's id");
 		long id = Main.getLong();
 		System.out.println("Let's go !");
-		CompanyService.INSTANCE.deleteCompany(id);
+		Main.companyService.deleteCompany(id);
 		System.out.println("Operation done");
 	}
 

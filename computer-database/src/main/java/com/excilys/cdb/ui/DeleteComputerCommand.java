@@ -9,7 +9,7 @@ public class DeleteComputerCommand extends ICommand {
 	public void fetch() {
 		System.out.println("You have to enter the computer's id");
 		long id = Main.getLong();
-		ComputerService.INSTANCE.deleteComputer(id);
+		Main.computerService.deleteComputer(id);
 		System.out.println("Operation done");
 	}
 

@@ -14,7 +14,7 @@ public class PageableComputerListCommand extends ICommand {
 
 	public PageableComputerListCommand(int limit) {
 		Page p = new Page(1, limit);
-		l = ComputerService.INSTANCE.getAll(p);
+		l = Main.computerService.getAll(p);
 		this.limit = limit;
 	}
 
@@ -56,7 +56,7 @@ public class PageableComputerListCommand extends ICommand {
 
 	private void display() {
 		Page p = new Page(1, limit);
-		l = ComputerService.INSTANCE.getAll(p);
+		l = Main.computerService.getAll(p);
 		for (int i = 0; i < l.size(); i++) {
 			Computer c = l.get(i);
 			if (c != null)

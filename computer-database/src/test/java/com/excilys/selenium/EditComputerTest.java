@@ -43,7 +43,7 @@ public class EditComputerTest {
 		new Select(driver.findElement(By.id("companyId")))
 				.selectByVisibleText("RCA");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
-		Computer found = ComputerService.INSTANCE.getComputer(3);
+		Computer found = (new ComputerService()).getComputer(3);
 		assertEquals(expected, found);
 	}
 

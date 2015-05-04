@@ -9,14 +9,17 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 
-public enum CompanyDAO implements IDAO<Company> {
-	INSTANCE;
+@Repository
+public class CompanyDAO implements IDAO<Company> {
 	private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
-	private static ConnectionFactory connectionFactory = new ConnectionFactory();
+	@Autowired
+	private ConnectionFactory connectionFactory = new ConnectionFactory();
 
 	@Override
 	public Company find(long id) {

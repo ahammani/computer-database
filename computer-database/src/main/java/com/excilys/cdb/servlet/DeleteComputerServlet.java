@@ -17,7 +17,7 @@ import com.excilys.cdb.utils.Utils;
 @WebServlet("/DeleteComputerServlet")
 public class DeleteComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerService computerService = ComputerService.INSTANCE;
+	private static ComputerService computerService = new ComputerService();// ComputerService.INSTANCE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

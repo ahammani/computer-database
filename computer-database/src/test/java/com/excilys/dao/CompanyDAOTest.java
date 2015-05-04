@@ -1,6 +1,5 @@
 package com.excilys.dao;
 
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import com.excilys.cdb.utils.ExecuteScript;
 
 public class CompanyDAOTest {
 	List<Company> expectedList;
+	CompanyService companyService = new CompanyService();
 
 	@Before
 	public void prepare() {
@@ -28,9 +28,9 @@ public class CompanyDAOTest {
 	@Test
 	public void testFindAll() {
 
-		boolean isList = (CompanyService.INSTANCE.getAll()) instanceof List<?>;
+		boolean isList = (companyService.getAll()) instanceof List<?>;
 		assertTrue(isList);
-		List<Company> l = (CompanyService.INSTANCE.getAll());
+		List<Company> l = (companyService.getAll());
 		assertEquals(3, l.size());
 		assertTrue(expectedList.equals(l));
 		assertFalse(l.equals(null));

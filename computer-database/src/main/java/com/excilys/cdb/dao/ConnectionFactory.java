@@ -37,9 +37,10 @@ public class ConnectionFactory {
 		logger.info("In getConnection");
 		try {
 			if (CONNECTION.get() == null || CONNECTION.get().isClosed()) {
-				ApplicationContext context = new ClassPathXmlApplicationContext(
-						"classpath:application-context.xml");
-				dataSource = (DataSource) context.getBean("dataSource");
+				// ApplicationContext context = new
+				// ClassPathXmlApplicationContext(
+				// "classpath:application-context.xml");
+				// dataSource = (DataSource) context.getBean("dataSource");
 				Connection c = dataSource.getConnection();
 				if (c == null) {
 					System.out.println("NULL");

@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.ComputerService;
@@ -21,7 +25,8 @@ import com.excilys.cdb.service.ComputerService;
 @WebServlet("/DashboardServlet")
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerService computerService = ComputerService.INSTANCE;
+	@Autowired
+	private ComputerService computerService;// ComputerService.INSTANCE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

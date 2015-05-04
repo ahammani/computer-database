@@ -34,7 +34,7 @@ public class AddComputerCommand extends ICommand {
 			company.setId(id);
 			Computer comp = new ComputerBuilder(name).introduced(intro)
 					.discontinued(dis).company(company).build();
-			ComputerService.INSTANCE.addComputer(comp);
+			Main.computerService.addComputer(comp);
 			System.out.println("Creation done");
 		} catch (ParseException e) {
 			e.printStackTrace();

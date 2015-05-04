@@ -22,7 +22,7 @@ public class ComputerDAOTest {
 	Company c1 = new Company(1, "Apple Inc.");
 	Company c2 = new Company(2, "Thinking Machines");
 	Company c3 = new Company(0, null);
-	ComputerService computers = ComputerService.INSTANCE;
+	ComputerService computers = new ComputerService();
 
 	@Before
 	public void prepare() {
@@ -52,9 +52,9 @@ public class ComputerDAOTest {
 
 	@Test
 	public void testFindAll() {
-		boolean isList = (ComputerService.INSTANCE.getAll()) instanceof List<?>;
+		boolean isList = (computers.getAll()) instanceof List<?>;
 		assertTrue(isList);
-		List<Computer> l = (ComputerService.INSTANCE.getAll());
+		List<Computer> l = (computers.getAll());
 		assertEquals(3, l.size());
 		assertTrue(expectedList.equals(l));
 	}

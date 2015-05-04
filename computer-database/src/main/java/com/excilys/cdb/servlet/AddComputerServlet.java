@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.CompanyService;
@@ -21,7 +23,10 @@ import com.excilys.cdb.service.ComputerService;
 @WebServlet("/AddComputerServlet")
 public class AddComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CompanyService companyService = CompanyService.INSTANCE;
+	@Autowired
+	private CompanyService companyService;
+	@Autowired
+	private ComputerService computerService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -52,7 +57,7 @@ public class AddComputerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Computer computer = UtilsServlet.toComputer(request);
 		if (computer != null) {
-			ComputerService.INSTANCE.addComputer(computer);
+			computerService.addComputer(computer);
 			response.sendRedirect("DashboardServlet");
 		} else {
 			response.sendRedirect("AddComputerServlet");

@@ -9,6 +9,7 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.CompanyService;
+import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.Utils;
 
 /**
@@ -18,6 +19,7 @@ import com.excilys.cdb.utils.Utils;
  *
  */
 public class UtilsServlet {
+	private static CompanyService companyService = new CompanyService();
 
 	private static boolean checkDate(String s) {
 		return Utils.checkDate(s) || (s == "");
@@ -44,7 +46,7 @@ public class UtilsServlet {
 				company = new Company();
 				company.setId(0);
 			} else {
-				company = CompanyService.INSTANCE.getCompany(cid);
+				company = companyService.getCompany(cid);
 			}
 			LocalDate intro = TimeMapper.StringToLocalDate(introduced);
 			LocalDate dis = TimeMapper.StringToLocalDate(discontinued);

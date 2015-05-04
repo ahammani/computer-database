@@ -10,7 +10,7 @@ public class ComputerListCommand extends ICommand {
 
 	@Override
 	public void fetch() {
-		List<Computer> comp = ComputerService.INSTANCE.getAll();
+		List<Computer> comp = Main.computerService.getAll();
 
 		for (Computer c : comp) {
 			if (c != null)
