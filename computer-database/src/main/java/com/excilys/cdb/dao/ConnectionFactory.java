@@ -1,56 +1,50 @@
 package com.excilys.cdb.dao;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
+
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.exception.ConnectionException;
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 
-public enum ConnectionFactory {
-	INSTANCE;
+@Component
+public class ConnectionFactory {
 
-	private InputStream input;
-	private Properties prop = new Properties();
-	private BoneCP connectionPool = null;
 	private final ThreadLocal<Connection> CONNECTION = new ThreadLocal<Connection>();
 	private final Logger logger = LoggerFactory
 			.getLogger(ConnectionFactory.class);
+	@Autowired
+	private DataSource dataSource;
 
-	ConnectionFactory() {
-		try {
-			input = this.getClass().getClassLoader()
-					.getResourceAsStream("config.properties");
-			prop.load(input);
-			Class.forName(prop.getProperty("driver"));
+	public DataSource getDataSource() {
+		return dataSource;
+	}
 
-			BoneCPConfig config = new BoneCPConfig();
-			config.setJdbcUrl(prop.getProperty("url"));
-			config.setLazyInit(true);
-			config.setUsername(prop.getProperty("user"));
-			config.setPassword(prop.getProperty("pwd"));
-			config.setMinConnectionsPerPartition(1);
-			config.setMaxConnectionsPerPartition(5);
-			config.setPartitionCount(2);
-			connectionPool = new BoneCP(config);
-		} catch (IOException | ClassNotFoundException | SQLException e) {
-			logger.error("Error on ConnectionFactory constructor");
-			throw new ConnectionException();
-		}
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 	public Connection getConnection() {
+		logger.info("In getConnection");
 		try {
 			if (CONNECTION.get() == null || CONNECTION.get().isClosed()) {
-				CONNECTION.set(connectionPool.getConnection());
+				ApplicationContext context = new ClassPathXmlApplicationContext(
+						"classpath:application-context.xml");
+				dataSource = (DataSource) context.getBean("dataSource");
+				Connection c = dataSource.getConnection();
+				if (c == null) {
+					System.out.println("NULL");
+				}
+				CONNECTION.set(c);
 			}
 			return CONNECTION.get();
 		} catch (SQLException e) {

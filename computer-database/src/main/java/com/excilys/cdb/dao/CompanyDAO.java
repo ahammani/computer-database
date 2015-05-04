@@ -16,10 +16,11 @@ import com.excilys.cdb.model.Company;
 public enum CompanyDAO implements IDAO<Company> {
 	INSTANCE;
 	private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
+	private static ConnectionFactory connectionFactory = new ConnectionFactory();
 
 	@Override
 	public Company find(long id) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -32,13 +33,13 @@ public enum CompanyDAO implements IDAO<Company> {
 			logger.error("Error on find with ID={}", id);
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state, result);
+			connectionFactory.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public List<Company> findAll() {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		List<Company> l = new ArrayList<>();
 		try {
@@ -57,14 +58,14 @@ public enum CompanyDAO implements IDAO<Company> {
 			logger.error("Error on findAll !");
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state);
+			connectionFactory.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void delete(long company_id) throws SQLException {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		state = connect.prepareStatement("DELETE FROM company WHERE id=?");
 		state.setLong(1, company_id);

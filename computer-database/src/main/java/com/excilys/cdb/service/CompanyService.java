@@ -14,6 +14,7 @@ import com.excilys.cdb.model.Company;
 
 public enum CompanyService implements ICompanyService {
 	INSTANCE;
+	private static ConnectionFactory connectionFactory = new ConnectionFactory();
 	Logger logger = LoggerFactory.getLogger(CompanyService.class);
 
 	@Override
@@ -29,17 +30,17 @@ public enum CompanyService implements ICompanyService {
 	@Override
 	public void deleteCompany(long company_id) {
 		try {
-			ConnectionFactory.INSTANCE.startTransaction();
+			connectionFactory.startTransaction();
 			ComputerDAO.INSTANCE.deleteByCompany(company_id);
 			CompanyDAO.INSTANCE.delete(company_id);
-			ConnectionFactory.INSTANCE.commit();
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFactory.commit();
+			connectionFactory.closeConnection();
 		} catch (SQLException e) {
-			ConnectionFactory.INSTANCE.rollback();
+			connectionFactory.rollback();
 			logger.error("deleteCompany on CompanyService error !");
 			throw new ServiceException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFactory.closeConnection();
 		}
 
 	}

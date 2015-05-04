@@ -9,8 +9,11 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
@@ -19,11 +22,13 @@ import com.excilys.cdb.model.Computer;
 public enum ComputerDAO implements IDAO<Computer> {
 	INSTANCE;
 
+	private static ConnectionFactory connectionFactory = new ConnectionFactory();
+
 	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	public int count() {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		Statement state = null;
 		ResultSet result = null;
 		try {
@@ -49,12 +54,12 @@ public enum ComputerDAO implements IDAO<Computer> {
 			} catch (SQLException e) {
 				throw new DAOException(e);
 			}
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFactory.closeConnection();
 		}
 	}
 
 	public int count(String search) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -74,13 +79,13 @@ public enum ComputerDAO implements IDAO<Computer> {
 			logger.error("Error on search count !");
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state, result);
+			connectionFactory.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public int create(Computer obj) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		try {
 			long id_company;
@@ -121,14 +126,14 @@ public enum ComputerDAO implements IDAO<Computer> {
 			logger.error("Error on create OBJ : {}", obj.toString());
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state);
+			connectionFactory.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void delete(long id) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		try {
 			state = connect.prepareStatement("DELETE FROM computer WHERE id=?");
@@ -139,14 +144,14 @@ public enum ComputerDAO implements IDAO<Computer> {
 			logger.error("Error on delete with id={} !", id);
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state);
+			connectionFactory.closeConnection(state);
 		}
 
 	}
 
 	@Override
 	public void update(Computer obj) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		try {
 			String name = obj.getName();
@@ -178,13 +183,13 @@ public enum ComputerDAO implements IDAO<Computer> {
 					obj.getDiscontinued());
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state);
+			connectionFactory.closeConnection(state);
 		}
 	}
 
 	@Override
 	public Computer find(long id) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -198,13 +203,13 @@ public enum ComputerDAO implements IDAO<Computer> {
 			logger.error("Error on computer with id {} !", id);
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state, result);
+			connectionFactory.closeConnection(state, result);
 		}
 	}
 
 	@Override
 	public List<Computer> findAll() {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -217,15 +222,15 @@ public enum ComputerDAO implements IDAO<Computer> {
 			logger.error("Error on findAll !");
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state, result);
+			connectionFactory.closeConnection(state, result);
 		}
 
 	}
 
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
-
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		logger.debug("In ComputerDAO.findAll");
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		if (field_order.isEmpty())
@@ -247,13 +252,13 @@ public enum ComputerDAO implements IDAO<Computer> {
 					field_order, order);
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state, result);
+			connectionFactory.closeConnection(state, result);
 		}
 	}
 
 	public List<Computer> findAll(String search, int offset, int limit,
 			String field_order, String order) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		if (field_order.isEmpty())
@@ -279,7 +284,7 @@ public enum ComputerDAO implements IDAO<Computer> {
 					search, field_order, order);
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state, result);
+			connectionFactory.closeConnection(state, result);
 		}
 	}
 
@@ -290,7 +295,7 @@ public enum ComputerDAO implements IDAO<Computer> {
 	 * @return
 	 */
 	public List<Computer> findAllCompany(long company_id) {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;
 		try {
@@ -303,12 +308,12 @@ public enum ComputerDAO implements IDAO<Computer> {
 					company_id);
 			throw new DAOException(e);
 		} finally {
-			ConnectionFactory.INSTANCE.closeConnection(state, result);
+			connectionFactory.closeConnection(state, result);
 		}
 	}
 
 	public void deleteByCompany(long company_id) throws SQLException {
-		Connection connect = ConnectionFactory.INSTANCE.getConnection();
+		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		state = connect
 				.prepareStatement("DELETE FROM computer WHERE company_id=?");
