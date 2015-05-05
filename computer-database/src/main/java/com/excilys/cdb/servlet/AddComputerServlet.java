@@ -21,7 +21,7 @@ import com.excilys.cdb.service.ComputerService;
  * Servlet implementation class AddComputer
  */
 @WebServlet("/AddComputerServlet")
-public class AddComputerServlet extends HttpServlet {
+public class AddComputerServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private CompanyService companyService;

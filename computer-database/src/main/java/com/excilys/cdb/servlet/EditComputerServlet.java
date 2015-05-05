@@ -22,7 +22,7 @@ import com.excilys.cdb.utils.Utils;
  * Servlet implementation class EditComputerServlet
  */
 @WebServlet("/EditComputerServlet")
-public class EditComputerServlet extends HttpServlet {
+public class EditComputerServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
 	private static ComputerService computerService = new ComputerService();// ComputerService.INSTANCE;
 	private static CompanyService companyService = new CompanyService();// CompanyService.INSTANCE;

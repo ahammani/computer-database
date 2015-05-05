@@ -7,6 +7,19 @@
 	<welcome-file-list>
 		<welcome-file>DashboardServlet</welcome-file>
 	</welcome-file-list>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	
+	<listener>
+   		<listener-class>
+        	org.springframework.web.context.ContextLoaderListener
+  	 	</listener-class>
+	</listener> 
+	
+	
 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/404.jsp</location>
@@ -20,14 +33,6 @@
 		<location>/WEB-INF/views/403.jsp</location>
 	</error-page>
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/application-context.xml</param-value>
-	</context-param>
 	
-<!-- 	<listener> -->
-<!--    		<listener-class> -->
-<!--         	org.springframework.web.context.ContextLoaderListener -->
-<!--   	 	</listener-class> -->
-<!-- 	</listener>  -->
+
 </web-app>

@@ -1,8 +1,6 @@
 package com.excilys.cdb.servlet;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.page.Page;
@@ -23,10 +19,10 @@ import com.excilys.cdb.service.ComputerService;
  * Servlet implementation class CDBServlet
  */
 @WebServlet("/DashboardServlet")
-public class DashBoardServlet extends HttpServlet {
+public class DashBoardServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	private ComputerService computerService;// ComputerService.INSTANCE;
+	private ComputerService computerService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

@@ -230,7 +230,6 @@ public class ComputerDAO implements IDAO<Computer> {
 
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
-		System.out.println("In ComputerDAO.findAll");
 		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
 		ResultSet result = null;

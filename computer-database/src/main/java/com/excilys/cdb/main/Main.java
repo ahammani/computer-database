@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.service.CompanyService;
@@ -14,19 +15,21 @@ import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.ui.*;
 import com.excilys.cdb.utils.Utils;
 
+@Component
 public class Main {
 	public static CLI cli = new CLI();
 	public static Scanner sc = new Scanner(System.in);
+	@Autowired
 	public static ComputerService computerService;
+	@Autowired
 	public static CompanyService companyService;
 
 	public static ClassPathXmlApplicationContext context;
 	static {
 		context = new ClassPathXmlApplicationContext(
-				"classpath:application-context.xml");
+				"classpath:applicationContext.xml");
 		computerService = context.getBean(ComputerService.class);
 		companyService = context.getBean(CompanyService.class);
-		System.out.println(computerService.toString());
 	}
 	public static final ICommand[] actions = { new CompanyListCommand(),
 			new ComputerListCommand(), new PageableComputerListCommand(10),
