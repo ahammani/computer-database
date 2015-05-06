@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.cdb.mapper.TimeMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -19,7 +21,6 @@ import com.excilys.cdb.utils.Utils;
  *
  */
 public class UtilsServlet {
-	private static CompanyService companyService = new CompanyService();
 
 	private static boolean checkDate(String s) {
 		return Utils.checkDate(s) || (s == "");
@@ -33,7 +34,8 @@ public class UtilsServlet {
 		return Utils.isNumber(companyId) || (companyId == "");
 	}
 
-	public static Computer toComputer(HttpServletRequest request) {
+	public static Computer toComputer(HttpServletRequest request,
+			CompanyService companyService) {
 		String computerName = request.getParameter("computerName");
 		String introduced = request.getParameter("introduced");
 		String discontinued = request.getParameter("discontinued");

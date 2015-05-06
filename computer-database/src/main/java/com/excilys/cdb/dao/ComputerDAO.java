@@ -10,10 +10,15 @@ import java.sql.Types;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,266 +32,137 @@ public class ComputerDAO implements IDAO<Computer> {
 	private ConnectionFactory connectionFactory;
 
 	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
+	private static final String FIND_ALL_COMPANY = FIND_ALL
+			+ " WHERE company_id=?";
+	private static final String COUNT = "SELECT COUNT(*) FROM computer";
+	private static final String COUNT_SEARCH = "SELECT COUNT(*) FROM computer LEFT OUTER JOIN company on computer.company_id=company.id"
+			+ " WHERE computer.name LIKE ? OR company.name LIKE ?";
+	private static final String DELETE = "DELETE FROM computer WHERE id=?";
+	private static final String FIND = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id WHERE computer.id=?";
+	private static final String UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
+	private static final String INSERT = "INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)";
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
+	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
 	public int count() {
-		Connection connect = connectionFactory.getConnection();
-		Statement state = null;
-		ResultSet result = null;
-		try {
-			state = connect.createStatement();
-			result = state.executeQuery("SELECT COUNT(*) FROM computer");
-			if (result.next()) {
-				int res = result.getInt("COUNT(*)");
-				logger.debug("Count done. {} computers found", res);
-				return res;
-			} else
-				return 0;
-		} catch (SQLException e) {
-			logger.error("Error on count !");
-			throw new DAOException(e);
-		} finally {
-			try {
-				if (state != null) {
-					state.close();
-				}
-				if (result != null) {
-					result.close();
-				}
-			} catch (SQLException e) {
-				throw new DAOException(e);
-			}
-			connectionFactory.closeConnection();
-		}
+		return this.jdbcTemplate.queryForObject(COUNT, Integer.class);
 	}
 
 	public int count(String search) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		ResultSet result = null;
-		try {
-			state = connect
-					.prepareStatement("SELECT COUNT(*) FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id"
-							+ " WHERE computer.name LIKE ? OR company.name LIKE ? ");
-			state.setString(1, "%" + search + "%");
-			state.setString(2, "%" + search + "%");
-			result = state.executeQuery();
-			if (result.next()) {
-				int res = result.getInt("COUNT(*)");
-				logger.debug("Count(search) done. {} computers found", res);
-				return res;
-			}
-			return 0;
-		} catch (SQLException e) {
-			logger.error("Error on search count !");
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state, result);
-		}
+		return this.jdbcTemplate.queryForObject(COUNT_SEARCH, Integer.class,
+				"%" + search + "%", "%" + search + "%");
 	}
 
 	@Override
 	public int create(Computer obj) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		try {
-			long id_company;
-			String name = obj.getName();
-			Timestamp introduced = SQLMapper.localdateToTimestamp(obj
-					.getIntroduced());
-			Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
-					.getDiscontinued());
-			Company company = obj.getCompany();
+		long id_company;
+		String name = obj.getName();
+		Timestamp introduced = SQLMapper.localdateToTimestamp(obj
+				.getIntroduced());
+		Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
+				.getDiscontinued());
+		Company company = obj.getCompany();
 
-			if (company != null)
-				id_company = company.getId();
-			else
-				id_company = 0;
-
-			state = connect
-					.prepareStatement(
-							"INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)",
-							Statement.RETURN_GENERATED_KEYS);
-			state.setString(1, name);
-			state.setTimestamp(2, introduced);
-			state.setTimestamp(3, discontinued);
-			if (id_company == 0) {
-				state.setNull(4, Types.NULL);
-			} else {
-				state.setLong(4, id_company);
+		if (company != null)
+			id_company = company.getId();
+		else
+			id_company = 0;
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		return this.jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(
+					Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(INSERT,
+						Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, name);
+				ps.setTimestamp(2, introduced);
+				ps.setTimestamp(3, discontinued);
+				if (id_company == 0) {
+					ps.setNull(4, Types.NULL);
+				} else {
+					ps.setLong(4, id_company);
+				}
+				return ps;
 			}
-			state.executeUpdate();
-
-			ResultSet rs = state.getGeneratedKeys();
-			if (rs.next()) {
-				int res = rs.getInt(1);
-				logger.debug("Creation done. computer's id {} ", res);
-				return res;
-			}
-			return -1;
-		} catch (SQLException e) {
-			logger.error("Error on create OBJ : {}", obj.toString());
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state);
-		}
-
+		}, keyHolder);
 	}
 
 	@Override
 	public void delete(long id) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		try {
-			state = connect.prepareStatement("DELETE FROM computer WHERE id=?");
-			state.setLong(1, id);
-			state.executeUpdate();
-			logger.debug("Deletion done.Computers'id deleted :{}", id);
-		} catch (SQLException e) {
-			logger.error("Error on delete with id={} !", id);
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state);
-		}
-
+		this.jdbcTemplate.update(DELETE, id);
 	}
 
 	@Override
 	public void update(Computer obj) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		try {
-			String name = obj.getName();
-			Timestamp introduced = SQLMapper.localdateToTimestamp(obj
-					.getIntroduced());
-			Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
-					.getDiscontinued());
-			Company company = obj.getCompany();
-			long id_company = company.getId();
-			long id = obj.getId();
+		String name = obj.getName();
+		Timestamp introduced = SQLMapper.localdateToTimestamp(obj
+				.getIntroduced());
+		Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
+				.getDiscontinued());
+		Company company = obj.getCompany();
+		long id_company;
+		long id = obj.getId();
+		if (company != null)
+			id_company = company.getId();
+		else
+			id_company = 0;
 
-			state = connect
-					.prepareStatement("UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?");
-			state.setString(1, name);
-			state.setTimestamp(2, introduced);
-			state.setTimestamp(3, discontinued);
-			if (id_company == 0)
-				state.setNull(4, Types.NULL);
-			else
-				state.setLong(4, id_company);
-			state.setLong(5, id);
-			state.executeUpdate();
-			logger.debug(
-					"Computer update done.ID:{} NAME:{} INTRO:{} DIS:{} ID_COMPANY:{}",
-					id, name, introduced, discontinued, id_company);
-		} catch (SQLException e) {
-			logger.error("Error on update  with ID:{} NAME:{} INTRO:{} DIS:{}",
-					obj.getId(), obj.getName(), obj.getIntroduced(),
-					obj.getDiscontinued());
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state);
-		}
+		this.jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(
+					Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(UPDATE);
+				ps.setString(1, name);
+				ps.setTimestamp(2, introduced);
+				ps.setTimestamp(3, discontinued);
+				if (id_company == 0) {
+					ps.setNull(4, Types.NULL);
+				} else {
+					ps.setLong(4, id_company);
+				}
+				ps.setLong(5, id);
+				return ps;
+			}
+		});
 	}
 
 	@Override
 	public Computer find(long id) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		ResultSet result = null;
-		try {
-			state = connect
-					.prepareStatement("SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id WHERE computer.id=?");
-			state.setLong(1, id);
-			result = state.executeQuery();
-			logger.debug("Computer with id {} found", id);
-			return SQLMapper.resultSetToComputer(result);
-		} catch (SQLException e) {
-			logger.error("Error on computer with id {} !", id);
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state, result);
-		}
+		return this.jdbcTemplate.queryForObject(FIND, new ComputerMapper(), id);
 	}
 
 	@Override
 	public List<Computer> findAll() {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		ResultSet result = null;
-		try {
-			state = connect.prepareStatement(FIND_ALL);
-			result = state.executeQuery();
-
-			logger.debug("FindAll done.");
-			return SQLMapper.getComputers(result);
-		} catch (SQLException e) {
-			logger.error("Error on findAll !");
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state, result);
-		}
-
+		return this.jdbcTemplate.query(FIND_ALL, new ComputerMapper());
 	}
 
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		ResultSet result = null;
-		if (field_order.isEmpty())
-			field_order = "c_id";
-		if (order.isEmpty())
-			order = "ASC";
-
-		try {
-			state = connect.prepareStatement(FIND_ALL + " ORDER BY "
-					+ field_order + " " + order + " LIMIT ? OFFSET ? ");
-			state.setInt(1, limit);
-			state.setInt(2, offset);
-			result = state.executeQuery();
-			logger.debug("FindAll with FIELD=" + field_order + " ORDER="
-					+ order + " done.");
-			return SQLMapper.getComputers(result);
-		} catch (SQLException e) {
-			logger.error("Error on findAll with FIELD={} ORDER={} !",
-					field_order, order);
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state, result);
-		}
+		String sql = FIND_ALL + " ORDER BY "
+				+ ((field_order.isEmpty()) ? "c_id" : field_order) + " "
+				+ ((order.isEmpty()) ? "ASC" : order) + " LIMIT ? OFFSET ? ";
+		return this.jdbcTemplate.query(sql, new Object[] { limit, offset },
+				new ComputerMapper());
 	}
 
 	public List<Computer> findAll(String search, int offset, int limit,
 			String field_order, String order) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		ResultSet result = null;
 		if (field_order.isEmpty())
 			field_order = "c_id";
 		if (order.isEmpty())
 			order = "ASC";
-		try {
-			state = connect.prepareStatement(FIND_ALL
-					+ " WHERE computer.name LIKE ? OR company.name LIKE ? "
-					+ "  ORDER BY " + field_order + " " + order
-					+ " LIMIT ?  OFFSET ? ");
-			state.setString(1, "%" + search + "%");
-			state.setString(2, "%" + search + "%");
-			state.setInt(3, limit);
-			state.setInt(4, offset);
-			result = state.executeQuery();
-			logger.debug("FindAll with SEARCH={} FIELD={} ORDER={} done.",
-					search, field_order, order);
-			return SQLMapper.getComputers(result);
-		} catch (SQLException e) {
-			logger.error(
-					"Error on findAll(search) with SEARCH= {} FIELD={} ORDER={} !",
-					search, field_order, order);
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state, result);
-		}
+
+		String sql = FIND_ALL
+				+ " WHERE computer.name LIKE ? OR company.name LIKE ? "
+				+ "  ORDER BY " + field_order + " " + order
+				+ " LIMIT ?  OFFSET ? ";
+
+		return this.jdbcTemplate.query(sql, new Object[] { "%" + search + "%",
+				"%" + search + "%", limit, offset }, new ComputerMapper());
+
 	}
 
 	/**
@@ -296,37 +172,11 @@ public class ComputerDAO implements IDAO<Computer> {
 	 * @return
 	 */
 	public List<Computer> findAllCompany(long company_id) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		ResultSet result = null;
-		try {
-			state = connect.prepareStatement(FIND_ALL + " WHERE company_id=?");
-			state.setLong(1, company_id);
-			result = state.executeQuery();
-			return SQLMapper.getComputers(result);
-		} catch (SQLException e) {
-			logger.error("Error on findAlCompanyl with company_id={} !",
-					company_id);
-			throw new DAOException(e);
-		} finally {
-			connectionFactory.closeConnection(state, result);
-		}
+		return this.jdbcTemplate.query(FIND_ALL_COMPANY, new ComputerMapper(),
+				company_id);
 	}
 
 	public void deleteByCompany(long company_id) {
-		Connection connect = connectionFactory.getConnection();
-		PreparedStatement state = null;
-		try {
-			state = connect
-					.prepareStatement("DELETE FROM computer WHERE company_id=?");
-
-			state.setLong(1, company_id);
-			state.executeUpdate();
-			if (state != null)
-				state.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new DAOException(e);
-		}
+		this.jdbcTemplate.update(DELETE, company_id);
 	}
 }

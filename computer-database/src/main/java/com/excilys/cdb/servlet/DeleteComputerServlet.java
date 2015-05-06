@@ -20,7 +20,7 @@ import com.excilys.cdb.utils.Utils;
 public class DeleteComputerServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	private static ComputerService computerService = new ComputerService();
+	private ComputerService computerService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

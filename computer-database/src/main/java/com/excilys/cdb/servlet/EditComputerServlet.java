@@ -27,9 +27,9 @@ import com.excilys.cdb.utils.Utils;
 public class EditComputerServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
 	@Autowired
-	private static ComputerService computerService = new ComputerService();
+	private ComputerService computerService;
 	@Autowired
-	private static CompanyService companyService = new CompanyService();
+	private CompanyService companyService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -67,7 +67,7 @@ public class EditComputerServlet extends AbstractServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Computer computer = UtilsServlet.toComputer(request);
+		Computer computer = UtilsServlet.toComputer(request, companyService);
 		if (computer != null) {
 			computerService.updateComputer(computer);
 		}

@@ -55,7 +55,7 @@ public class AddComputerServlet extends AbstractServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Computer computer = UtilsServlet.toComputer(request);
+		Computer computer = UtilsServlet.toComputer(request, companyService);
 		if (computer != null) {
 			computerService.addComputer(computer);
 			response.sendRedirect("DashboardServlet");

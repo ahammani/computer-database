@@ -35,14 +35,6 @@ public class ConnectionFactory {
 		return DataSourceUtils.getConnection(dataSource);
 	}
 
-	public void closeConnection() {
-		try {
-			getConnection().close();
-		} catch (SQLException e) {
-			throw new ConnectionException();
-		}
-	}
-
 	public void closeConnection(PreparedStatement p) {
 		try {
 			if (p != null)
@@ -51,7 +43,6 @@ public class ConnectionFactory {
 			logger.error("SQLError on closeConnection with preparedStatement");
 			throw new ConnectionException();
 		}
-		closeConnection();
 	}
 
 	public void closeConnection(PreparedStatement p, ResultSet r) {

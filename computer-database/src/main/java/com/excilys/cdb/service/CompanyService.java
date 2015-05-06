@@ -46,26 +46,8 @@ public class CompanyService implements ICompanyService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void deleteCompany(long company_id) {
-		// try {
-		// // connectionFactory.startTransaction();
-		// computerDAO.deleteByCompany(company_id);
-		// throw new SQLException();
-		// // companyDAO.delete(company_id);
-		// // connectionFactory.commit();
-		// // connectionFactory.closeConnection();
-		// } catch (SQLException e) {
-		// // connectionFactory.rollback();
-		// TransactionAspectSupport.currentTransactionStatus()
-		// .setRollbackOnly();
-		// logger.error("deleteCompany on CompanyService error !");
-		// // throw new ServiceException(e);
-		// } finally {
-		// connectionFactory.closeConnection();
-		// }
-
 		computerDAO.deleteByCompany(company_id);
 		companyDAO.delete(company_id);
-		// connectionFactory.closeConnection();
 	}
 
 }
