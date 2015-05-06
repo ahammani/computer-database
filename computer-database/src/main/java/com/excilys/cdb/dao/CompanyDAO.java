@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 
@@ -67,14 +66,18 @@ public class CompanyDAO implements IDAO<Company> {
 	}
 
 	@Override
-	public void delete(long company_id) throws SQLException {
+	public void delete(long company_id) {
 		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
-		state = connect.prepareStatement("DELETE FROM company WHERE id=?");
-		state.setLong(1, company_id);
-		state.executeUpdate();
-		if (state != null)
-			state.close();
+		try {
+			state = connect.prepareStatement("DELETE FROM company WHERE id=?");
+			state.setLong(1, company_id);
+			state.executeUpdate();
+			if (state != null)
+				state.close();
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
 
 	}
 

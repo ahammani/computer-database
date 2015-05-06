@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -24,8 +26,10 @@ import com.excilys.cdb.utils.Utils;
 @WebServlet("/EditComputerServlet")
 public class EditComputerServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerService computerService = new ComputerService();// ComputerService.INSTANCE;
-	private static CompanyService companyService = new CompanyService();// CompanyService.INSTANCE;
+	@Autowired
+	private static ComputerService computerService = new ComputerService();
+	@Autowired
+	private static CompanyService companyService = new CompanyService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()

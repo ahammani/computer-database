@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.Utils;
 
@@ -17,7 +19,8 @@ import com.excilys.cdb.utils.Utils;
 @WebServlet("/DeleteComputerServlet")
 public class DeleteComputerServlet extends AbstractServlet {
 	private static final long serialVersionUID = 1L;
-	private static ComputerService computerService = new ComputerService();// ComputerService.INSTANCE;
+	@Autowired
+	private static ComputerService computerService = new ComputerService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()

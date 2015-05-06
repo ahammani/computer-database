@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
@@ -312,14 +313,20 @@ public class ComputerDAO implements IDAO<Computer> {
 		}
 	}
 
-	public void deleteByCompany(long company_id) throws SQLException {
+	public void deleteByCompany(long company_id) {
 		Connection connect = connectionFactory.getConnection();
 		PreparedStatement state = null;
-		state = connect
-				.prepareStatement("DELETE FROM computer WHERE company_id=?");
-		state.setLong(1, company_id);
-		state.executeUpdate();
-		if (state != null)
-			state.close();
+		try {
+			state = connect
+					.prepareStatement("DELETE FROM computer WHERE company_id=?");
+
+			state.setLong(1, company_id);
+			state.executeUpdate();
+			if (state != null)
+				state.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}
 	}
 }

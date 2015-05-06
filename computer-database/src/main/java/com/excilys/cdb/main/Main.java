@@ -2,34 +2,37 @@ package com.excilys.cdb.main;
 
 import java.util.Scanner;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.cdb.service.CompanyService;
-import com.excilys.cdb.service.ComputerService;
-import com.excilys.cdb.ui.*;
+import com.excilys.cdb.service.ICompanyService;
+import com.excilys.cdb.service.IComputerService;
+import com.excilys.cdb.ui.AddComputerCommand;
+import com.excilys.cdb.ui.CLI;
+import com.excilys.cdb.ui.CompanyListCommand;
+import com.excilys.cdb.ui.ComputerDetailsCommand;
+import com.excilys.cdb.ui.ComputerListCommand;
+import com.excilys.cdb.ui.DeleteCompanyCommand;
+import com.excilys.cdb.ui.DeleteComputerCommand;
+import com.excilys.cdb.ui.ExitCommand;
+import com.excilys.cdb.ui.ICommand;
+import com.excilys.cdb.ui.PageableComputerListCommand;
+import com.excilys.cdb.ui.UpdateComputerCommand;
 import com.excilys.cdb.utils.Utils;
 
-@Component
+@Transactional
 public class Main {
 	public static CLI cli = new CLI();
 	public static Scanner sc = new Scanner(System.in);
-	@Autowired
-	public static ComputerService computerService;
-	@Autowired
-	public static CompanyService companyService;
+	public static IComputerService computerService;
+	public static ICompanyService companyService;
 
 	public static ClassPathXmlApplicationContext context;
 	static {
 		context = new ClassPathXmlApplicationContext(
 				"classpath:applicationContext.xml");
-		computerService = context.getBean(ComputerService.class);
-		companyService = context.getBean(CompanyService.class);
+		computerService = context.getBean(IComputerService.class);
+		companyService = context.getBean(ICompanyService.class);
 	}
 	public static final ICommand[] actions = { new CompanyListCommand(),
 			new ComputerListCommand(), new PageableComputerListCommand(10),
