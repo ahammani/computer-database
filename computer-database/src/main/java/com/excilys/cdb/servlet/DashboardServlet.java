@@ -1,12 +1,5 @@
 package com.excilys.cdb.servlet;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +11,6 @@ import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.ComputerService;
 
-/**
- * Servlet implementation class CDBServlet
- */
 @RequestMapping({ "/dashboard", "/" })
 @Controller
 public class DashboardServlet {
@@ -34,7 +24,7 @@ public class DashboardServlet {
 	@RequestMapping(method = RequestMethod.GET)
 	public String doGet(
 			@RequestParam(value = "page", required = false) String page,
-			@RequestParam(value = "lim", required = false) String lim,
+			@RequestParam(value = "limit", required = false) String lim,
 			@RequestParam(value = "search", required = false) String search,
 			@RequestParam(value = "field", required = false) String field,
 			@RequestParam(value = "order", required = false) String order,
@@ -53,15 +43,6 @@ public class DashboardServlet {
 		pages.setMaxPages(pages.getMaxComputers());
 		model.addAttribute("pages", pages);
 		return "dashboard";
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@RequestMapping(method = RequestMethod.POST)
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

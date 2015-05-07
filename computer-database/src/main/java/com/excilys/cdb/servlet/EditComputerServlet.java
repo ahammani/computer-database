@@ -2,11 +2,10 @@ package com.excilys.cdb.servlet;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,8 +46,8 @@ public class EditComputerServlet {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	protected String doPost(HttpServletRequest request) {
-		Computer computer = UtilsServlet.toComputer(request, companyService);
+	protected String doPost(@ModelAttribute ComputerDTO computerDTO) {
+		Computer computer = DTOMapper.toComputer(computerDTO, companyService);
 		if (computer != null) {
 			computerService.updateComputer(computer);
 		}

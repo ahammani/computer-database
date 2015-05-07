@@ -1,12 +1,21 @@
 package com.excilys.cdb.servlet.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class ComputerDTO {
+	@NotNull(message = "Name requiered")
 	private String name = "";
 	private String introduced = "";
 	private String discontinued = "";
+	@Min(0)
 	private long id = 0;
-	private long company_id = 0;
-	private String company_name = "";
+	private long companyId = 0;
+	private String companyName = "";
+
+	public ComputerDTO() {
+
+	}
 
 	public ComputerDTO(String name, String introduced, String discontinued,
 			long id, long company_id, String company_name) {
@@ -15,8 +24,8 @@ public class ComputerDTO {
 		this.introduced = (introduced != null) ? introduced : "";
 		this.discontinued = (discontinued != null) ? discontinued : "";
 		this.id = id;
-		this.company_id = company_id;
-		this.company_name = (company_name != null) ? company_name : "";
+		this.companyId = company_id;
+		this.companyName = (company_name != null) ? company_name : "";
 	}
 
 	public String getName() {
@@ -24,6 +33,11 @@ public class ComputerDTO {
 	}
 
 	public void setName(String name) {
+		if (name != null)
+			this.name = name;
+	}
+
+	public void setcomputerName(String name) {
 		if (name != null)
 			this.name = name;
 	}
@@ -53,21 +67,21 @@ public class ComputerDTO {
 			this.id = id;
 	}
 
-	public long getCompany_id() {
-		return company_id;
+	public long getCompanyId() {
+		return companyId;
 	}
 
-	public void setCompany_id(long company_id) {
+	public void setCompanyId(long company_id) {
 		if (company_id > 0)
-			this.company_id = company_id;
+			this.companyId = company_id;
 	}
 
-	public String getCompany_name() {
-		return company_name;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setCompany_name(String company_name) {
-		this.company_name = company_name;
+	public void setCompanyName(String company_name) {
+		this.companyName = company_name;
 	}
 
 }

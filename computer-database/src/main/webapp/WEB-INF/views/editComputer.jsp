@@ -36,10 +36,10 @@
 							<div class="form-group">
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="companyId">
-									<option value="${computer.company_id}">${computer.company_name}</option>
+									<option value="${computer.companyId}">${computer.companyName}</option>
 									<option value="0">--</option>
 									<c:forEach items="${companies}" var="company">
-										<c:if test="${company.name != computer.company_name }">
+										<c:if test="${company.name != computer.companyName }">
 											<option value="${company.id}">${company.name}</option>
 										</c:if>
 									</c:forEach>

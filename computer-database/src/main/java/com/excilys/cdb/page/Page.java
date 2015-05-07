@@ -16,31 +16,43 @@ import com.excilys.cdb.utils.Utils;
  *
  */
 public class Page {
-	private static final List<String> fields = Arrays.asList("c_name",
-			"introduced", "discontinued", "name");
-	private static final List<String> orders = Arrays.asList("asc", "desc");
+	private List<String> fields = Arrays.asList("c_name", "introduced",
+			"discontinued", "name");
+	private List<String> orders = Arrays.asList("asc", "desc");
 
 	private String tmpPage;
-	private int page = 1;
+	private int page;
+
 	private String tmpLimit;
-	private int limit = 3;
-	private static final int MAX_LIMIT = 100;
-	private int offset = 0;
-	private int maxPages = 1;
+	private int limit;
+
+	private int offset;
+	private int maxPages;
+
 	private List<ComputerDTO> computers = new ArrayList<ComputerDTO>();
-	private int maxComputers = 0;
-	private String search = "";
-	private String field_order = "";
-	private String order = "asc";
+
+	private int maxComputers;
+	private String search;
+	private String field_order;
+	private String order;
 
 	public Page() {
-
+		this(1, 3, "", "", "asc");
 	}
 
 	public Page(int number, int limit) {
 		super();
 		this.page = number;
 		this.limit = limit;
+	}
+
+	public Page(int number, int lim, String search, String field_order,
+			String order) {
+		this.page = number;
+		this.limit = lim;
+		this.search = search;
+		this.field_order = field_order;
+		this.order = order;
 	}
 
 	public Page(String number, String lim, String search, String field_order,
@@ -142,7 +154,6 @@ public class Page {
 	public void validate() {
 		this.page = Utils.stringToInt(tmpPage, 1);
 		this.limit = Utils.stringToInt(tmpLimit, 3);
-		this.limit = (limit > MAX_LIMIT) ? MAX_LIMIT : limit;
 		this.offset = (this.page - 1) * this.limit;
 		this.offset = (offset < 0) ? 0 : offset;
 
@@ -155,6 +166,38 @@ public class Page {
 		if (search == null) {
 			search = "";
 		}
+	}
+
+	public List<String> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<String> fields) {
+		this.fields = fields;
+	}
+
+	public List<String> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<String> orders) {
+		this.orders = orders;
+	}
+
+	public String getTmpPage() {
+		return tmpPage;
+	}
+
+	public void setTmpPage(String tmpPage) {
+		this.tmpPage = tmpPage;
+	}
+
+	public String getTmpLimit() {
+		return tmpLimit;
+	}
+
+	public void setTmpLimit(String tmpLimit) {
+		this.tmpLimit = tmpLimit;
 	}
 
 	@Override
