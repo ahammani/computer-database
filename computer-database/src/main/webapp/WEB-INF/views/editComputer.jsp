@@ -14,7 +14,7 @@
 						${computer.id}</div>
 					<h1>Edit Computer</h1>
 
-					<form  id="addComputerForm" action="EditComputerServlet" method="POST">
+					<form  id="addComputerForm" action="editComputer" method="POST">
 						<input type="hidden" value="${computer.id}" name="id" />
 						<fieldset>
 							<div class="form-group">
@@ -48,7 +48,7 @@
 						</fieldset>
 						<div class="actions pull-right">
 							<input type="submit" value="Edit" class="btn btn-primary">
-							or <a href="DashboardServlet" class="btn btn-default">Cancel</a>
+							or <a href="dashboard" class="btn btn-default">Cancel</a>
 						</div>
 					</form>
 				</div>

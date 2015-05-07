@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1>Add Computer</h1>
-					<form id="addComputerForm" action="AddComputerServlet" method="POST">
+					<form id="addComputerForm" action="addComputer" method="POST">
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
@@ -41,7 +41,7 @@
 						</fieldset>
 						<div class="actions pull-right">
 							<input type="submit" value="Add" class="btn btn-primary">
-							or <a href="DashboardServlet" class="btn btn-default">Cancel</a>
+							or <a href="dashboard" class="btn btn-default">Cancel</a>
 						</div>
 					</form>
 				</div>

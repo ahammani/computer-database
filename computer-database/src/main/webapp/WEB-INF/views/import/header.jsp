@@ -6,7 +6,7 @@
 
 <header class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
-		<a class="navbar-brand" href="${root}/DashboardServlet"> Application -
+		<a class="navbar-brand" href="${root}/dashboard"> Application -
 			Computer Database </a>
 	</div>
 </header>

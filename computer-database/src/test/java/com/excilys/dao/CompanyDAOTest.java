@@ -7,14 +7,21 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.excilys.cdb.dao.CompanyDAO;
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.service.CompanyService;
 import com.excilys.cdb.utils.ExecuteScript;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class CompanyDAOTest {
 	List<Company> expectedList;
-	CompanyService companyService = new CompanyService();
+	@Autowired
+	CompanyDAO companies;
 
 	@Before
 	public void prepare() {
@@ -28,9 +35,9 @@ public class CompanyDAOTest {
 	@Test
 	public void testFindAll() {
 
-		boolean isList = (companyService.getAll()) instanceof List<?>;
+		boolean isList = (companies.findAll()) instanceof List<?>;
 		assertTrue(isList);
-		List<Company> l = (companyService.getAll());
+		List<Company> l = (companies.findAll());
 		assertEquals(3, l.size());
 		assertTrue(expectedList.equals(l));
 		assertFalse(l.equals(null));

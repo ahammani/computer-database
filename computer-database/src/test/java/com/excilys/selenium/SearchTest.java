@@ -9,9 +9,12 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -19,6 +22,8 @@ import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class SearchTest {
 	private WebDriver driver;
 	private String baseUrl;

@@ -4,12 +4,15 @@ import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.*;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -17,6 +20,8 @@ import com.excilys.cdb.model.Computer.ComputerBuilder;
 import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class EditComputerTest {
 	private WebDriver driver;
 	private String baseUrl;

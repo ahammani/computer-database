@@ -12,7 +12,7 @@
 			<h1 id="homeTitle">${pages.maxComputers } computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="DashboardServlet?page='${pages.page}'&limit='${pages.limit}'&search='${search}'" method="GET" class="form-inline">
+					<form id="searchForm" action="dashboard?page='${pages.page}'&limit='${pages.limit}'&search='${search}'" method="GET" class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" /> <input
@@ -22,14 +22,14 @@
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer"
-						href="AddComputerServlet">Add Computer</a> <a
+						href="addComputer">Add Computer</a> <a
 						class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
 
-		<form id="deleteForm" action="DeleteComputerServlet" method="POST">
+		<form id="deleteForm" action="deleteComputer" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -49,24 +49,24 @@
 						</span></th>
 						<th>
 							Computer name
-							<mylib:link body="&uarr;" order="desc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						<th>
 							Introduced date	
-							<mylib:link body="&uarr;" order="desc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						
 						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date
-							<mylib:link body="&uarr;" order="desc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						<!-- Table header for Company -->
 						<th>Company
-							<mylib:link body="&uarr;" order="desc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="DashboardServlet"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 
 					</tr>
@@ -79,7 +79,7 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${computer.id}"></td>
-							<td><a href="EditComputerServlet?id=${computer.id}" onclick="">${computer.name}</a></td>
+							<td><a href="editComputer?id=${computer.id}" onclick="">${computer.name}</a></td>
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
 							<td>${computer.company_name}</td>

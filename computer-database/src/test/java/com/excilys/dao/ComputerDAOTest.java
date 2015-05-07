@@ -1,6 +1,8 @@
 package com.excilys.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,12 +10,19 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.excilys.cdb.model.*;
+import com.excilys.cdb.dao.ComputerDAO;
+import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.Computer.ComputerBuilder;
-import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.ExecuteScript;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class ComputerDAOTest {
 	List<Computer> expectedList;
 	Computer comp1;
@@ -22,7 +31,8 @@ public class ComputerDAOTest {
 	Company c1 = new Company(1, "Apple Inc.");
 	Company c2 = new Company(2, "Thinking Machines");
 	Company c3 = new Company(0, null);
-	ComputerService computers = new ComputerService();
+	@Autowired
+	ComputerDAO computers;
 
 	@Before
 	public void prepare() {
@@ -46,15 +56,24 @@ public class ComputerDAOTest {
 	@Test
 	public void testFind() {
 		Computer expected = comp1;
-		Computer actual = computers.getComputer(1);
+		if (computers == null)
+			System.out.println("NULL");
+		else
+			System.out.println("PAS NULL");
+		Computer actual = computers.find(1);
+		if (actual == null)
+			System.out.println("NULL");
+		else
+			System.out.println("PAS NULL");
+
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testFindAll() {
-		boolean isList = (computers.getAll()) instanceof List<?>;
+		boolean isList = (computers.findAll()) instanceof List<?>;
 		assertTrue(isList);
-		List<Computer> l = (computers.getAll());
+		List<Computer> l = (computers.findAll());
 		assertEquals(3, l.size());
 		assertTrue(expectedList.equals(l));
 	}
@@ -63,8 +82,8 @@ public class ComputerDAOTest {
 	public void testCreate() {
 		Computer expected = new ComputerBuilder("test").id(4)
 				.discontinued(LocalDate.of(2000, 01, 02)).company(c1).build();
-		int id = computers.addComputer(expected);
-		Computer actual = computers.getComputer(id);
+		computers.create(expected);
+		Computer actual = computers.find(4);
 		assertFalse(actual.equals(null));
 		assertEquals(expected, actual);
 	}

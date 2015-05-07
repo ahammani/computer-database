@@ -17,7 +17,7 @@
 	<ul class="pagination">
 
 			<c:if test="${page > 1}">
-				<li><mylib:link target="DashboardServlet" page="${page-1}"
+				<li><mylib:link target="dashboard" page="${page-1}"
 						limit="${limit}" aria_label="Previous" search="${search}"
 						field_order="${field_order}" order="${order}"
 						body="<span aria-hidden='true'>&laquo;</span>" /></li>
@@ -26,21 +26,21 @@
 			<c:choose>
 				<c:when test="${page+3 > maxPages}">
 					<c:forEach var="i" begin="${page}" end="${maxPages}">
-						<li><mylib:link target="DashboardServlet" page="${i}"
+						<li><mylib:link target="dashboard" page="${i}"
 								limit="${limit}" body="${i}" search="${search}"
 								field_order="${field_order}" order="${order}" /></li>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="i" begin="${page}" end="${page+3}">
-						<li><mylib:link target="DashboardServlet" page="${i}"
+						<li><mylib:link target="dashboard" page="${i}"
 								limit="${limit}" body="${i}" search="${search}"
 								field_order="${field_order}" order="${order}" /></li>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			<c:if test="${page < maxPages}">
-				<li><mylib:link target="DashboardServlet" page="${page+1}"
+				<li><mylib:link target="dashboard" page="${page+1}"
 						limit="${limit}" aria_label="Next"
 						body="<span aria-hidden='true'>&raquo</span>" search="${search}"
 						field_order="${field_order}" order="${order}" /></li>
@@ -49,10 +49,10 @@
 	</ul>
 	<div class="btn-group btn-group-sm pull-right" role="group">
 		<button type="button" class="btn btn-default"
-			onclick="document.location.href='DashboardServlet?page=${page}&limit=10&search=${search}&field_order=${field_order}&order=${order}'">10</button>
+			onclick="document.location.href='dashboard?page=${page}&limit=10&search=${search}&field_order=${field_order}&order=${order}'">10</button>
 		<button type="button" class="btn btn-default"
-			onclick="document.location.href='DashboardServlet?page=${page}&limit=50&search=${search}&field_order=${field_order}&order=${order}'">50</button>
+			onclick="document.location.href='dashboard?page=${page}&limit=50&search=${search}&field_order=${field_order}&order=${order}'">50</button>
 		<button type="button" class="btn btn-default"
-			onclick="document.location.href='DashboardServlet?page=${page}&limit=100&search=${search}&field_order=${field_order}&order=${order}'">100</button>
+			onclick="document.location.href='dashboard?page=${page}&limit=100&search=${search}&field_order=${field_order}&order=${order}'">100</button>
 	</div>
 </div>
