@@ -1,4 +1,4 @@
-package com.excilys.cdb.servlet;
+package com.excilys.cdb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +13,11 @@ import com.excilys.cdb.service.ComputerService;
 
 @RequestMapping({ "/dashboard", "/" })
 @Controller
-public class DashboardServlet {
+public class Dashboard {
 	@Autowired
 	private ComputerService computerService;
 
-	public DashboardServlet() {
+	public Dashboard() {
 		super();
 	}
 
@@ -26,10 +26,9 @@ public class DashboardServlet {
 			@RequestParam(value = "page", required = false) String page,
 			@RequestParam(value = "limit", required = false) String lim,
 			@RequestParam(value = "search", required = false) String search,
-			@RequestParam(value = "field", required = false) String field,
+			@RequestParam(value = "field_order", required = false) String field,
 			@RequestParam(value = "order", required = false) String order,
 			Model model) {
-
 		Page pages = new Page(page, lim, search, field, order);
 		pages.validate();
 

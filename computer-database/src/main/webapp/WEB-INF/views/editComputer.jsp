@@ -7,7 +7,8 @@
 <c:import url="import/head.jsp" />
 <body>
 	<c:import url="import/header.jsp" />
-
+	<spring:message code="title.language" /> : <a href="${uri}?lang=en&id=${computer.id}"><spring:message code="dashboard.english" /></a>|<a href="${uri}?lang=fr&id=${computer.id}"><spring:message code="dashboard.french" /></a>
+	
 	<section id="main">
 		<div class="container">
 			<div class="row">

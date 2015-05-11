@@ -16,9 +16,9 @@ import com.excilys.cdb.utils.Utils;
  *
  */
 public class Page {
-	private List<String> fields = Arrays.asList("c_name", "introduced",
-			"discontinued", "name");
-	private List<String> orders = Arrays.asList("asc", "desc");
+	public static final List<String> fields = Arrays.asList("c_name",
+			"introduced", "discontinued", "name");
+	public static final List<String> orders = Arrays.asList("asc", "desc");
 
 	private String tmpPage;
 	private int page;
@@ -37,7 +37,7 @@ public class Page {
 	private String order;
 
 	public Page() {
-		this(1, 3, "", "", "asc");
+		this(1, 3, "", "c_id", "asc");
 	}
 
 	public Page(int number, int limit) {
@@ -158,7 +158,7 @@ public class Page {
 		this.offset = (offset < 0) ? 0 : offset;
 
 		if (field_order == null || !fields.contains(field_order.toLowerCase())) {
-			this.field_order = "";
+			this.field_order = "c_id";
 		}
 		if (order == null || !orders.contains(order.toLowerCase())) {
 			this.order = "asc";
@@ -166,22 +166,6 @@ public class Page {
 		if (search == null) {
 			search = "";
 		}
-	}
-
-	public List<String> getFields() {
-		return fields;
-	}
-
-	public void setFields(List<String> fields) {
-		this.fields = fields;
-	}
-
-	public List<String> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<String> orders) {
-		this.orders = orders;
 	}
 
 	public String getTmpPage() {

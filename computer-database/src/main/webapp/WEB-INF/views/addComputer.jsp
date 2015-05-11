@@ -7,7 +7,8 @@
 <body>
 
 	<c:import url="import/header.jsp" />
-
+<spring:message code="title.language" /> : <a href="${requestScope['javax.servlet.forward.request_uri']}?lang=en"><spring:message code="dashboard.english" /></a>|<a href="${uri}?lang=fr&"><spring:message code="dashboard.french" /></a>
+	
 	<section id="main">
 		<div class="container">
 			<div class="row">

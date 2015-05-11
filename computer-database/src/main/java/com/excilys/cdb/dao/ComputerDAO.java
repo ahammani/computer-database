@@ -17,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -36,17 +39,22 @@ public class ComputerDAO implements IDAO<Computer> {
 			+ " WHERE company_id=?";
 	private static final String COUNT = "SELECT COUNT(*) FROM computer";
 	private static final String COUNT_SEARCH = "SELECT COUNT(*) FROM computer LEFT OUTER JOIN company on computer.company_id=company.id"
-			+ " WHERE computer.name LIKE ? OR company.name LIKE ?";
+			+ " WHERE computer.name LIKE :search OR company.name LIKE :search";
 	private static final String DELETE = "DELETE FROM computer WHERE id=?";
 	private static final String FIND = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id WHERE computer.id=?";
 	private static final String UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 	private static final String INSERT = "INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)";
+	private static final String FIND_ALL_ORDER = FIND_ALL
+			+ " ORDER BY :field_order :order LIMIT :limit OFFSET :offset ";
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(
+				dataSource);
 	}
 
 	public int count() {
@@ -54,8 +62,10 @@ public class ComputerDAO implements IDAO<Computer> {
 	}
 
 	public int count(String search) {
-		return this.jdbcTemplate.queryForObject(COUNT_SEARCH, Integer.class,
-				"%" + search + "%", "%" + search + "%");
+		SqlParameterSource namedParameters = new MapSqlParameterSource(
+				"search", "%" + search + "%");
+		return this.namedParameterJdbcTemplate.queryForObject(COUNT_SEARCH,
+				namedParameters, Integer.class);
 	}
 
 	@Override
@@ -141,11 +151,21 @@ public class ComputerDAO implements IDAO<Computer> {
 
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
+		// String field_orde = ((field_order.isEmpty()) ? "c_id" : field_order);
+		// String ord = (order.isEmpty()) ? "ASC" : order;
+		// MapSqlParameterSource namedParameters = new MapSqlParameterSource(
+		// "field_order", field_orde);
+		// namedParameters.addValue("order", ord);
+		// namedParameters.addValue("limit", limit);
+		// namedParameters.addValue("offset", offset);
+		// List<Computer> computers = this.namedParameterJdbcTemplate.query(
+		// FIND_ALL_ORDER, namedParameters, new ComputerMapper());
 		String sql = FIND_ALL + " ORDER BY "
 				+ ((field_order.isEmpty()) ? "c_id" : field_order) + " "
 				+ ((order.isEmpty()) ? "ASC" : order) + " LIMIT ? OFFSET ? ";
-		return this.jdbcTemplate.query(sql, new Object[] { limit, offset },
-				new ComputerMapper());
+		List<Computer> computers = this.jdbcTemplate.query(sql, new Object[] {
+				limit, offset }, new ComputerMapper());
+		return computers;
 	}
 
 	public List<Computer> findAll(String search, int offset, int limit,
@@ -160,8 +180,10 @@ public class ComputerDAO implements IDAO<Computer> {
 				+ "  ORDER BY " + field_order + " " + order
 				+ " LIMIT ?  OFFSET ? ";
 
-		return this.jdbcTemplate.query(sql, new Object[] { "%" + search + "%",
-				"%" + search + "%", limit, offset }, new ComputerMapper());
+		List<Computer> computers = this.jdbcTemplate.query(sql, new Object[] {
+				"%" + search + "%", "%" + search + "%", limit, offset },
+				new ComputerMapper());
+		return computers;
 
 	}
 

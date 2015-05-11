@@ -1,4 +1,4 @@
-package com.excilys.cdb.servlet;
+package com.excilys.cdb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,11 +11,11 @@ import com.excilys.cdb.utils.Utils;
 
 @RequestMapping("deleteComputer")
 @Controller
-public class DeleteComputerServlet {
+public class DeleteComputer {
 	@Autowired
 	private ComputerService computerService;
 
-	public DeleteComputerServlet() {
+	public DeleteComputer() {
 		super();
 	}
 
