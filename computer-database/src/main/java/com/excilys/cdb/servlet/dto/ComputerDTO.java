@@ -4,7 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class ComputerDTO {
-	@NotNull(message = "Name requiered")
+	@NotNull(message = "Name required")
 	private String name = "";
 	private String introduced = "";
 	private String discontinued = "";

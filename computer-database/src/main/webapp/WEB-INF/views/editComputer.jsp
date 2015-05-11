@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
 
 <c:import url="import/head.jsp" />
@@ -12,30 +14,30 @@
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<div class="label label-default pull-right">id:
 						${computer.id}</div>
-					<h1>Edit Computer</h1>
+					<h1><spring:message code="title.editComputer"/></h1>
 
 					<form  id="addComputerForm" action="editComputer" method="POST">
 						<input type="hidden" value="${computer.id}" name="id" />
 						<fieldset>
 							<div class="form-group">
-								<label for="computerName">Computer name</label> <input
+								<label for="computerName"><spring:message code="form.computerName"/></label> <input
 									type="text" class="form-control" id="computerName"
-									placeholder="Computer name"  name="computerName" value="${computer.name}">
+									placeholder="Computer name"  name=<spring:message code="form.computerName"/> value="${computer.name}">
 							</div>
 							<div class="form-group">
-								<label for="introduced">Introduced date</label> <input
+								<label for="introduced"><spring:message code="form.introduced"/></label> <input
 									type="date" class="form-control" id="introduced"
-									placeholder="Introduced date" name="introduced" value="${computer.introduced}">
+									placeholder="Introduced date" name=<spring:message code="form.introduced"/> value="${computer.introduced}">
 							</div>
 							<div class="form-group">
-								<label for="discontinued">Discontinued date</label> <input
+								<label for="discontinued"><spring:message code="form.discontinued"/></label> <input
 									type="date" class="form-control" id="discontinued"
-									placeholder="Discontinued date" name="discontinued"
+									placeholder="Discontinued date" name=<spring:message code="form.discontinued"/>
 									value="${computer.discontinued}">
 							</div>
 							<div class="form-group">
-								<label for="companyId">Company</label> <select
-									class="form-control" id="companyId" name="companyId">
+								<label for="companyId"><spring:message code="form.companyName"/></label> <select
+									class="form-control" id="companyId" name=<spring:message code="form.companyName"/>>
 									<option value="${computer.companyId}">${computer.companyName}</option>
 									<option value="0">--</option>
 									<c:forEach items="${companies}" var="company">
@@ -47,8 +49,8 @@
 							</div>
 						</fieldset>
 						<div class="actions pull-right">
-							<input type="submit" value="Edit" class="btn btn-primary">
-							or <a href="dashboard" class="btn btn-default">Cancel</a>
+							<input type="submit" value=<spring:message code="form.edit"/> class="btn btn-primary">
+							<spring:message code="form.or"/> <a href="dashboard" class="btn btn-default"><spring:message code="form.cancel"/></a>
 						</div>
 					</form>
 				</div>

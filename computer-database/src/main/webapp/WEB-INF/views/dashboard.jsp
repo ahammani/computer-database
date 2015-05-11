@@ -1,30 +1,32 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 	<c:import url="import/head.jsp" />
 <body>
 
 	<c:import url="import/header.jsp" />
+	
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${pages.maxComputers } computers found</h1>
+			<h1 id="homeTitle">${pages.maxComputers } <spring:message code="dashboard.computersFound"/></h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="dashboard?page='${pages.page}'&limit='${pages.limit}'&search='${search}'" method="GET" class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" /> <input
-							type="submit" id="searchsubmit" value="Filter by name"
+							class="form-control" placeholder=<spring:message code="form.searchName"/> /> <input
+							type="submit" id="searchsubmit" value=<spring:message code="form.filterByName"/>
 							class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer"
-						href="addComputer">Add Computer</a> <a
+						href="addComputer"><spring:message code="title.addComputer"/></a> <a
 						class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();">Edit</a>
+						onclick="$.fn.toggleEditMode();"><spring:message code="title.editComputer"/></a>
 				</div>
 			</div>
 		</div>
@@ -48,23 +50,23 @@
 							</a>
 						</span></th>
 						<th>
-							Computer name
+							<spring:message code="form.computerName"/>
 							<mylib:link body="&uarr;" order="desc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 							<mylib:link body="&darr;" order="asc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						<th>
-							Introduced date	
+							<spring:message code="form.introduced"/>
 							<mylib:link body="&uarr;" order="desc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 							<mylib:link body="&darr;" order="asc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date
+						<th><spring:message code="form.discontinued"/>
 							<mylib:link body="&uarr;" order="desc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 							<mylib:link body="&darr;" order="asc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						<!-- Table header for Company -->
-						<th>Company
+						<th><spring:message code="form.companyName"/>
 							<mylib:link body="&uarr;" order="desc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 							<mylib:link body="&darr;" order="asc" field_order="name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
