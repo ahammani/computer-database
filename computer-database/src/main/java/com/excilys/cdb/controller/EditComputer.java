@@ -2,9 +2,12 @@ package com.excilys.cdb.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +29,8 @@ public class EditComputer {
 	@Autowired
 	private CompanyService companyService;
 
+	private static Logger logger = LoggerFactory.getLogger(EditComputer.class);
+
 	public EditComputer() {
 		super();
 	}
@@ -46,7 +51,11 @@ public class EditComputer {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	protected String doPost(@ModelAttribute ComputerDTO computerDTO) {
+	protected String doPost(@ModelAttribute ComputerDTO computerDTO,
+			final BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			logger.error("DTO Valdation failed !");
+		}
 		Computer computer = DTOMapper.toComputer(computerDTO, companyService);
 		if (computer != null) {
 			computerService.updateComputer(computer);

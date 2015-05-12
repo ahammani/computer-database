@@ -7,29 +7,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class ComputerDTO {
 	@NotNull(message = "Name required")
-	private String name = "";
+	private String name;
 	@DateTimeFormat
-	private String introduced = "";
+	private String introduced;
 	@DateTimeFormat
-	private String discontinued = "";
+	private String discontinued;
 	@Min(0)
-	private long id = 0;
-	private long companyId = 0;
-	private String companyName = "";
+	private long id;
+	private long companyId;
+	private String companyName;
 
 	public ComputerDTO() {
-
+		this(null, null, null, 0, 0, null);
 	}
 
 	public ComputerDTO(String name, String introduced, String discontinued,
-			long id, long company_id, String company_name) {
+			long id, long companyId, String companyName) {
 		super();
 		this.name = name;
 		this.introduced = (introduced != null) ? introduced : "";
 		this.discontinued = (discontinued != null) ? discontinued : "";
 		this.id = id;
-		this.companyId = company_id;
-		this.companyName = (company_name != null) ? company_name : "";
+		this.companyId = companyId;
+		this.companyName = (companyName != null) ? companyName : "";
 	}
 
 	public String getName() {
@@ -37,13 +37,7 @@ public class ComputerDTO {
 	}
 
 	public void setName(String name) {
-		if (name != null)
-			this.name = name;
-	}
-
-	public void setcomputerName(String name) {
-		if (name != null)
-			this.name = name;
+		this.name = name;
 	}
 
 	public String getIntroduced() {
@@ -67,25 +61,31 @@ public class ComputerDTO {
 	}
 
 	public void setId(long id) {
-		if (id > 0)
-			this.id = id;
+		this.id = id;
 	}
 
 	public long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(long company_id) {
-		if (company_id > 0)
-			this.companyId = company_id;
+	public void setCompanyId(long companyId) {
+		this.companyId = companyId;
 	}
 
 	public String getCompanyName() {
 		return companyName;
 	}
 
-	public void setCompanyName(String company_name) {
-		this.companyName = company_name;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	@Override
+	public String toString() {
+		return "ComputerDTO [name=" + name + ", introduced=" + introduced
+				+ ", discontinued=" + discontinued + ", id=" + id
+				+ ", companyId=" + companyId + ", companyName=" + companyName
+				+ "]";
 	}
 
 }

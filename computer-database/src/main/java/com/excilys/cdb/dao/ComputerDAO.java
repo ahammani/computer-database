@@ -44,15 +44,10 @@ public class ComputerDAO implements IDAO<Computer> {
 			+ " WHERE computer.name LIKE :search OR company.name LIKE :search ORDER BY %s %s LIMIT :limit  OFFSET :offset ";
 
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
-	private JdbcTemplate jdbcTemplate;
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
 	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(
-				dataSource);
-	}
+	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	public int count() {
 		return this.jdbcTemplate.queryForObject(COUNT, Integer.class);
@@ -81,6 +76,7 @@ public class ComputerDAO implements IDAO<Computer> {
 		else
 			id_company = 0;
 		KeyHolder keyHolder = new GeneratedKeyHolder();
+
 		int id = this.jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(
 					Connection connection) throws SQLException {

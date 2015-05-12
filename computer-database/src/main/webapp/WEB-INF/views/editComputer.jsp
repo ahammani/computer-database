@@ -21,24 +21,26 @@
 						<input type="hidden" value="${computer.id}" name="id" />
 						<fieldset>
 							<div class="form-group">
-								<label for="computerName"><spring:message code="form.computerName"/></label> <input
-									type="text" class="form-control" id="computerName"
-									placeholder="Computer name"  name=<spring:message code="form.computerName"/> value="${computer.name}">
+								<label for="computerName"><spring:message code="form.computerName"/></label> 
+								<input
+									type="text" class="form-control" id="name"
+									placeholder=<spring:message code="form.computerName"/>  name="name" value="${computer.name}"/>
 							</div>
 							<div class="form-group">
-								<label for="introduced"><spring:message code="form.introduced"/></label> <input
+								<label for="introduced"><spring:message code="form.introduced"/></label>
+								 <input
 									type="date" class="form-control" id="introduced"
-									placeholder="Introduced date" name=<spring:message code="form.introduced"/> value="${computer.introduced}">
+									placeholder=<spring:message code="form.introduced"/> name="introduced" value="${computer.introduced}"/>
 							</div>
 							<div class="form-group">
 								<label for="discontinued"><spring:message code="form.discontinued"/></label> <input
 									type="date" class="form-control" id="discontinued"
-									placeholder="Discontinued date" name=<spring:message code="form.discontinued"/>
-									value="${computer.discontinued}">
+									placeholder=<spring:message code="form.discontinued"/> name="discontinued"
+									value="${computer.discontinued}"/>
 							</div>
 							<div class="form-group">
 								<label for="companyId"><spring:message code="form.companyName"/></label> <select
-									class="form-control" id="companyId" name=<spring:message code="form.companyName"/>>
+									class="form-control" id="companyId" name="companyId">
 									<option value="${computer.companyId}">${computer.companyName}</option>
 									<option value="0">--</option>
 									<c:forEach items="${companies}" var="company">
