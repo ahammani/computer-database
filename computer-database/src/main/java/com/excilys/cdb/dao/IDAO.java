@@ -18,7 +18,7 @@ public interface IDAO<T> {
 	 *            the T
 	 * @return the new Ts'id
 	 */
-	default int create(T obj) {
+	default void create(T obj) {
 		throw new IllegalCallException();
 	};
 

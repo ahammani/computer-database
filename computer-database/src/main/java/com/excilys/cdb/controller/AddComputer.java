@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.excilys.cdb.controller.dto.ComputerDTO;
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.CompanyService;
 import com.excilys.cdb.service.ComputerService;
-import com.excilys.cdb.servlet.dto.ComputerDTO;
 
 /**
  * Servlet implementation class AddComputer

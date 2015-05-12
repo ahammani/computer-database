@@ -38,10 +38,9 @@ public interface IComputerService {
 	 *
 	 * @param c
 	 *            the computer
-	 * @return the computers id
 	 * 
 	 */
-	int addComputer(Computer c);
+	void addComputer(Computer c);
 
 	/**
 	 * Update a computer.

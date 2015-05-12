@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.CompanyDAO;
 import com.excilys.cdb.dao.ComputerDAO;
-import com.excilys.cdb.dao.ConnectionFactory;
 import com.excilys.cdb.model.Company;
 
 @Service
@@ -20,8 +19,6 @@ public class CompanyService implements ICompanyService {
 	private ComputerDAO computerDAO;
 	@Autowired
 	private CompanyDAO companyDAO;
-	@Autowired
-	private ConnectionFactory connectionFactory;
 
 	Logger logger = LoggerFactory.getLogger(CompanyService.class);
 

@@ -1,12 +1,16 @@
-package com.excilys.cdb.servlet.dto;
+package com.excilys.cdb.controller.dto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ComputerDTO {
 	@NotNull(message = "Name required")
 	private String name = "";
+	@DateTimeFormat
 	private String introduced = "";
+	@DateTimeFormat
 	private String discontinued = "";
 	@Min(0)
 	private long id = 0;

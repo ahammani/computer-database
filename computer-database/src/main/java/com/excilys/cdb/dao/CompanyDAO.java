@@ -15,8 +15,6 @@ import com.excilys.cdb.model.Company;
 @Repository
 public class CompanyDAO implements IDAO<Company> {
 	private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
-	@Autowired
-	private ConnectionFactory connectionFactory = new ConnectionFactory();
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired

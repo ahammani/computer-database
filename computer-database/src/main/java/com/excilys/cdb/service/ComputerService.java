@@ -41,8 +41,8 @@ public class ComputerService implements IComputerService {
 		return INSTANCE.find(id);
 	}
 
-	public int addComputer(Computer c) {
-		return INSTANCE.create(c);
+	public void addComputer(Computer c) {
+		INSTANCE.create(c);
 	}
 
 	public void updateComputer(Computer c) {

@@ -8,18 +8,20 @@
 <body>
 
 	<c:import url="import/header.jsp" />
-	<spring:message code="title.language" /> : <a href="${requestScope['javax.servlet.forward.request_uri']}?lang=en"><spring:message code="dashboard.english" /></a>|<a href="${uri}?lang=fr&"><spring:message code="dashboard.french" /></a>
+	<spring:message code="title.language" /> : <a href="${uri}?lang=en"><spring:message code="dashboard.english" /></a> | <a href="${uri}?lang=fr&"><spring:message code="dashboard.french" /></a>
 	
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">${pages.maxComputers } <spring:message code="dashboard.computersFound"/></h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="dashboard?page='${pages.page}'&limit='${pages.limit}'&search='${search}'" method="GET" class="form-inline">
-
+					<form id="searchForm" action="dashboard" method="GET" class="form-inline">
+						<input type="hidden" name="field_order" value="${pages.field_order}" />
+						<input type="hidden" name="limit" value="${pages.limit}" />
+						<input type="hidden" name="order" value="${pages.order}" />
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder=<spring:message code="form.searchName"/> /> <input
-							type="submit" id="searchsubmit" value=<spring:message code="form.filterByName"/>
+							class="form-control" placeholder=<spring:message code="form.searchName"/> /> 
+						<input type="submit" id="searchsubmit" value=<spring:message code="form.filterByName"/>
 							class="btn btn-primary" />
 					</form>
 				</div>
@@ -94,7 +96,7 @@
 		</div>
 	</section>
 	<footer class="navbar-fixed-bottom">
-		<mylib:pagination page="${pages.page}" limit="${pages.limit}" maxPages="${pages.maxPages}" search="${search}"/>
+		<mylib:pagination page="${pages.page}" limit="${pages.limit}" maxPages="${pages.maxPages}" search="${pages.search}" field_order="${pages.field_order}" order="${pages.order}"/>
 	</footer>
 
 <script src="static/js/jquery.min.js"></script>

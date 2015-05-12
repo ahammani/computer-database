@@ -8,19 +8,22 @@
 	description=""%>
 <%@ attribute name="search" required="false" type="java.lang.String"
 	description=""%>
-<%@ attribute name="field_order" required="false"
-	type="java.lang.String" description=""%>
+<%@ attribute name="field_order" required="false" type="java.lang.String"
+	description=""%>
 <%@ attribute name="order" required="false" type="java.lang.String"
 	description=""%>
 
 <div class="container text-center">
 	<ul class="pagination">
-
 			<c:if test="${page > 1}">
 				<li><mylib:link target="dashboard" page="${page-1}"
 						limit="${limit}" aria_label="Previous" search="${search}"
 						field_order="${field_order}" order="${order}"
 						body="<span aria-hidden='true'>&laquo;</span>" /></li>
+						<li><mylib:link target="dashboard" page="${page-1}"
+						limit="${limit}"  search="${search}"
+						field_order="${field_order}" order="${order}"
+						body="${page-1}" /></li>
 			</c:if>
 
 			<c:choose>

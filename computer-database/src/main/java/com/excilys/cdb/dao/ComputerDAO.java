@@ -2,14 +2,12 @@ package com.excilys.cdb.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -23,16 +21,12 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.cdb.exception.DAOException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
 @Repository
 public class ComputerDAO implements IDAO<Computer> {
-	@Autowired
-	private ConnectionFactory connectionFactory;
 
 	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
 	private static final String FIND_ALL_COMPANY = FIND_ALL
@@ -45,7 +39,10 @@ public class ComputerDAO implements IDAO<Computer> {
 	private static final String UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 	private static final String INSERT = "INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)";
 	private static final String FIND_ALL_ORDER = FIND_ALL
-			+ " ORDER BY :field_order :order LIMIT :limit OFFSET :offset ";
+			+ " ORDER BY %s %s LIMIT ? OFFSET ? ";
+	private static final String FIND_ALL_SEARCH = FIND_ALL
+			+ " WHERE computer.name LIKE :search OR company.name LIKE :search ORDER BY %s %s LIMIT :limit  OFFSET :offset ";
+
 	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 	private JdbcTemplate jdbcTemplate;
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -61,6 +58,7 @@ public class ComputerDAO implements IDAO<Computer> {
 		return this.jdbcTemplate.queryForObject(COUNT, Integer.class);
 	}
 
+	// search is checked in Page
 	public int count(String search) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource(
 				"search", "%" + search + "%");
@@ -69,7 +67,7 @@ public class ComputerDAO implements IDAO<Computer> {
 	}
 
 	@Override
-	public int create(Computer obj) {
+	public void create(Computer obj) {
 		long id_company;
 		String name = obj.getName();
 		Timestamp introduced = SQLMapper.localdateToTimestamp(obj
@@ -83,7 +81,7 @@ public class ComputerDAO implements IDAO<Computer> {
 		else
 			id_company = 0;
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		return this.jdbcTemplate.update(new PreparedStatementCreator() {
+		int id = this.jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(
 					Connection connection) throws SQLException {
 				PreparedStatement ps = connection.prepareStatement(INSERT,
@@ -99,6 +97,7 @@ public class ComputerDAO implements IDAO<Computer> {
 				return ps;
 			}
 		}, keyHolder);
+		obj.setId(id);
 	}
 
 	@Override
@@ -149,40 +148,25 @@ public class ComputerDAO implements IDAO<Computer> {
 		return this.jdbcTemplate.query(FIND_ALL, new ComputerMapper());
 	}
 
+	// field_order and order are checked in Page
 	public List<Computer> findAll(int offset, int limit, String field_order,
 			String order) {
-		// String field_orde = ((field_order.isEmpty()) ? "c_id" : field_order);
-		// String ord = (order.isEmpty()) ? "ASC" : order;
-		// MapSqlParameterSource namedParameters = new MapSqlParameterSource(
-		// "field_order", field_orde);
-		// namedParameters.addValue("order", ord);
-		// namedParameters.addValue("limit", limit);
-		// namedParameters.addValue("offset", offset);
-		// List<Computer> computers = this.namedParameterJdbcTemplate.query(
-		// FIND_ALL_ORDER, namedParameters, new ComputerMapper());
-		String sql = FIND_ALL + " ORDER BY "
-				+ ((field_order.isEmpty()) ? "c_id" : field_order) + " "
-				+ ((order.isEmpty()) ? "ASC" : order) + " LIMIT ? OFFSET ? ";
-		List<Computer> computers = this.jdbcTemplate.query(sql, new Object[] {
+		String req = String.format(FIND_ALL_ORDER, field_order, order);
+		List<Computer> computers = this.jdbcTemplate.query(req, new Object[] {
 				limit, offset }, new ComputerMapper());
 		return computers;
 	}
 
 	public List<Computer> findAll(String search, int offset, int limit,
 			String field_order, String order) {
-		if (field_order.isEmpty())
-			field_order = "c_id";
-		if (order.isEmpty())
-			order = "ASC";
 
-		String sql = FIND_ALL
-				+ " WHERE computer.name LIKE ? OR company.name LIKE ? "
-				+ "  ORDER BY " + field_order + " " + order
-				+ " LIMIT ?  OFFSET ? ";
-
-		List<Computer> computers = this.jdbcTemplate.query(sql, new Object[] {
-				"%" + search + "%", "%" + search + "%", limit, offset },
-				new ComputerMapper());
+		String req = String.format(FIND_ALL_SEARCH, field_order, order);
+		MapSqlParameterSource namedParameters = new MapSqlParameterSource(
+				"search", "%" + search + "%");
+		namedParameters.addValue("limit", limit);
+		namedParameters.addValue("offset", offset);
+		List<Computer> computers = this.namedParameterJdbcTemplate.query(req,
+				namedParameters, new ComputerMapper());
 		return computers;
 
 	}

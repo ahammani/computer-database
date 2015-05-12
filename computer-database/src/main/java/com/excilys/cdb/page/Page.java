@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.excilys.cdb.servlet.dto.ComputerDTO;
+import com.excilys.cdb.controller.dto.ComputerDTO;
 import com.excilys.cdb.utils.Utils;
 
 /**
