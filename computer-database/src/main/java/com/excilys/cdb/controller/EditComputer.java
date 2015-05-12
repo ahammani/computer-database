@@ -57,9 +57,7 @@ public class EditComputer {
 	protected String doPost(
 			@Valid @ModelAttribute("editComputer") ComputerDTO computerDTO,
 			final BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			logger.error("DTO Valdation failed !");
-		} else {
+		if (!bindingResult.hasErrors()) {
 			Computer computer = dtoMapper.toComputer(computerDTO,
 					companyService);
 			if (computer != null) {
