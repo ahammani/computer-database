@@ -3,14 +3,14 @@ package com.excilys.cdb.controller.dto;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.excilys.cdb.validation.Date;
 
 public class ComputerDTO {
-	@NotNull(message = "Name required")
+	@NotNull(message = "{validation.notNull}")
 	private String name;
-	@DateTimeFormat
+	@Date
 	private String introduced;
-	@DateTimeFormat
+	@Date
 	private String discontinued;
 	@Min(0)
 	private long id;
@@ -37,7 +37,7 @@ public class ComputerDTO {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.trim();
 	}
 
 	public String getIntroduced() {

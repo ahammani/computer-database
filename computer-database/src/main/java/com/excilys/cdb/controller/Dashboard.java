@@ -16,6 +16,8 @@ import com.excilys.cdb.service.ComputerService;
 public class Dashboard {
 	@Autowired
 	private ComputerService computerService;
+	@Autowired
+	private DTOMapper dtoMapper;
 
 	public Dashboard() {
 		super();
@@ -38,7 +40,7 @@ public class Dashboard {
 			pages.setMaxComputers(computerService.count(search));
 			model.addAttribute("search", search);
 		}
-		pages.setComputers(DTOMapper.toDTOList(computerService.getAll(pages)));
+		pages.setComputers(dtoMapper.toDTOList(computerService.getAll(pages)));
 		pages.setMaxPages(pages.getMaxComputers());
 		model.addAttribute("pages", pages);
 		return "dashboard";

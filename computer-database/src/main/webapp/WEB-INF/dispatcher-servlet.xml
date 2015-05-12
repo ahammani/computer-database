@@ -9,9 +9,11 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<context:component-scan base-package="com.excilys.cdb.controller" />
+	<context:component-scan base-package="com.excilys.cdb" />
+<!-- 	<context:component-scan base-package="com.excilys.cdb.model" /> -->
 
 	<mvc:annotation-driven />
+
 	<mvc:resources mapping="/*" location="/static" />
 
 	<bean
@@ -23,10 +25,10 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="messages"/>
+		<property name="basename" value="messages" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
@@ -36,12 +38,17 @@
 		<property name="defaultLocale" value="en" />
 	</bean>
 
+<!-- 	<bean id="validator" -->
+<!-- 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> -->
+<!-- 		<property name="validationMessageSource" ref="messageSource" /> -->
+<!-- 	</bean> -->
+
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="lang"></property>
 		</bean>
 	</mvc:interceptors>
-	
+
 
 
 </beans>

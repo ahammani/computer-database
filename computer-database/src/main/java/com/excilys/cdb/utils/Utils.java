@@ -52,7 +52,7 @@ public class Utils {
 	 *            the string which represent a date
 	 * @return true if successful
 	 */
-	public static boolean checkDate(String d) {
+	public static boolean checkDate2(String d) {
 		if (d == null)
 			return false;
 		d = d.split(" ")[0];

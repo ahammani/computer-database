@@ -2,6 +2,8 @@ package com.excilys.cdb.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,8 @@ public class EditComputer {
 	private ComputerService computerService;
 	@Autowired
 	private CompanyService companyService;
-
+	@Autowired
+	private DTOMapper dtoMapper;
 	private static Logger logger = LoggerFactory.getLogger(EditComputer.class);
 
 	public EditComputer() {
@@ -41,7 +44,7 @@ public class EditComputer {
 		model.addAttribute("companies", companies);
 
 		long id = Utils.stringToLong(sid, 1);
-		ComputerDTO computer = DTOMapper.toDTO(computerService.getComputer(id));
+		ComputerDTO computer = dtoMapper.toDTO(computerService.getComputer(id));
 		if (computer != null) {
 			model.addAttribute("computer", computer);
 			return "editComputer";
@@ -51,14 +54,17 @@ public class EditComputer {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	protected String doPost(@ModelAttribute ComputerDTO computerDTO,
+	protected String doPost(
+			@Valid @ModelAttribute("editComputer") ComputerDTO computerDTO,
 			final BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			logger.error("DTO Valdation failed !");
-		}
-		Computer computer = DTOMapper.toComputer(computerDTO, companyService);
-		if (computer != null) {
-			computerService.updateComputer(computer);
+		} else {
+			Computer computer = dtoMapper.toComputer(computerDTO,
+					companyService);
+			if (computer != null) {
+				computerService.updateComputer(computer);
+			}
 		}
 		return "redirect:dashboard";
 	}

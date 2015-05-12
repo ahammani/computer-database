@@ -29,6 +29,8 @@ public class AddComputer {
 	private CompanyService companyService;
 	@Autowired
 	private ComputerService computerService;
+	@Autowired
+	private DTOMapper dtoMapper;
 
 	public AddComputer() {
 		super();
@@ -44,7 +46,7 @@ public class AddComputer {
 	@RequestMapping(method = RequestMethod.POST)
 	protected String doPost(@Valid @ModelAttribute ComputerDTO computerDTO,
 			Model model) {
-		Computer computer = DTOMapper.toComputer(computerDTO, companyService);
+		Computer computer = dtoMapper.toComputer(computerDTO, companyService);
 		if (computer != null) {
 			computerService.addComputer(computer);
 			return "redirect:dashboard";

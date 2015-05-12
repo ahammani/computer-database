@@ -61,7 +61,7 @@ public abstract class ICommand {
 		System.out
 				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 		String date = Main.sc.next();
-		while (!Utils.checkDate(date)) {
+		while (!Utils.checkDate2(date)) {
 			Main.wrongEntry();
 			System.out
 					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
@@ -77,7 +77,7 @@ public abstract class ICommand {
 		System.out
 				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
 		String date = Main.sc.next();
-		while (!Utils.checkDate(date)) {
+		while (!Utils.checkDate2(date)) {
 			Main.wrongEntry();
 			System.out
 					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");

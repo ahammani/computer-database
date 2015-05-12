@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <c:import url="import/head.jsp" />
 <body>
@@ -17,25 +18,25 @@
 						${computer.id}</div>
 					<h1><spring:message code="title.editComputer"/></h1>
 
-					<form  id="addComputerForm" action="editComputer" method="POST">
+					<form:form  id="addComputerForm" action="editComputer" commandName="editComputer" method="POST">
 						<input type="hidden" value="${computer.id}" name="id" />
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName"><spring:message code="form.computerName"/></label> 
 								<input
 									type="text" class="form-control" id="name"
-									placeholder=<spring:message code="form.computerName"/>  name="name" value="${computer.name}"/>
+									placeholder="<spring:message code="form.computerName"/>"  name="name" value="${computer.name}"/>
 							</div>
 							<div class="form-group">
 								<label for="introduced"><spring:message code="form.introduced"/></label>
 								 <input
 									type="date" class="form-control" id="introduced"
-									placeholder=<spring:message code="form.introduced"/> name="introduced" value="${computer.introduced}"/>
+									placeholder="<spring:message code="form.introduced"/><spring:message code="validation.format"/>" name="introduced" value="${computer.introduced}"/>
 							</div>
 							<div class="form-group">
 								<label for="discontinued"><spring:message code="form.discontinued"/></label> <input
 									type="date" class="form-control" id="discontinued"
-									placeholder=<spring:message code="form.discontinued"/> name="discontinued"
+									placeholder="<spring:message code="form.discontinued"/><spring:message code="validation.format"/>" name="discontinued"
 									value="${computer.discontinued}"/>
 							</div>
 							<div class="form-group">
@@ -55,14 +56,14 @@
 							<input type="submit" value=<spring:message code="form.edit"/> class="btn btn-primary">
 							<spring:message code="form.or"/> <a href="dashboard" class="btn btn-default"><spring:message code="form.cancel"/></a>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</section>
 	
 	<script src="static/js/jquery.min.js"></script>
-	<script src="static/js/jquery.validate.min.js"></script>
+<!-- 	<script src="static/js/jquery.validate.min.js"></script> -->
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/dashboard.js"></script>
 	<script src="static/js/addComputer.js"></script>

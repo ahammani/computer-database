@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.excilys.cdb.controller.dto.ComputerDTO;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -16,14 +19,17 @@ import com.excilys.cdb.service.CompanyService;
  * @author ahammani
  *
  */
+@Component
 public class DTOMapper {
+	@Autowired
+	private TimeMapper timeMapper;// = new TimeMapper();
 
-	public static ComputerDTO toDTO(Computer c) {
+	public ComputerDTO toDTO(Computer c) {
 		if (c == null)
 			return null;
 		String name = c.getName();
-		String introduced = TimeMapper.LocalDateToString(c.getIntroduced());
-		String discontinued = TimeMapper.LocalDateToString(c.getDiscontinued());
+		String introduced = timeMapper.LocalDateToString(c.getIntroduced());
+		String discontinued = timeMapper.LocalDateToString(c.getDiscontinued());
 		long id = c.getId();
 		long company_id = c.getCompany().getId();
 		String company_name = c.getCompany().getName();
@@ -31,12 +37,12 @@ public class DTOMapper {
 				company_name);
 	}
 
-	public static List<ComputerDTO> toDTOList(List<Computer> computers) {
+	public List<ComputerDTO> toDTOList(List<Computer> computers) {
 		return computers.stream().map(x -> toDTO(x))
 				.collect(Collectors.toList());
 	}
 
-	public static Computer toComputer(ComputerDTO computerDTO,
+	public Computer toComputer(ComputerDTO computerDTO,
 			CompanyService companyService) {
 		String computerName = computerDTO.getName();
 		String introduced = computerDTO.getIntroduced();
@@ -51,8 +57,8 @@ public class DTOMapper {
 		} else {
 			company = companyService.getCompany(companyId);
 		}
-		LocalDate intro = TimeMapper.StringToLocalDate(introduced);
-		LocalDate dis = TimeMapper.StringToLocalDate(discontinued);
+		LocalDate intro = timeMapper.StringToLocalDate(introduced);
+		LocalDate dis = timeMapper.StringToLocalDate(discontinued);
 		return new ComputerBuilder(computerName).id(computerId)
 				.introduced(intro).discontinued(dis).company(company).build();
 	}
