@@ -26,9 +26,10 @@
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer"
-						href="addComputer"><spring:message code="title.addComputer"/></a> <a
-						class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();"><spring:message code="title.editComputer"/></a>
+						href="addComputer"><spring:message code="button.addComputer"/></a> 
+					
+					<a class="btn btn-default" id="editComputer" href="#"
+						onclick="$.fn.toggleEditMode();"><spring:message code="button.deleteComputer"/></a>
 				</div>
 			</div>
 		</div>
@@ -100,6 +101,11 @@
 
 <script src="static/js/jquery.min.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			var button_view = "<spring:message code='button.cancel'/>";
+			var button_edit = "<spring:message code='button.deleteComputer'/>";
+			var alert_message = "<spring:message code='delete.message'/>";
+		</script>
 <script src="static/js/dashboard.js"></script>
 
 </body>

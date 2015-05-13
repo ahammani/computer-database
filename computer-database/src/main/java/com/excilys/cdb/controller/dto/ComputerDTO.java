@@ -1,15 +1,13 @@
 package com.excilys.cdb.controller.dto;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.excilys.cdb.validation.Date;
 
 public class ComputerDTO {
-	@NotEmpty
-	@NotNull(message = "{validation.notNull}")
+	@NotBlank(message = "{validation.notNull}")
 	private String name;
 	@Date
 	private String introduced;
@@ -40,8 +38,7 @@ public class ComputerDTO {
 	}
 
 	public void setName(String name) {
-		if (!name.isEmpty() && name.trim().length() > 0)
-			this.name = name.trim();
+		this.name = name;
 	}
 
 	public String getIntroduced() {
