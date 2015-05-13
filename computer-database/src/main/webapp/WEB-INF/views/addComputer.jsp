@@ -2,13 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
 
 <c:import url="import/head.jsp" />
 <body>
 
 	<c:import url="import/header.jsp" />
-<spring:message code="title.language" /> : <a href="${requestScope['javax.servlet.forward.request_uri']}?lang=en"><spring:message code="dashboard.english" /></a>|<a href="${uri}?lang=fr&"><spring:message code="dashboard.french" /></a>
-	
+	<mylib:flag/>	
 	<section id="main">
 		<div class="container">
 			<div class="row">
@@ -18,8 +18,8 @@
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName"><spring:message code="form.computerName"/></label> <input
-									type="text" class="form-control" id="computerName"
-									name="computerName" placeholder="Computer name">
+									type="text" class="form-control" id="name"
+									name="name" placeholder="Computer name">
 							</div>
 							<div class="form-group">
 								<label for="introduced"><spring:message code="form.introduced"/></label> <input
@@ -53,7 +53,7 @@
 	</section>
 	
 	<script src="static/js/jquery.min.js"></script>
-	<script src="static/js/jquery.validate.min.js"></script>
+<!-- 	<script src="static/js/jquery.validate.min.js"></script> -->
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/dashboard.js"></script>
 	<script src="static/js/addComputer.js"></script>

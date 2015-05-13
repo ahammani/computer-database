@@ -8,8 +8,7 @@
 <c:import url="import/head.jsp" />
 <body>
 	<c:import url="import/header.jsp" />
-	<spring:message code="title.language" /> : <a href="${uri}?lang=en&id=${computer.id}"><spring:message code="dashboard.english" /></a>|<a href="${uri}?lang=fr&id=${computer.id}"><spring:message code="dashboard.french" /></a>
-	
+	<mylib:flag id="${computer.id}"/>
 	<section id="main">
 		<div class="container">
 			<div class="row">
@@ -18,7 +17,7 @@
 						${computer.id}</div>
 					<h1><spring:message code="title.editComputer"/></h1>
 
-					<form:form  id="addComputerForm" action="editComputer" commandName="editComputer" method="POST">
+					<form  id="addComputerForm" action="editComputer"  method="POST">
 						<input type="hidden" value="${computer.id}" name="id" />
 						<fieldset>
 							<div class="form-group">
@@ -56,7 +55,7 @@
 							<input type="submit" value=<spring:message code="form.edit"/> class="btn btn-primary">
 							<spring:message code="form.or"/> <a href="dashboard" class="btn btn-default"><spring:message code="form.cancel"/></a>
 						</div>
-					</form:form>
+					</form>
 				</div>
 			</div>
 		</div>

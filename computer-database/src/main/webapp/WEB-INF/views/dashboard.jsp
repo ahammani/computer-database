@@ -8,8 +8,7 @@
 <body>
 
 	<c:import url="import/header.jsp" />
-	<spring:message code="title.language" /> : <a href="${uri}?lang=en"><spring:message code="dashboard.english" /></a> | <a href="${uri}?lang=fr&"><spring:message code="dashboard.french" /></a>
-	
+	<mylib:flag/>
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">${pages.maxComputers } <spring:message code="dashboard.computersFound"/></h1>
