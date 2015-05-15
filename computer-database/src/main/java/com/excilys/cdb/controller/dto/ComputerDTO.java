@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.excilys.cdb.validation.Date;
 
 public class ComputerDTO {
-	@NotBlank(message = "{validation.notNull}")
+	@NotBlank
 	private String name;
 	@Date
 	private String introduced;

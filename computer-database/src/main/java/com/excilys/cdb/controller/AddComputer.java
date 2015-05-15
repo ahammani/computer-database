@@ -40,20 +40,23 @@ public class AddComputer {
 	@RequestMapping(method = RequestMethod.GET)
 	public String doGet(Model model) {
 		List<Company> companies = companyService.getAll();
+		model.addAttribute("computerDTO", new ComputerDTO());
 		model.addAttribute("companies", companies);
 		return "addComputer";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	protected String doPost(
-			@Valid @ModelAttribute("addComputer") ComputerDTO computerDTO,
+	protected String doPost(@Valid @ModelAttribute ComputerDTO computerDTO,
 			final BindingResult bindingResult, Model model) {
-		Computer computer = dtoMapper.toComputer(computerDTO, companyService);
-		if (computer != null) {
-			computerService.addComputer(computer);
-			return "redirect:dashboard";
-		} else {
-			return "redirect:addComputer";
+		if (!bindingResult.hasErrors()) {
+			Computer computer = dtoMapper.toComputer(computerDTO,
+					companyService);
+			if (computer != null) {
+				computerService.addComputer(computer);
+				return "redirect:dashboard";
+
+			}
 		}
+		return "addComputer";
 	}
 }

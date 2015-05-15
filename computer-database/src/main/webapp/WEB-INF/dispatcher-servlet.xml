@@ -12,7 +12,7 @@
 	<context:component-scan base-package="com.excilys.cdb" />
 <!-- 	<context:component-scan base-package="com.excilys.cdb.model" /> -->
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator" />
 
 	<mvc:resources mapping="/*" location="/static" />
 
@@ -38,10 +38,10 @@
 		<property name="defaultLocale" value="en" />
 	</bean>
 
-<!-- 	<bean id="validator" -->
-<!-- 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> -->
-<!-- 		<property name="validationMessageSource" ref="messageSource" /> -->
-<!-- 	</bean> -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
 
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
