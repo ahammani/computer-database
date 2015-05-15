@@ -17,26 +17,38 @@
 						${computer.id}</div>
 					<h1><spring:message code="title.editComputer"/></h1>
 
-					<form  id="addComputerForm" action="editComputer"  method="POST">
+					<form:form  modelAttribute="computerDTO"  action="editComputer"  method="POST">
 						<input type="hidden" value="${computer.id}" name="id" />
 						<fieldset>
 							<div class="form-group">
-								<label for="computerName"><spring:message code="form.computerName"/></label> 
-								<input
+								<spring:message code="form.computerName" var="computerName"/>
+								<label for="computerName">${computerName}</label> 
+								<form:input path="name"
 									type="text" class="form-control" id="name"
-									placeholder="<spring:message code="form.computerName"/>"  name="name" value="${computer.name}"/>
+									placeholder="${computerName}"  name="name" value="${computer.name}"/>
+								<form:errors path="name"  cssStyle="color: #ff0000;" cssClass="has-error" />
 							</div>
 							<div class="form-group">
-								<label for="introduced"><spring:message code="form.introduced"/></label>
-								 <input
+								<spring:message code="form.introduced" var="introduced"/>
+								<label for="introduced">
+									<spring:message code="form.introduced"/>
+								</label> 
+								<form:input path="introduced"
 									type="date" class="form-control" id="introduced"
-									placeholder="<spring:message code="form.introduced"/><spring:message code="validation.format"/>" name="introduced" value="${computer.introduced}"/>
+									name="introduced" placeholder="${introduced}" value="${computer.introduced}"/>
+									<form:errors path="introduced"  cssStyle="color: #ff0000;" cssClass="has-error" />
+							
 							</div>
 							<div class="form-group">
-								<label for="discontinued"><spring:message code="form.discontinued"/></label> <input
+								<spring:message code="form.discontinued" var="discontinued"/>
+								<label  for="discontinued">
+									<spring:message code="form.discontinued"/>
+								</label> 
+								<form:input path="discontinued"
 									type="date" class="form-control" id="discontinued"
-									placeholder="<spring:message code="form.discontinued"/><spring:message code="validation.format"/>" name="discontinued"
-									value="${computer.discontinued}"/>
+									name="discontinued"
+									placeholder="${discontinued}" value="${computer.discontinued}"/>
+									<form:errors path="discontinued"  cssStyle="color: #ff0000;" cssClass="has-error" />
 							</div>
 							<div class="form-group">
 								<label for="companyId"><spring:message code="form.companyName"/></label> <select
@@ -55,7 +67,7 @@
 							<input type="submit" value=<spring:message code="form.edit"/> class="btn btn-primary">
 							<spring:message code="form.or"/> <a href="dashboard" class="btn btn-default"><spring:message code="form.cancel"/></a>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>

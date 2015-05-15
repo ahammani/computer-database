@@ -42,7 +42,7 @@ public class EditComputer {
 	protected String doGet(@RequestParam(value = "id") String sid, Model model) {
 		List<Company> companies = companyService.getAll();
 		model.addAttribute("companies", companies);
-
+		model.addAttribute("computerDTO", new ComputerDTO());
 		long id = Utils.stringToLong(sid, 1);
 		ComputerDTO computer = dtoMapper.toDTO(computerService.getComputer(id));
 		if (computer != null) {
@@ -54,17 +54,19 @@ public class EditComputer {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	protected String doPost(
-			@Valid @ModelAttribute("editComputer") ComputerDTO computerDTO,
-			final BindingResult bindingResult) {
+	protected String doPost(@Valid @ModelAttribute ComputerDTO computerDTO,
+			final BindingResult bindingResult, Model model) {
 		if (!bindingResult.hasErrors()) {
 			Computer computer = dtoMapper.toComputer(computerDTO,
 					companyService);
 			if (computer != null) {
 				computerService.updateComputer(computer);
 			}
+			return "redirect:dashboard";
 		}
-		return "redirect:dashboard";
+		model.addAttribute("computer", computerDTO);
+		return "editComputer";
+
 	}
 
 }

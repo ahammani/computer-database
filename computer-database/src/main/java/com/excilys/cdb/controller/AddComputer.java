@@ -54,9 +54,10 @@ public class AddComputer {
 			if (computer != null) {
 				computerService.addComputer(computer);
 				return "redirect:dashboard";
-
 			}
 		}
+		List<Company> companies = companyService.getAll();
+		model.addAttribute("companies", companies);
 		return "addComputer";
 	}
 }
