@@ -31,11 +31,13 @@ public class CompanyService implements ICompanyService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Company getCompany(long id) {
 		return companyDAO.find(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Company> getAll() {
 		return companyDAO.findAll();
 	}

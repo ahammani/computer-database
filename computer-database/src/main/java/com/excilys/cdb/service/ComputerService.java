@@ -23,10 +23,12 @@ public class ComputerService implements IComputerService {
 		INSTANCE = iNSTANCE;
 	}
 
+	@Transactional(readOnly = true)
 	public List<Computer> getAll() {
 		return INSTANCE.findAll();
 	}
 
+	@Transactional(readOnly = true)
 	public List<Computer> getAll(Page page) {
 		if (page.getSearch().equals("")) {
 			return INSTANCE.findAll(page.getOffset(), page.getLimit(),
@@ -38,6 +40,7 @@ public class ComputerService implements IComputerService {
 
 	}
 
+	@Transactional(readOnly = true)
 	public Computer getComputer(long id) {
 		return INSTANCE.find(id);
 	}
@@ -47,18 +50,22 @@ public class ComputerService implements IComputerService {
 		INSTANCE.create(c);
 	}
 
+	@Transactional
 	public void updateComputer(Computer c) {
 		INSTANCE.update(c);
 	}
 
+	@Transactional
 	public void deleteComputer(long id) {
 		INSTANCE.delete(id);
 	}
 
+	@Transactional(readOnly = true)
 	public int count() {
 		return INSTANCE.count();
 	}
 
+	@Transactional(readOnly = true)
 	public int count(String search) {
 		if (search == null || search.isEmpty())
 			return 0;

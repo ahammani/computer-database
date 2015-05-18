@@ -54,19 +54,19 @@
 						</span></th>
 						<th>
 							<spring:message code="form.computerName"/>
-							<mylib:link body="&uarr;" order="desc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="c_name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="computer.name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="computer.name" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						<th>
 							<spring:message code="form.introduced"/>
-							<mylib:link body="&uarr;" order="desc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="computer.introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="computer.introduced" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						
 						<!-- Table header for Discontinued Date -->
 						<th><spring:message code="form.discontinued"/>
-							<mylib:link body="&uarr;" order="desc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&uarr;" order="desc" field_order="computer.discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
+							<mylib:link body="&darr;" order="asc" field_order="computer.discontinued" limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						<!-- Table header for Company -->
 						<th><spring:message code="form.companyName"/>

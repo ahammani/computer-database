@@ -31,8 +31,18 @@ public class DTOMapper {
 		String introduced = timeMapper.LocalDateToString(c.getIntroduced());
 		String discontinued = timeMapper.LocalDateToString(c.getDiscontinued());
 		long id = c.getId();
-		long company_id = c.getCompany().getId();
-		String company_name = c.getCompany().getName();
+		Company company = c.getCompany();
+		long company_id;
+		if (company != null) {
+			company_id = company.getId();
+		} else {
+			company_id = 0;
+		}
+		String company_name;
+		if (company != null)
+			company_name = company.getName();
+		else
+			company_name = null;
 		return new ComputerDTO(name, introduced, discontinued, id, company_id,
 				company_name);
 	}
