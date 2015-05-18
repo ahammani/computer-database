@@ -2,42 +2,43 @@ package com.excilys.cdb.dao;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.model.Company;
 
 @Repository
 public class CompanyDAO implements IDAO<Company> {
-	private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
-	private JdbcTemplate jdbcTemplate;
+	// private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
 
 	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+	private SessionFactory sf;
 
 	@Override
 	public Company find(long id) {
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM company WHERE id=?", new CompanyMapper(), id);
+		Session session = sf.getCurrentSession();
+		Company c = (Company) session.get(Company.class, id);
+		return c;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Company> findAll() {
-		return this.jdbcTemplate.query(
-				"SELECT DISTINCT * FROM company ORDER BY name ASC",
-				new CompanyMapper());
+		Session session = sf.getCurrentSession();
+		Criteria criteria = session.createCriteria(Company.class, "company");
+		return (List<Company>) criteria.addOrder(Order.asc("id")).list();
+
 	}
 
 	@Override
 	public void delete(long company_id) {
-		this.jdbcTemplate.update("DELETE FROM company WHERE id=?", company_id);
+		Session session = sf.getCurrentSession();
+		Company c = (Company) session.get(Company.class, company_id);
+		session.delete(c);
 	}
 
 }

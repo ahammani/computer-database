@@ -10,13 +10,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.model.Computer;
@@ -24,26 +18,7 @@ import com.excilys.cdb.model.Computer;
 @Repository
 public class ComputerDAO implements IDAO<Computer> {
 
-	private static final String FIND_ALL = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id";
-	private static final String FIND_ALL_COMPANY = FIND_ALL
-			+ " WHERE company_id=?";
-	private static final String COUNT = "SELECT COUNT(*) FROM computer";
-	private static final String COUNT_SEARCH = "SELECT COUNT(*) FROM computer LEFT OUTER JOIN company on computer.company_id=company.id"
-			+ " WHERE computer.name LIKE :search OR company.name LIKE :search";
-	private static final String DELETE = "DELETE FROM computer WHERE id=:id";
-	private static final String FIND = "SELECT computer.id as c_id,computer.name as c_name,introduced,discontinued,company_id,company.name FROM computer LEFT OUTER JOIN company  on computer.company_id=company.id WHERE computer.id=?";
-	private static final String UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
-	private static final String INSERT = "INSERT INTO computer(name,introduced,discontinued,company_id) VALUES (?,?,?,?)";
-	private static final String FIND_ALL_ORDER = FIND_ALL
-			+ " ORDER BY %s %s LIMIT ? OFFSET ? ";
-	private static final String FIND_ALL_SEARCH = FIND_ALL
-			+ " WHERE computer.name LIKE :search OR company.name LIKE :search ORDER BY %s %s LIMIT :limit  OFFSET :offset ";
-
-	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
-	// @Autowired
-	// private JdbcTemplate jdbcTemplate;
-	// @Autowired
-	// private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	// private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	@Autowired
 	private SessionFactory sf;
