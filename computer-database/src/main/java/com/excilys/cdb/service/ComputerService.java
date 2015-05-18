@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.ComputerDAO;
 import com.excilys.cdb.model.Computer;
@@ -41,6 +42,7 @@ public class ComputerService implements IComputerService {
 		return INSTANCE.find(id);
 	}
 
+	@Transactional
 	public void addComputer(Computer c) {
 		INSTANCE.create(c);
 	}

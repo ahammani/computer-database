@@ -1,17 +1,34 @@
 package com.excilys.cdb.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 /**
  * 
  * @author ahammani Class which represents Computer Entity
  */
-
-public class Computer {
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "computer")
+public class Computer implements Serializable {
 	private String name = "";
+	@Type(type = "com.excilys.cdb.mapper.LocalDateUserType")
 	private LocalDate introduced = null;
+	@Type(type = "com.excilys.cdb.mapper.LocalDateUserType")
 	private LocalDate discontinued = null;
+	@OneToOne
 	private Company company = null;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id = 0;
 
 	public long getId() {
@@ -27,9 +44,7 @@ public class Computer {
 	}
 
 	public void setCompany(Company company) {
-		if (company.getId() > 0) {
-			this.company = company;
-		}
+		this.company = company;
 	}
 
 	public Computer() {
@@ -51,24 +66,6 @@ public class Computer {
 	public Computer(String name) {
 		this.name = name;
 	}
-
-	// public Computer(String name, LocalDate intro, LocalDate dis, Company
-	// comp,
-	// long cId) {
-	// this.name = name;
-	// this.introduced = intro;
-	// this.discontinued = dis;
-	// this.company = comp;
-	// this.id = cId;
-	// }
-	//
-	// public Computer(String name, LocalDate intro, LocalDate dis, Company
-	// comp) {
-	// this.name = name;
-	// this.introduced = intro;
-	// this.discontinued = dis;
-	// this.company = comp;
-	// }
 
 	public String getName() {
 		return name;

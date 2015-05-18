@@ -23,6 +23,7 @@ public class DateValidator implements ConstraintValidator<Date, String> {
 			return true;
 		}
 		Locale local = LocaleContextHolder.getLocale();
+		System.out.println("Lang " + local);
 		boolean verif = d.matches(messageSource.getMessage(
 				"validation.pattern", null, local));
 		// if (verif) {

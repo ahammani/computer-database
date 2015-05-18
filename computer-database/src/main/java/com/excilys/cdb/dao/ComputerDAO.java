@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,9 @@ public class ComputerDAO implements IDAO<Computer> {
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+	@Autowired
+	private SessionFactory sf;
+
 	public int count() {
 		return this.jdbcTemplate.queryForObject(COUNT, Integer.class);
 	}
@@ -61,37 +66,43 @@ public class ComputerDAO implements IDAO<Computer> {
 
 	@Override
 	public void create(Computer obj) {
-		long id_company;
-		String name = obj.getName();
-		Timestamp introduced = SQLMapper.localdateToTimestamp(obj
-				.getIntroduced());
-		Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
-				.getDiscontinued());
-		Company company = obj.getCompany();
-
-		if (company != null)
-			id_company = company.getId();
-		else
-			id_company = 0;
-		KeyHolder keyHolder = new GeneratedKeyHolder();
-
-		int id = this.jdbcTemplate.update(new PreparedStatementCreator() {
-			public PreparedStatement createPreparedStatement(
-					Connection connection) throws SQLException {
-				PreparedStatement ps = connection.prepareStatement(INSERT,
-						Statement.RETURN_GENERATED_KEYS);
-				ps.setString(1, name);
-				ps.setTimestamp(2, introduced);
-				ps.setTimestamp(3, discontinued);
-				if (id_company == 0) {
-					ps.setNull(4, Types.NULL);
-				} else {
-					ps.setLong(4, id_company);
-				}
-				return ps;
-			}
-		}, keyHolder);
+		Session session = sf.getCurrentSession();
+		if (obj.getCompany() != null && obj.getCompany().getId() == 0) {
+			obj.setCompany(null);
+		}
+		long id = (long) session.save(obj);
 		obj.setId(id);
+		// long id_company;
+		// String name = obj.getName();
+		// Timestamp introduced = SQLMapper.localdateToTimestamp(obj
+		// .getIntroduced());
+		// Timestamp discontinued = SQLMapper.localdateToTimestamp(obj
+		// .getDiscontinued());
+		// Company company = obj.getCompany();
+		//
+		// if (company != null)
+		// id_company = company.getId();
+		// else
+		// id_company = 0;
+		// KeyHolder keyHolder = new GeneratedKeyHolder();
+		//
+		// int id = this.jdbcTemplate.update(new PreparedStatementCreator() {
+		// public PreparedStatement createPreparedStatement(
+		// Connection connection) throws SQLException {
+		// PreparedStatement ps = connection.prepareStatement(INSERT,
+		// Statement.RETURN_GENERATED_KEYS);
+		// ps.setString(1, name);
+		// ps.setTimestamp(2, introduced);
+		// ps.setTimestamp(3, discontinued);
+		// if (id_company == 0) {
+		// ps.setNull(4, Types.NULL);
+		// } else {
+		// ps.setLong(4, id_company);
+		// }
+		// return ps;
+		// }
+		// }, keyHolder);
+		// obj.setId(id);
 	}
 
 	@Override
