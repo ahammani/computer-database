@@ -1,20 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <artifactId>parent</artifactId>
+    <groupId>com.excilys</groupId>
+    <version>1.2.0-SNAPSHOT</version>
+  </parent>
+   
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.excilys</groupId>
-	<artifactId>parent</artifactId>
-	<version>1.2.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-
-	<modules>
-	  <module>core</module>
-	  <module>persistence</module>
-	  <module>service</module>
-	  <module>binding</module>
-	  <module>webapp</module>
-	  <module>console</module>
-	</modules>
-
+	<artifactId>service</artifactId>
 
 	<properties>
 		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
@@ -39,6 +33,13 @@
 	</properties>
 
 	<dependencies>
+
+	  <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>binding</artifactId>
+            <version>${project.version}</version>
+	  </dependency>
+
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
