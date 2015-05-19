@@ -1,4 +1,4 @@
-package com.excilys.cdb.utils;
+package com.excilys;
 
 import java.io.BufferedReader;
 import java.io.File;
