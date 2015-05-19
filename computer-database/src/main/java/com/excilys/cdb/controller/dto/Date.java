@@ -1,4 +1,4 @@
-package com.excilys.cdb.validation;
+package com.excilys.cdb.controller.dto;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

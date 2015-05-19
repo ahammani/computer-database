@@ -4,8 +4,6 @@ import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.excilys.cdb.validation.Date;
-
 public class ComputerDTO {
 	@NotBlank
 	private String name;

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -26,7 +26,7 @@ public class Computer implements Serializable {
 	private LocalDate introduced = null;
 	@Type(type = "com.excilys.cdb.mapper.LocalDateType")
 	private LocalDate discontinued = null;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company = null;
 	@Id

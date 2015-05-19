@@ -1,4 +1,4 @@
-package com.excilys.cdb.validation;
+package com.excilys.cdb.controller.dto;
 
 import java.util.Locale;
 import javax.validation.ConstraintValidator;
