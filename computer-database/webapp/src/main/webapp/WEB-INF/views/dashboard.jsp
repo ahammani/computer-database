@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page session="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -8,7 +9,6 @@
 <body>
 
 	<c:import url="import/header.jsp" />
-	<mylib:flag/>
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">${pages.maxComputers } <spring:message code="dashboard.computersFound"/></h1>

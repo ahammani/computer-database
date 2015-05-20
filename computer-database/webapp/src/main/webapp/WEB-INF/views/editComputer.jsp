@@ -8,7 +8,6 @@
 <c:import url="import/head.jsp" />
 <body>
 	<c:import url="import/header.jsp" />
-	<mylib:flag id="${computer.id}"/>
 	<section id="main">
 		<div class="container">
 			<div class="row">

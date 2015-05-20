@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
 
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="root" value="${req.getContextPath()}" />
@@ -16,5 +17,6 @@
 	<div class="container">
 		<a class="navbar-brand" href="${root}/dashboard"> Application -
 			Computer Database </a>	
+			<mylib:flag id="${computer.id}"/>
 	</div>
 </header>

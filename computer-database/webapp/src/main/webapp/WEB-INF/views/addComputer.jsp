@@ -9,7 +9,6 @@
 <body>
 
 	<c:import url="import/header.jsp" />
-	<mylib:flag/>	
 	<section id="main">
 		<div class="container">
 			<div class="row">

@@ -21,7 +21,7 @@ import com.excilys.cdb.dto.ComputerDTO;
 @Component
 public class DTOMapper {
 	@Autowired
-	private TimeMapper timeMapper;// = new TimeMapper();
+	private TimeMapper timeMapper;
 
 	public ComputerDTO toDTO(Computer c) {
 		if (c == null)

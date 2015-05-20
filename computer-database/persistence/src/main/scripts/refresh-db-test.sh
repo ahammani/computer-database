@@ -1,0 +1,1 @@
+mysql -uroot -p"root" computer-database-db-test < refresh-db-test.sql
