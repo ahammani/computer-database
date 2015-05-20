@@ -1,5 +1,5 @@
 drop table if exists computer;
-  drop table if exists company;
+drop table if exists company;
 
   create table company (
     id                        bigint not null auto_increment,
@@ -15,10 +15,6 @@ drop table if exists computer;
     company_id                bigint default NULL,
     constraint pk_computer primary key (id))
   ;
-
-  alter table computer add constraint fk_computer_company_1 foreign key (company_id) references company (id) on delete restrict on update restrict;
-  create index ix_computer_company_1 on computer (company_id);
-
 
 insert into company (id,name) values (  1,'Apple Inc.');
 insert into company (id,name) values (  2,'Thinking Machines');
