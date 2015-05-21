@@ -8,29 +8,45 @@
 
 
 	<http pattern="/static/**" security="none" />
-<!-- 	<http pattern="/login*" security="none"/> -->
-	
+
 	<http auto-config='true' use-expressions="false">
 		<intercept-url pattern="/addComputer*" access="ROLE_USER" />
 		<intercept-url pattern="/editComputer*" access="ROLE_ADMIN" />
-<!-- 		<form-login login-page='/login'/> -->
+		<!-- <form-login login-page='/login'/> -->
 	</http>
 
- <authentication-manager>
-    <authentication-provider user-service-ref='myUserDetailsService'/>
-  </authentication-manager>
+	<!-- <http auto-config='true' use-expressions="false" create-session="stateless"> -->
+	<!-- <intercept-url pattern="/addComputer*" access="ROLE_USER" /> -->
+	<!-- <intercept-url pattern="/editComputer*" access="ROLE_ADMIN" /> -->
+	<!-- <custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" /> -->
+	<!-- <csrf /> -->
+	<!-- </http> -->
 
-  <beans:bean id="myUserDetailsService"
-      class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-    <beans:property name="dataSource" ref="dataSource"/>
-  </beans:bean>
-  
+	<!-- <authentication-manager> -->
+	<!-- <authentication-provider user-service-ref='myUserDetailsService' /> -->
+	<!-- </authentication-manager> -->
+
+	<beans:bean id="myUserDetailsService"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
 	<authentication-manager>
 		<authentication-provider user-service-ref="myUserDetailsService">
-<!-- 			<user-service> -->
-<!-- 				<user name="admin" password="admin" authorities="ROLE_USER,ROLE_ADMIN" /> -->
-<!-- 				<user name="test" password="test" authorities="ROLE_USER" /> -->
-<!-- 			</user-service> -->
 		</authentication-provider>
 	</authentication-manager>
+
+	<beans:bean id="digestFilter"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<beans:property name="userDetailsService" ref="userDetailsService" />
+		<beans:property name="authenticationEntryPoint" ref="digestEntryPoint" />
+	</beans:bean>
+
+	<beans:bean id="digestEntryPoint"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+		<beans:property name="realmName"
+			value="Contacts Realm via Digest Authentication" />
+		<beans:property name="key" value="acegi" />
+	</beans:bean>
+
 </beans:beans>
