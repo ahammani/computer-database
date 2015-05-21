@@ -25,12 +25,12 @@
     <beans:property name="dataSource" ref="dataSource"/>
   </beans:bean>
   
-<!-- 	<authentication-manager> -->
-<!-- 		<authentication-provider> -->
+	<authentication-manager>
+		<authentication-provider user-service-ref="myUserDetailsService">
 <!-- 			<user-service> -->
 <!-- 				<user name="admin" password="admin" authorities="ROLE_USER,ROLE_ADMIN" /> -->
 <!-- 				<user name="test" password="test" authorities="ROLE_USER" /> -->
 <!-- 			</user-service> -->
-<!-- 		</authentication-provider> -->
-<!-- 	</authentication-manager> -->
+		</authentication-provider>
+	</authentication-manager>
 </beans:beans>

@@ -7,8 +7,10 @@ drop table if exists users;
       enabled boolean not null);
 
   create table authorities (
+  	  id INT(11) NOT NULL AUTO_INCREMENT,
       username varchar(50) not null,
       authority varchar(50) not null,
+      PRIMARY KEY (id),
       constraint fk_authorities_users foreign key(username) references users(username));
       create unique index ix_auth_username on authorities (username,authority);
   
