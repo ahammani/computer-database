@@ -143,15 +143,11 @@ public class ComputerDAO implements IDAO<Computer> {
 				.createCriteria("company", "company", JoinType.LEFT_OUTER_JOIN);
 		criteria.add(Restrictions.eq("company_id", company_id));
 		return criteria.list();
-		// return this.jdbcTemplate.query(FIND_ALL_COMPANY, new
-		// ComputerMapper(),
-		// company_id);
 	}
 
 	public void deleteByCompany(long company_id) {
 		Session session = sf.getCurrentSession();
 		session.createQuery("delete from Computer where id=:id")
 				.setLong("id", company_id).executeUpdate();
-		// this.jdbcTemplate.update(DELETE, company_id);
 	}
 }

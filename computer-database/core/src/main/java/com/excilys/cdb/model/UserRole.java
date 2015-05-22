@@ -3,6 +3,8 @@ package com.excilys.cdb.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +16,8 @@ import javax.persistence.UniqueConstraint;
 		"authority", "username" }))
 public class UserRole {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "username", nullable = false)
@@ -53,6 +57,12 @@ public class UserRole {
 
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRole [id=" + id + ", username=" + user.getUsername()
+				+ ", authority=" + authority + "]";
 	}
 
 }

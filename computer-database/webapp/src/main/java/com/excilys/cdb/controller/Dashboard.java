@@ -46,4 +46,9 @@ public class Dashboard {
 		return "dashboard";
 	}
 
+	@RequestMapping(method = RequestMethod.POST)
+	public String doPost(Model model) {
+		return "dashboard";
+	}
+
 }

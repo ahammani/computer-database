@@ -19,10 +19,6 @@ import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.service.CompanyService;
 import com.excilys.cdb.service.ComputerService;
 
-/**
- * Servlet implementation class AddComputer
- */
-
 @RequestMapping("/addComputer")
 @Controller
 public class AddComputer {

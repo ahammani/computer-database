@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.utils.Utils;
 
-@RequestMapping("deleteComputer")
+@RequestMapping("/deleteComputer")
 @Controller
 public class DeleteComputer {
 	@Autowired
