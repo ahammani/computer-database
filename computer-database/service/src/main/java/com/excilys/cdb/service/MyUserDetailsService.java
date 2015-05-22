@@ -34,10 +34,13 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		com.excilys.cdb.model.User user = userDAO.findByUserName(username);
-		List<GrantedAuthority> authorities = buildUserAuthority(user
-				.getUserRole());
-		LOGGER.debug("User {} have {} ", user.getUsername(), authorities);
-		return buildUserForAuthentication(user, authorities);
+		if (user != null) {
+			List<GrantedAuthority> authorities = buildUserAuthority(user
+					.getUserRole());
+			LOGGER.debug("User {} have {} ", user.getUsername(), authorities);
+			return buildUserForAuthentication(user, authorities);
+		}
+		return null;
 	}
 
 	// Converts com.excilys.cdb.model.User user to

@@ -3,6 +3,7 @@ package com.excilys.cdb.page;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.utils.Utils;
 
@@ -63,6 +64,21 @@ public class Page {
 		this.order = order;
 	}
 
+	public Page(int page, int limit, int offset, int maxPages,
+			List<ComputerDTO> computers, int maxComputers, String search,
+			String field_order, String order) {
+		super();
+		this.page = page;
+		this.limit = limit;
+		this.offset = offset;
+		this.maxPages = maxPages;
+		this.computers = computers;
+		this.maxComputers = maxComputers;
+		this.search = search;
+		this.field_order = field_order;
+		this.order = order;
+	}
+
 	public int getPage() {
 		return page;
 	}
@@ -80,7 +96,7 @@ public class Page {
 				: (maxComputers / limit) + 1;
 		this.page = (this.page > this.maxPages) ? (this.maxPages - 1)
 				: this.page;
-		this.page = (page <= 0) ? 1 : this.page;
+		this.page = (page <= 0 || page > maxPages) ? 1 : this.page;
 	}
 
 	public int getLimit() {

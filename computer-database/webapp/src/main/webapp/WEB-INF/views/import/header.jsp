@@ -17,18 +17,7 @@
 <header class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<a class="navbar-brand" href="${root}/dashboard"> Application -
-			Computer Database </a>
-		<mylib:flag id="${computer.id}" />
-
-
-		<c:if test="${pageContext.request.userPrincipal.name != null}">
-			<c:url var="logoutUrl" value="/logout" />
-			<form action="${logoutUrl}" method="post">
-				<input type="submit" value="Log out" /> 
-<%-- 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
-			</form>
-
-		</c:if>
-
+				Computer Database </a>
+			<mylib:flag id="${computer.id}" />
 	</div>
 </header>

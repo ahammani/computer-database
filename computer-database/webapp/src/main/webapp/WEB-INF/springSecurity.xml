@@ -9,49 +9,42 @@
 
 	<http pattern="/static/**" security="none" />
 
-	<http auto-config='true' use-expressions="false">
-		<!-- entry-point-ref="digestEntryPoint"> -->
-		<intercept-url pattern="/addComputer*" access="ROLE_USER" />
-		<intercept-url pattern="/editComputer*" access="ROLE_ADMIN" />
-		<intercept-url pattern="/deleteComputer*" access="ROLE_ADMIN"  />
-		<intercept-url pattern="/dashboard*" method="POST" access="IS_AUTHENTICATED_ANONYMOUSLY"  />
-<!-- 		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
+	<http auto-config='true' create-session="never" use-expressions="false" >
+<!-- 	entry-point-ref="digestEntryPoint"> -->
+		<intercept-url pattern="/addComputer/**" access="ROLE_USER" />
+		<intercept-url pattern="/editComputer/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/deleteComputer/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/dashboard/**" method="POST"
+			access="ROLE_ADMIN" />
+		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 
-		<!-- <form-login login-page="/login" default-target-url="/dashboard" -->
-		<!-- authentication-failure-url="/login?error" username-parameter="username" -->
-		<!-- password-parameter="password" /> -->
+		<form-login login-page="/customLogin"
+					login-processing-url="/j_spring_security_check"
+					username-parameter="username"
+					password-parameter="password"
+					authentication-failure-url="/customLogin?auth=false" />
 		<logout logout-success-url="/dashboard" delete-cookies="JSESSIONID" />
-		<csrf disabled="true"/>
+		<csrf disabled="true" />
 
-		<!-- <custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" /> -->
+<!-- 		<custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" /> -->
 	</http>
 
-
-	<beans:bean id="myUserDetailsService"
-		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-		<beans:property name="dataSource" ref="dataSource" />
-	</beans:bean>
-
 	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService"/>
-<!-- 		<authentication-provider> -->
-<!-- 			<jdbc-user-service data-source-ref="dataSource" /> -->
-<!-- 		</authentication-provider> -->
+		<authentication-provider user-service-ref="userDetailsService" />
 	</authentication-manager>
 
-	<!-- <beans:bean id="digestFilter" -->
-	<!-- class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter"> -->
-	<!-- <beans:property name="userDetailsService" ref="myUserDetailsService" 
-		/> -->
-	<!-- <beans:property name="authenticationEntryPoint" ref="digestEntryPoint" 
-		/> -->
-	<!-- </beans:bean> -->
+<!-- 	<beans:bean id="digestFilter" -->
+<!-- 		class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter"> -->
+<!-- 		<beans:property name="userDetailsService" ref="userDetailsService" /> -->
+<!-- 		<beans:property name="authenticationEntryPoint" ref="digestEntryPoint" /> -->
+<!-- 	</beans:bean> -->
 
-	<!-- <beans:bean id="digestEntryPoint" -->
-	<!-- class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint"> -->
-	<!-- <beans:property name="realmName" -->
-	<!-- value="Contacts Realm via Digest Authentication" /> -->
-	<!-- <beans:property name="key" value="acegi" /> -->
-	<!-- </beans:bean> -->
+<!-- 	<beans:bean id="digestEntryPoint" -->
+<!-- 		class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint"> -->
+<!-- 		<beans:property name="realmName" -->
+<!-- 			value="Contacts Realm via Digest Authentication" /> -->
+<!-- 		<beans:property name="key" value="acegi" /> -->
+		
+<!-- 	</beans:bean> -->
 
 </beans:beans>

@@ -1,5 +1,9 @@
 package com.excilys.cdb.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.ComputerService;
@@ -18,6 +23,7 @@ public class Dashboard {
 	private ComputerService computerService;
 	@Autowired
 	private DTOMapper dtoMapper;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public Dashboard() {
 		super();
@@ -40,7 +46,9 @@ public class Dashboard {
 			pages.setMaxComputers(computerService.count(search));
 			model.addAttribute("search", search);
 		}
-		pages.setComputers(dtoMapper.toDTOList(computerService.getAll(pages)));
+		List<ComputerDTO> computers = dtoMapper.toDTOList(computerService
+				.getAll(pages));
+		pages.setComputers(computers);
 		pages.setMaxPages(pages.getMaxComputers());
 		model.addAttribute("pages", pages);
 		return "dashboard";
