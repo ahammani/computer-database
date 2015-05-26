@@ -6,6 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +15,7 @@ import com.excilys.cdb.model.Company;
 
 @Repository
 public class CompanyDAO implements IDAO<Company> {
-	// private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
+	private final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
 
 	@Autowired
 	private SessionFactory sf;
@@ -38,7 +40,11 @@ public class CompanyDAO implements IDAO<Company> {
 	public void delete(long company_id) {
 		Session session = sf.getCurrentSession();
 		Company c = (Company) session.get(Company.class, company_id);
-		session.delete(c);
+		if (c != null) {
+			session.delete(c);
+		} else {
+			logger.debug("Computer is null");
+		}
 	}
 
 }

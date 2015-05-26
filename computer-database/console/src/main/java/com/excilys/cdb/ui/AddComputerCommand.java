@@ -8,7 +8,6 @@ import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.Computer.ComputerBuilder;
-import com.excilys.cdb.service.ComputerService;
 
 public class AddComputerCommand extends ICommand {
 

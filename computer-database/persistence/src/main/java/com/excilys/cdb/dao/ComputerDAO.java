@@ -10,6 +10,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +20,7 @@ import com.excilys.cdb.model.Computer;
 @Repository
 public class ComputerDAO implements IDAO<Computer> {
 
-	// private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
+	private final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	@Autowired
 	private SessionFactory sf;
@@ -58,7 +60,11 @@ public class ComputerDAO implements IDAO<Computer> {
 	public void delete(long id) {
 		Session session = sf.getCurrentSession();
 		Computer c = (Computer) session.get(Computer.class, id);
-		session.delete(c);
+		if (c != null) {
+			session.delete(c);
+		} else {
+			logger.debug("Computer is null");
+		}
 	}
 
 	@Override
@@ -101,12 +107,6 @@ public class ComputerDAO implements IDAO<Computer> {
 		criteria.setFirstResult(offset);
 		criteria.setMaxResults(limit);
 		return (List<Computer>) criteria.list();
-
-		// String req = String.format(FIND_ALL_ORDER, field_order, order);
-		// List<Computer> computers = this.jdbcTemplate.query(req, new Object[]
-		// {
-		// limit, offset }, new ComputerMapper());
-		// return computers;
 	}
 
 	@SuppressWarnings("unchecked")

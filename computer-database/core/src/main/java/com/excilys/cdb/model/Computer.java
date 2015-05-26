@@ -60,8 +60,8 @@ public class Computer implements Serializable {
 				+ discontinued.toString() + "\t " : "";
 		String aid = "ID : " + id + "\t ";
 		String cname = "COMPUTER NAME : " + name + "\t ";
-		String cid = (company.getId() != 0) ? "COMPANY ID :" + company.getId()
-				: "";
+		String cid = (company != null && company.getId() != 0) ? "COMPANY ID :"
+				+ company.getId() : "";
 		return aid + cname + intro + dis + cid;
 	}
 

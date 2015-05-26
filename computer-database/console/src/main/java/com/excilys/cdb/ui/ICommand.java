@@ -57,14 +57,14 @@ public abstract class ICommand {
 	 *             the parse exception
 	 */
 	public Timestamp getDate() throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("mm-dd-yyyy");
 		System.out
-				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
+				.println("Enter a date with exactly this format : mm-dd-yyyy");
 		String date = Main.sc.next();
 		while (!Utils.checkDate2(date)) {
 			Main.wrongEntry();
 			System.out
-					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
+					.println("Enter a date with exactly this format  : mm-dd-yyyy");
 			date = Main.sc.next();
 		}
 		Date parsedDate = dateFormat.parse(date);
@@ -73,14 +73,14 @@ public abstract class ICommand {
 	}
 
 	public LocalDate getLocalDate() throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("mm-dd-yyyy");
 		System.out
-				.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
+				.println("Enter a date with exactly this format : mm-dd-yyyy");
 		String date = Main.sc.next();
 		while (!Utils.checkDate2(date)) {
 			Main.wrongEntry();
 			System.out
-					.println("Enter a date with exactly this format (it's very important) : yyyy-MM-dd");
+					.println("Enter a date with exactly this format : mm-dd-yyyy");
 			date = Main.sc.next();
 		}
 		Date parsedDate = dateFormat.parse(date);

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.CompanyDAO;
@@ -43,7 +42,7 @@ public class CompanyService implements ICompanyService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional
 	public void deleteCompany(long company_id) {
 		computerDAO.deleteByCompany(company_id);
 		companyDAO.delete(company_id);

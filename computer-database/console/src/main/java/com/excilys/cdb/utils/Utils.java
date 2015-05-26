@@ -46,7 +46,7 @@ public class Utils {
 	}
 
 	/**
-	 * Check if the string d represents a date with yyyy-MM-dd form
+	 * Check if the string d represents a date with mm-dd-yyyy form
 	 * 
 	 * @param d
 	 *            the string which represent a date
@@ -57,18 +57,18 @@ public class Utils {
 			return false;
 		d = d.split(" ")[0];
 		Pattern p = Pattern
-				.compile("[0-9]{4}-(0[1-9]|1[1-2])-([0-2][0-9]|3[01])");
+				.compile("(0[1-9]|1[1-2])-([0-2][0-9]|3[01])-[0-9]{4}");
 		Matcher m = p.matcher(d);
 		Pattern month31 = Pattern
-				.compile("[0-9]{4}-(01|03|05|07|08|10|12)-([0-2][0-9]|3[01])");
+				.compile("(01|03|05|07|08|10|12)-([0-2][0-9]|3[01])-[0-9]{4}");
 		Pattern month30 = Pattern
-				.compile("[0-9]{4}-(04|06|08|09|11)-([0-2][0-9]|30)");
-		Pattern february = Pattern.compile("[0-9]{4}-02-[0-2][0-9]");
+				.compile("(04|06|08|09|11)-([0-2][0-9]|30)-[0-9]{4}");
+		Pattern february = Pattern.compile("02-[0-2][0-9]-[0-9]{4}");
 		if (m.matches()) {
 			String[] date = d.split("-");
-			int year = Integer.parseInt(date[0]);
-			int month = Integer.parseInt(date[1]);
-			int day = Integer.parseInt(date[2]);
+			int year = Integer.parseInt(date[2]);
+			int month = Integer.parseInt(date[0]);
+			int day = Integer.parseInt(date[1]);
 			// Timestamp limit 2038-01-19 should not be here
 			if (year == 2038 && ((month == 01 && day > 19) || month > 01)
 					|| year > 2038) {
