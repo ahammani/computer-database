@@ -32,6 +32,8 @@
 	<authentication-manager>
 		<authentication-provider user-service-ref="userDetailsService" />
 	</authentication-manager>
+	
+	<beans:bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 
 <!-- 	<beans:bean id="digestFilter" -->
 <!-- 		class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter"> -->
