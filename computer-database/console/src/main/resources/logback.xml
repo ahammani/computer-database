@@ -10,12 +10,12 @@
 		</encoder>
 	</appender>
 
-	<root level="ERROR">
+	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 	</root>
 
 	<category name="org.springframework">
-		<priority value="info" />
+		<priority value="debug" />
 	</category>
 	<logger name="org.hibernate">
 		<level value="info" />

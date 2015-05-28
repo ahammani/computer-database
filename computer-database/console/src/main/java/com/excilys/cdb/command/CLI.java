@@ -1,9 +1,5 @@
 package com.excilys.cdb.command;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 
 /**
@@ -13,22 +9,20 @@ import com.excilys.cdb.model.Computer;
  *
  */
 public class CLI implements UI {
-	private List<String> features;
+	private ICommand[] actions;
 
 	public CLI() {
-		features = new ArrayList<>();
 	}
 
-	public CLI(List<String> l) {
-		features = new ArrayList<>();
-		features.addAll(l);
+	public CLI(ICommand[] actions) {
+		this.actions = actions;
 	}
 
 	@Override
 	public void displayMenu() {
 		System.out.println();
-		for (int i = 0; i < Main.actions.length; i++) {
-			System.out.println(i + " - " + Main.actions[i].toString());
+		for (int i = 0; i < actions.length; i++) {
+			System.out.println(i + " - " + actions[i].toString());
 		}
 		System.out.println();
 	}

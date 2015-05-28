@@ -71,8 +71,6 @@ public class DTOMapper {
 		} else {
 			company = new Company(companyId, companyName);
 		}
-		if (timeMapper == null) {
-		}
 		LocalDate intro = timeMapper.StringToLocalDate(introduced);
 		LocalDate dis = timeMapper.StringToLocalDate(discontinued);
 		return new ComputerBuilder(computerName).id(computerId)

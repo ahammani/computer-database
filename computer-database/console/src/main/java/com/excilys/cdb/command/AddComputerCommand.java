@@ -9,9 +9,15 @@ import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.Computer.ComputerBuilder;
+import com.excilys.cdb.service.IClientService;
 
 public class AddComputerCommand extends ICommand {
 	DTOMapper mapper = new DTOMapper();
+	IClientService service;
+
+	public AddComputerCommand(IClientService service) {
+		this.service = service;
+	}
 
 	@Override
 	public void fetch() {
@@ -35,7 +41,7 @@ public class AddComputerCommand extends ICommand {
 			company.setId(id);
 			Computer comp = new ComputerBuilder(name).introduced(intro)
 					.discontinued(dis).company(company).build();
-			// Main.service.createComputer(comp);
+			service.createComputer(comp);
 			System.out.println("Creation done");
 		} catch (ParseException e) {
 			e.printStackTrace();

@@ -11,19 +11,18 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 
-import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
-@Service
+@Component
 public class ClientService implements IClientService {
 	private static final String ROOT = "http://localhost:8080/webservice/rest";
 	private static final String COMPANY = "/company";
@@ -33,7 +32,7 @@ public class ClientService implements IClientService {
 	private static final String UPDATE = "/update";
 	Logger logger = LoggerFactory.getLogger(ClientService.class);
 	@Autowired
-	DTOMapper mapper;
+	DTOMapper mapper = new DTOMapper();
 
 	@Override
 	public List<Computer> findAllComputer() {
@@ -42,7 +41,7 @@ public class ClientService implements IClientService {
 		WebTarget webTarget = client.target(ROOT + COMPUTER + "/findAll");
 		Invocation.Builder invocationBuilder = webTarget.request();
 		Response response = invocationBuilder.get();
-		System.out.println("RESPONSE " + response.toString());
+		logger.debug("RESPONSE " + response.toString());
 		List<ComputerDTO> computers = response
 				.readEntity(new GenericType<List<ComputerDTO>>() {
 				});
@@ -56,7 +55,7 @@ public class ClientService implements IClientService {
 		WebTarget webTarget = client.target(ROOT + COMPANY + "/findAll");
 		Invocation.Builder invocationBuilder = webTarget.request();
 		Response response = invocationBuilder.get();
-		System.out.println("RESPONSE " + response.toString());
+		logger.debug("RESPONSE " + response.toString());
 		return response.readEntity(new GenericType<List<Company>>() {
 		});
 	}

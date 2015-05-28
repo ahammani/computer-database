@@ -6,11 +6,18 @@ import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.ComputerService;
+import com.excilys.cdb.service.IClientService;
 
 public class PageableComputerListCommand extends ICommand {
 	List<Computer> l;
 	private int offset = 0;
 	private int limit = 10;
+	IClientService service;
+
+	public PageableComputerListCommand(IClientService service, int limit) {
+		this(limit);
+		this.service = service;
+	}
 
 	// TODO
 	public PageableComputerListCommand(int limit) {
@@ -61,7 +68,8 @@ public class PageableComputerListCommand extends ICommand {
 		for (int i = 0; i < l.size(); i++) {
 			Computer c = l.get(i);
 			if (c != null)
-				Main.cli.simpleDisplay(c);
+				System.out.println("ID : " + c.getId() + " " + "NAME : "
+						+ c.getName());
 		}
 		turnPages();
 	}

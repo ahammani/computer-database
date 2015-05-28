@@ -1,15 +1,14 @@
 package com.excilys.cdb.main;
 
-import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.command.AddComputerCommand;
-import com.excilys.cdb.command.CLI;
 import com.excilys.cdb.command.CompanyListCommand;
 import com.excilys.cdb.command.ComputerDetailsCommand;
 import com.excilys.cdb.command.ComputerListCommand;
@@ -19,32 +18,42 @@ import com.excilys.cdb.command.ExitCommand;
 import com.excilys.cdb.command.ICommand;
 import com.excilys.cdb.command.PageableComputerListCommand;
 import com.excilys.cdb.command.UpdateComputerCommand;
-import com.excilys.cdb.mapper.DTOMapper;
-import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.IClientService;
-import com.excilys.cdb.service.IClientService2;
 import com.excilys.cdb.utils.Utils;
 
 @Transactional
-@Component
 public class Main {
-	public static CLI cli = new CLI();
 	public static Scanner sc = new Scanner(System.in);
-	@Autowired
-	public IClientService trueService;
-	public static IClientService2 service;
+	public static ClassPathXmlApplicationContext context;
 
-	// public static ClassPathXmlApplicationContext context;
-	// static {
-	// context = new ClassPathXmlApplicationContext(
-	// "classpath:applicationContext.xml");
-	// service = context.getBean(IClientService2.class);
-	// }
-	public static final ICommand[] actions = { new CompanyListCommand(),
-			new ComputerListCommand(), new PageableComputerListCommand(10),
-			new ComputerDetailsCommand(), new AddComputerCommand(),
-			new UpdateComputerCommand(), new DeleteComputerCommand(),
-			new DeleteCompanyCommand(), new ExitCommand() };
+	@Autowired
+	public static IClientService service;
+	static {
+		context = new ClassPathXmlApplicationContext(
+				"classpath:applicationContext.xml");
+		service = context.getBean(IClientService.class);
+	}
+	public final ICommand[] actions = { new CompanyListCommand(service),
+			new ComputerListCommand(service),
+			new PageableComputerListCommand(service, 10),
+			new ComputerDetailsCommand(service),
+			new AddComputerCommand(service),
+			new UpdateComputerCommand(service),
+			new DeleteComputerCommand(service),
+			new DeleteCompanyCommand(service), new ExitCommand() };
+
+	public void displayMenu() {
+		System.out.println();
+		for (int i = 0; i < actions.length; i++) {
+			System.out.println(i + " - " + actions[i].toString());
+		}
+		System.out.println();
+	}
+
+	public void simpleDisplay(Computer c) {
+		System.out.println("ID : " + c.getId() + " " + "NAME : " + c.getName());
+	}
 
 	public static void wrongEntry() {
 		System.out.println("Wrong entry !");
@@ -69,7 +78,7 @@ public class Main {
 
 	private void loop() {
 		while (true) {
-			cli.displayMenu();
+			displayMenu();
 			int i = (int) getLong();
 			if (i >= actions.length) {
 				wrongEntry();
@@ -78,20 +87,8 @@ public class Main {
 		}
 	}
 
-	public void findAllCompany() {
-		List<Company> comp = Main.service.findAllCompany();
-		for (Company c : comp) {
-			if (c != null)
-				System.out.println(c.toString());
-		}
-
-	}
-
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				"classpath:applicationContext.xml");
-		Main main = context.getBean(Main.class);
-		main.findAllCompany();
-
+		Main main = new Main();
+		main.loop();
 	}
 }
