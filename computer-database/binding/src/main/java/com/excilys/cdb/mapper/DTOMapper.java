@@ -51,6 +51,11 @@ public class DTOMapper {
 				.collect(Collectors.toList());
 	}
 
+	public List<Computer> toComputerList(List<ComputerDTO> computers) {
+		return computers.stream().map(x -> toComputer(x))
+				.collect(Collectors.toList());
+	}
+
 	public Computer toComputer(ComputerDTO computerDTO) {
 		String computerName = computerDTO.getName();
 		String introduced = computerDTO.getIntroduced();
@@ -65,6 +70,8 @@ public class DTOMapper {
 			company.setId(0);
 		} else {
 			company = new Company(companyId, companyName);
+		}
+		if (timeMapper == null) {
 		}
 		LocalDate intro = timeMapper.StringToLocalDate(introduced);
 		LocalDate dis = timeMapper.StringToLocalDate(discontinued);

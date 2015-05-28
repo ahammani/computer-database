@@ -7,8 +7,15 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<import resource="classpath:/serviceContext.xml"/>
+	<import resource="classpath:/bindingContext.xml"/>
 
 	<!-- Package scan -->
 	<context:component-scan base-package="com.excilys.cdb.webservice" />
 
+	<!-- Spring message source -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
 </beans>

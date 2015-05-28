@@ -1,18 +1,20 @@
-package com.excilys.cdb.ui;
+package com.excilys.cdb.command;
 
 import java.text.ParseException;
 
 import com.excilys.cdb.main.Main;
+import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ComputerService;
 
 public class UpdateComputerCommand extends ICommand {
+
+	DTOMapper mapper = new DTOMapper();
 
 	@Override
 	public void fetch() {
 		System.out.print("(You have to enter a computer's id)");
 		long id = Main.getLong();
-		Computer comp = Main.computerService.getComputer(id);
+		Computer comp = null;// Main.service.findComputer(id);
 		if (comp == null)
 			return;
 		try {
@@ -25,7 +27,7 @@ public class UpdateComputerCommand extends ICommand {
 			if (chooseArgs("modify company id")) {
 				comp.getCompany().setId(Main.getLong());
 			}
-			Main.computerService.updateComputer(comp);
+			// Main.service.updateComputer(mapper.toDTO(comp));
 			System.out.println("Modification done");
 			System.out.println();
 		} catch (ParseException e) {

@@ -7,12 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 
  * @author ahammani Class which represents Company Entity
  */
-
+@XmlRootElement
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "company")

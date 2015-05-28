@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.Type;
 
@@ -17,6 +19,7 @@ import org.hibernate.annotations.Type;
  * 
  * @author ahammani Class which represents Computer Entity
  */
+@XmlRootElement
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "computer")

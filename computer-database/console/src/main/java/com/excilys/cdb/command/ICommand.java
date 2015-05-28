@@ -1,4 +1,4 @@
-package com.excilys.cdb.ui;
+package com.excilys.cdb.command;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -61,7 +61,7 @@ public abstract class ICommand {
 		System.out
 				.println("Enter a date with exactly this format : mm-dd-yyyy");
 		String date = Main.sc.next();
-		while (!Utils.checkDate2(date)) {
+		while (!Utils.checkDate(date)) {
 			Main.wrongEntry();
 			System.out
 					.println("Enter a date with exactly this format  : mm-dd-yyyy");
@@ -77,7 +77,7 @@ public abstract class ICommand {
 		System.out
 				.println("Enter a date with exactly this format : mm-dd-yyyy");
 		String date = Main.sc.next();
-		while (!Utils.checkDate2(date)) {
+		while (!Utils.checkDate(date)) {
 			Main.wrongEntry();
 			System.out
 					.println("Enter a date with exactly this format : mm-dd-yyyy");

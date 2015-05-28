@@ -1,6 +1,7 @@
 package com.excilys.cdb.dto;
 
 import javax.validation.constraints.Min;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotBlank;
 

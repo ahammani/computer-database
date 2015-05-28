@@ -27,7 +27,7 @@ public class TimeMapper {
 	}
 
 	public LocalDate StringToLocalDate(String s) {
-		if (s.isEmpty() || s == null)
+		if (s == null || s.isEmpty())
 			return null;
 		String format = messageSource.getMessage("validation.format", null,
 				LocaleContextHolder.getLocale());

@@ -1,16 +1,18 @@
-package com.excilys.cdb.ui;
+package com.excilys.cdb.command;
 
 import java.util.List;
 
 import com.excilys.cdb.main.Main;
+import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ComputerService;
 
 public class ComputerListCommand extends ICommand {
 
+	DTOMapper mapper = new DTOMapper();
+
 	@Override
 	public void fetch() {
-		List<Computer> comp = Main.computerService.getAll();
+		List<Computer> comp = mapper.toComputerList(Main.service.findAllComputer());
 
 		for (Computer c : comp) {
 			if (c != null)

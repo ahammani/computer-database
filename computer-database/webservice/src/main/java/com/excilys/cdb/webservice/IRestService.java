@@ -1,13 +1,12 @@
 package com.excilys.cdb.webservice;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.excilys.cdb.exception.IllegalCallException;
 
 public interface IRestService<T> {
 
-	default void create(T obj) {
+	default T create(T obj) {
 		throw new IllegalCallException();
 	};
 

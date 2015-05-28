@@ -1,8 +1,7 @@
-package com.excilys.cdb.ui;
+package com.excilys.cdb.command;
 
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ComputerService;
 
 public class ComputerDetailsCommand extends ICommand {
 
@@ -10,7 +9,7 @@ public class ComputerDetailsCommand extends ICommand {
 	public void fetch() {
 		System.out.print("(computer's id)");
 		long id = Main.getLong();
-		Computer c = Main.computerService.getComputer(id);
+		Computer c = null; // Main.service.findComputer(id);
 		if (c != null && c.getId() > 0)
 			System.out.println(c.toString());
 		else

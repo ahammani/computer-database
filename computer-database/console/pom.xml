@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<parent>
-	  <artifactId>parent</artifactId>
-          <groupId>com.excilys</groupId>
-          <version>1.2.0-SNAPSHOT</version>
+		<artifactId>parent</artifactId>
+		<groupId>com.excilys</groupId>
+		<version>1.2.0-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -12,34 +12,55 @@
 
 
 	<dependencies>
-	  <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>core</artifactId>
-	  </dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
 
-	  <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>persistence</artifactId>
-	  </dependency>
-	  <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>service</artifactId>
-	  </dependency>
-	  
-	  <!-- Database -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>persistence</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>service</artifactId>
+		</dependency>
+
+		<!-- Database -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 
 		<dependency>
 			<groupId>com.jolbox</groupId>
 			<artifactId>bonecp</artifactId>
 			<version>${bonecp.version}</version>
 			<scope>compile</scope>
+		</dependency>
+
+	<!-- Jersey -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<!-- Json parser (Jackson) -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.5.3</version>
 		</dependency>
 
 	</dependencies>

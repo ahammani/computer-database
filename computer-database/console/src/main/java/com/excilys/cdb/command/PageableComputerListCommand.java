@@ -1,4 +1,4 @@
-package com.excilys.cdb.ui;
+package com.excilys.cdb.command;
 
 import java.util.List;
 
@@ -12,9 +12,10 @@ public class PageableComputerListCommand extends ICommand {
 	private int offset = 0;
 	private int limit = 10;
 
+	// TODO
 	public PageableComputerListCommand(int limit) {
-	    	Page p = new Page(1, limit);
-		l = Main.computerService.getAll(p);
+		Page p = new Page(1, limit);
+		l = null;// Main.computerService.getAll(p);
 		this.limit = limit;
 	}
 
@@ -55,8 +56,8 @@ public class PageableComputerListCommand extends ICommand {
 	}
 
 	private void display() {
-	    	Page p = new Page(1, limit);
-		l = Main.computerService.getAll(p);
+		Page p = new Page(1, limit);
+		l = null;// Main.computerService.getAll(p);
 		for (int i = 0; i < l.size(); i++) {
 			Computer c = l.get(i);
 			if (c != null)

@@ -1,4 +1,4 @@
-package com.excilys.cdb.ui;
+package com.excilys.cdb.command;
 
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.service.ComputerService;
@@ -9,7 +9,7 @@ public class DeleteComputerCommand extends ICommand {
 	public void fetch() {
 		System.out.println("You have to enter the computer's id");
 		long id = Main.getLong();
-		Main.computerService.deleteComputer(id);
+		Main.service.deleteComputer(id);
 		System.out.println("Operation done");
 	}
 

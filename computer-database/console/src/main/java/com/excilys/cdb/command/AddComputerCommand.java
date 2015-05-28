@@ -1,15 +1,17 @@
-package com.excilys.cdb.ui;
+package com.excilys.cdb.command;
 
 import java.text.ParseException;
 import java.time.LocalDate;
 
 import com.excilys.cdb.dao.SQLMapper;
 import com.excilys.cdb.main.Main;
+import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.Computer.ComputerBuilder;
 
 public class AddComputerCommand extends ICommand {
+	DTOMapper mapper = new DTOMapper();
 
 	@Override
 	public void fetch() {
@@ -33,7 +35,7 @@ public class AddComputerCommand extends ICommand {
 			company.setId(id);
 			Computer comp = new ComputerBuilder(name).introduced(intro)
 					.discontinued(dis).company(company).build();
-			Main.computerService.addComputer(comp);
+			// Main.service.createComputer(comp);
 			System.out.println("Creation done");
 		} catch (ParseException e) {
 			e.printStackTrace();

@@ -11,11 +11,14 @@
 
 	<tx:annotation-driven proxy-target-class="true"
 		transaction-manager="transactionManager" />
+<context:annotation-config/>
 
-
-	<context:component-scan base-package="com.excilys.cdb.dao" />
-	<context:component-scan base-package="com.excilys.cdb.service" />
-	<context:component-scan base-package="com.excilys.cdb.model" />
+	<context:component-scan base-package="com.excilys.cdb" />
+<!-- 	<context:component-scan base-package="com.excilys.cdb.dao" /> -->
+<!-- 	<context:component-scan base-package="com.excilys.cdb.service" /> -->
+<!-- 	<context:component-scan base-package="com.excilys.cdb.model" /> -->
+<!-- 	<context:component-scan base-package="com.excilys.cdb.console" /> -->
+<!-- 	<context:component-scan base-package="com.excilys.cdb.mapper" /> -->
 	<import resource="datasource.xml" />
 
 	<bean id="sessionFactory"
@@ -35,4 +38,11 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+<!-- Spring message source -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
 </beans>

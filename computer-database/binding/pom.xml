@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<parent>
-	  <artifactId>parent</artifactId>
-          <groupId>com.excilys</groupId>
-          <version>1.2.0-SNAPSHOT</version>
+		<artifactId>parent</artifactId>
+		<groupId>com.excilys</groupId>
+		<version>1.2.0-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -12,12 +12,12 @@
 
 	<dependencies>
 
-	  <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>core</artifactId>
-	  </dependency>
-	  
-		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
+
+
 		<!-- Validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -31,6 +31,11 @@
 			<version>${hibernate-validator.version}</version>
 		</dependency>
 
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.fasterxml.jackson.datatype</groupId> -->
+<!-- 			<artifactId>jackson-datatype-jsr310</artifactId> -->
+<!-- 			<version>${jackson.version}</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 </project>

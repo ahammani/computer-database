@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.service.CompanyService;
+import com.excilys.cdb.service.ICompanyService;
 
 @RestController
 @RequestMapping("rest/company")
 public class RestCompanyService implements IRestService<Company> {
 	@Autowired
-	private CompanyService service;
+	private ICompanyService service;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
