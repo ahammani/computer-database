@@ -9,28 +9,28 @@ import com.excilys.cdb.service.IClientService;
 
 public class PageableComputerListCommand extends ICommand {
 	List<Computer> l;
-	private int offset = 0;
 	private int limit = 10;
 	IClientService service;
+	Page p;
 
 	public PageableComputerListCommand(IClientService service, int limit) {
 		this.service = service;
-		Page p = new Page(1, limit);
 		this.limit = limit;
+		p = new Page(1, limit);
 		l = service.findAllComputer(p);
 	}
 
 	private void next() {
 		if (l.size() == limit) {
-			offset += limit;
+			p.setOffset(p.getOffset() + limit);
 		} else {
 			System.out.println("No more pages");
 		}
 	}
 
 	private void previous() {
-		if (offset > 0) {
-			offset -= limit;
+		if (p.getOffset() > 0) {
+			p.setOffset(p.getOffset() - limit);
 		} else {
 			System.out.println("It's the first page");
 		}
@@ -57,7 +57,6 @@ public class PageableComputerListCommand extends ICommand {
 	}
 
 	private void display() {
-		Page p = new Page(1, limit);
 		l = service.findAllComputer(p);
 		for (int i = 0; i < l.size(); i++) {
 			Computer c = l.get(i);

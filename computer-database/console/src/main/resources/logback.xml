@@ -10,15 +10,15 @@
 		</encoder>
 	</appender>
 
-	<root level="DEBUG">
+	<root level="ERROR">
 		<appender-ref ref="STDOUT" />
 	</root>
 
-	<category name="org.springframework">
-		<priority value="debug" />
-	</category>
+<!-- 	<category name="org.springframework"> -->
+<!-- 		<priority value="error" /> -->
+<!-- 	</category> -->
 	<logger name="org.hibernate">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 </configuration>
