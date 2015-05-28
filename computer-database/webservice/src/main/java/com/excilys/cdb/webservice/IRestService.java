@@ -3,6 +3,7 @@ package com.excilys.cdb.webservice;
 import java.util.List;
 
 import com.excilys.cdb.exception.IllegalCallException;
+import com.excilys.cdb.page.Page;
 
 public interface IRestService<T> {
 
@@ -42,5 +43,9 @@ public interface IRestService<T> {
 	 * @return the T list
 	 */
 	List<T> findAll();
+
+	default List<T> findAll(Page p) {
+		throw new IllegalCallException();
+	};
 
 }

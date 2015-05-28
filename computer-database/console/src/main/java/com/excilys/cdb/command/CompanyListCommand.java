@@ -2,7 +2,6 @@ package com.excilys.cdb.command;
 
 import java.util.List;
 
-import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.service.IClientService;
 

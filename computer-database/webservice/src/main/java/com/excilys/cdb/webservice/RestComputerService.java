@@ -2,7 +2,6 @@ package com.excilys.cdb.webservice;
 
 import java.util.List;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.mapper.DTOMapper;
+import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.IComputerService;
 
 @RestController
@@ -29,6 +29,12 @@ public class RestComputerService implements IRestService<ComputerDTO> {
 	@RequestMapping(method = RequestMethod.GET, value = "findAll")
 	public List<ComputerDTO> findAll() {
 		return mapper.toDTOList(service.getAll());
+	}
+
+	@Produces({ MediaType.APPLICATION_JSON })
+	@RequestMapping(method = RequestMethod.POST, value = "findAllPage")
+	public List<ComputerDTO> findAll(@RequestBody Page p) {
+		return mapper.toDTOList(service.getAll(p));
 	}
 
 	@Override

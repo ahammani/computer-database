@@ -2,12 +2,14 @@ package com.excilys.cdb.service;
 
 import java.util.List;
 
-import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Page;
 
 public interface IClientService {
 	List<Computer> findAllComputer();
+
+	List<Computer> findAllComputer(Page p);
 
 	List<Company> findAllCompany();
 

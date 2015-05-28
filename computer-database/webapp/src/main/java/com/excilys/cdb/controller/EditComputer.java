@@ -1,12 +1,9 @@
-
 package com.excilys.cdb.controller;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +30,6 @@ public class EditComputer {
 	private CompanyService companyService;
 	@Autowired
 	private DTOMapper dtoMapper;
-	private static Logger logger = LoggerFactory.getLogger(EditComputer.class);
 
 	public EditComputer() {
 		super();

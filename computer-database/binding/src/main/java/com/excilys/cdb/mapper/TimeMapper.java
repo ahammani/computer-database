@@ -13,6 +13,7 @@ public class TimeMapper {
 	@Autowired
 	private MessageSource messageSource;
 
+	@SuppressWarnings("unused")
 	public String LocalDateToString(LocalDate t) {
 		if (t == null) {
 			return "";

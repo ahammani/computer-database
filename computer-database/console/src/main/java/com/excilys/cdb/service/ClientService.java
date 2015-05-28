@@ -21,6 +21,7 @@ import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Page;
 
 @Component
 public class ClientService implements IClientService {
@@ -105,6 +106,19 @@ public class ClientService implements IClientService {
 				.register(JacksonFeature.class);
 		client.target(ROOT + COMPANY + DELETE + "/" + id).request().delete();
 
+	}
+
+	@Override
+	public List<Computer> findAllComputer(Page p) {
+		Client client = ClientBuilder.newClient()
+				.register(JacksonFeature.class);
+		Response response = client.target(ROOT + COMPUTER + "/findAllPage")
+				.request().accept(MediaType.APPLICATION_JSON)
+				.post(Entity.entity(p, MediaType.APPLICATION_JSON));
+		List<ComputerDTO> computers = response
+				.readEntity(new GenericType<List<ComputerDTO>>() {
+				});
+		return mapper.toComputerList(computers);
 	}
 
 }

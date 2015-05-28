@@ -5,7 +5,6 @@ import java.util.List;
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
-import com.excilys.cdb.service.ComputerService;
 import com.excilys.cdb.service.IClientService;
 
 public class PageableComputerListCommand extends ICommand {
@@ -15,15 +14,10 @@ public class PageableComputerListCommand extends ICommand {
 	IClientService service;
 
 	public PageableComputerListCommand(IClientService service, int limit) {
-		this(limit);
 		this.service = service;
-	}
-
-	// TODO
-	public PageableComputerListCommand(int limit) {
 		Page p = new Page(1, limit);
-		l = null;// Main.computerService.getAll(p);
 		this.limit = limit;
+		l = service.findAllComputer(p);
 	}
 
 	private void next() {
@@ -64,7 +58,7 @@ public class PageableComputerListCommand extends ICommand {
 
 	private void display() {
 		Page p = new Page(1, limit);
-		l = null;// Main.computerService.getAll(p);
+		l = service.findAllComputer(p);
 		for (int i = 0; i < l.size(); i++) {
 			Computer c = l.get(i);
 			if (c != null)
