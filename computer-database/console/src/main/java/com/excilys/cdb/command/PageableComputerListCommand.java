@@ -8,10 +8,10 @@ import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.IClientService;
 
 public class PageableComputerListCommand extends ICommand {
-	List<Computer> l;
+	private List<Computer> l;
 	private int limit = 10;
-	IClientService service;
-	Page p;
+	private IClientService service;
+	private Page p;
 
 	public PageableComputerListCommand(IClientService service, int limit) {
 		this.service = service;

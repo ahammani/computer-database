@@ -33,7 +33,7 @@ public class ClientService implements IClientService {
 	private static final String UPDATE = "/update";
 	Logger logger = LoggerFactory.getLogger(ClientService.class);
 	@Autowired
-	DTOMapper mapper = new DTOMapper();
+	DTOMapper mapper;
 
 	@Override
 	public List<Computer> findAllComputer() {

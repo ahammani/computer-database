@@ -37,7 +37,7 @@ public class Page {
 	private String order;
 
 	public Page() {
-		this(1, 3, "", "computer.id", "asc");
+		this(1, 10, "", "computer.id", "asc");
 	}
 
 	public Page(int number, int limit) {

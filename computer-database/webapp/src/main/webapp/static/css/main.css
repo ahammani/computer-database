@@ -4,6 +4,15 @@ body {
     padding-bottom: 70px;
 }
 
+@Media(max-width: 500px){
+	body {
+		padding-top: 80px;
+	}
+	body .container{
+	
+	}
+}
+
 footer {
     position:fixed;
     bottom:0;
