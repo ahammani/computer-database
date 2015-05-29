@@ -5,20 +5,21 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.excilys.cdb.dto.ComputerDTO;
-import com.excilys.cdb.utils.Utils;
 
 /**
- * Object which represent a web page. Parameters are checked with the method
- * validate() and if bad put a default value. The method validate() MUST be call
- * each time a page is created
+ * Object which represent a (web) page. Parameters are checked with the method
+ * validate() and if a value is bad, put a default value. The method validate()
+ * MUST be call each time a page is created
  * 
  * @author ahammani
  *
  */
 public class Page {
-	public static final List<String> fields = Arrays.asList("computer.name",
+	public static final List<String> FIELDS = Arrays.asList("computer.name",
 			"computer.introduced", "computer.discontinued", "name");
-	public static final List<String> orders = Arrays.asList("asc", "desc");
+	public static final List<String> ORDERS = Arrays.asList("asc", "desc");
+	private static final int DEFAULT_LIMIT = 10;
+	private static final int DEFAULT_PAGE = 1;
 
 	private String tmpPage;
 	private int page;
@@ -167,15 +168,15 @@ public class Page {
 	}
 
 	public void validate() {
-		this.page = Utils.stringToInt(tmpPage, 1);
-		this.limit = Utils.stringToInt(tmpLimit, 3);
+		this.page = Utils.stringToInt(tmpPage, DEFAULT_PAGE);
+		this.limit = Utils.stringToInt(tmpLimit, DEFAULT_LIMIT);
 		this.offset = (this.page - 1) * this.limit;
 		this.offset = (offset < 0) ? 0 : offset;
 
-		if (field_order == null || !fields.contains(field_order.toLowerCase())) {
+		if (field_order == null || !FIELDS.contains(field_order.toLowerCase())) {
 			this.field_order = "computer.id";
 		}
-		if (order == null || !orders.contains(order.toLowerCase())) {
+		if (order == null || !ORDERS.contains(order.toLowerCase())) {
 			this.order = "asc";
 		}
 		if (search == null) {

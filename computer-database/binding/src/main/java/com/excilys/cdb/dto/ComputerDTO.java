@@ -4,6 +4,12 @@ import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * Computer data tranfer object
+ * 
+ * @author ahammani
+ *
+ */
 public class ComputerDTO {
 	@NotBlank
 	private String name;

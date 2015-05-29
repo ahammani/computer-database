@@ -16,6 +16,12 @@ import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.usertype.EnhancedUserType;
 
+/**
+ * Hibernate LocalDate userType. Convert LocalDate to Timestamp and vice versa.
+ * 
+ * @author ahammani
+ *
+ */
 public class LocalDateType implements EnhancedUserType, Serializable {
 
 	private static final long serialVersionUID = 1L;

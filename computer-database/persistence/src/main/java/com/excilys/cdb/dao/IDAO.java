@@ -6,7 +6,7 @@ import java.util.List;
 import com.excilys.cdb.exception.IllegalCallException;
 
 /**
- * The T DAO interface. DAO interact with database by SQL request
+ * The DAO interface. DAO interact with database by SQL request
  * 
  */
 public interface IDAO<T> {

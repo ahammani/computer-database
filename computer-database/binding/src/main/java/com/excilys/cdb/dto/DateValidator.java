@@ -8,6 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+/**
+ * Validator for custom Date annotation. Also check Timestamp limit(2038-01-19)
+ * 
+ * @author ahammani
+ *
+ */
 public class DateValidator implements ConstraintValidator<Date, String> {
 
 	@Autowired

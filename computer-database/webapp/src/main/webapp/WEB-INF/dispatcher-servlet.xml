@@ -9,14 +9,15 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<import resource="classpath:bindingContext.xml"/>
-	<import resource="classpath:persistenceContext.xml"/>
+	<import resource="classpath:bindingContext.xml" />
+	<import resource="classpath:persistenceContext.xml" />
 	<context:component-scan base-package="com.excilys.cdb.controller" />
 
 	<mvc:annotation-driven validator="validator" />
 
 	<mvc:resources mapping="/*" location="/static" />
 
+	<!-- Don't have .jsp in url -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -27,6 +28,7 @@
 		</property>
 	</bean>
 
+	<!-- For international spring message -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
@@ -34,6 +36,7 @@
 	</bean>
 
 
+	<!-- CookieLocaleResolver to be stateless -->
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en" />
@@ -44,6 +47,7 @@
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
 
+	<!--  Switch between language -->
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="lang"></property>

@@ -17,8 +17,8 @@ import com.excilys.cdb.command.ICommand;
 import com.excilys.cdb.command.PageableComputerListCommand;
 import com.excilys.cdb.command.UpdateComputerCommand;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Utils;
 import com.excilys.cdb.service.IClientService;
-import com.excilys.cdb.utils.Utils;
 
 @Transactional
 public class Main {

@@ -7,6 +7,12 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.excilys.cdb.model.Company;
 
+/**
+ * Spring company mapper
+ * 
+ * @author ahammani
+ *
+ */
 public class CompanyMapper implements RowMapper<Company> {
 
 	@Override

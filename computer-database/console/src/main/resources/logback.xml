@@ -14,9 +14,6 @@
 		<appender-ref ref="STDOUT" />
 	</root>
 
-<!-- 	<category name="org.springframework"> -->
-<!-- 		<priority value="error" /> -->
-<!-- 	</category> -->
 	<logger name="org.hibernate">
 		<level value="error" />
 	</logger>

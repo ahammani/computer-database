@@ -3,6 +3,8 @@ package com.excilys.cdb.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.excilys.cdb.utils.Utils;
+
 public class Utils {
 
 	public static boolean isNumber(String s) {

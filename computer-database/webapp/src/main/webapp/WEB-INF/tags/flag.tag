@@ -6,15 +6,15 @@
 <div class="navbar-right">
 	<c:choose>
 		<c:when test="${empty id}">
-			<a href="${uri}?lang=en"><img src="static/fonts/en.png"
+			<a href="${uri}?lang=en"><img src="static/img/en.png"
 				alt="English" style="width: 35px; height: 30px"></a>
-			<a href="${uri}?lang=fr"><img src="static/fonts/fr.png"
+			<a href="${uri}?lang=fr"><img src="static/img/fr.png"
 				alt="Français" style="width: 35px; height: 30px"></a>
 		</c:when>
 		<c:otherwise>
-			<a href="${uri}?lang=en&id=${id}"><img src="static/fonts/en.png"
+			<a href="${uri}?lang=en&id=${id}"><img src="static/img/en.png"
 				alt="English" style="width: 35px; height: 30px"></a>
-			<a href="${uri}?lang=fr&id=${id}"><img src="static/fonts/fr.png"
+			<a href="${uri}?lang=fr&id=${id}"><img src="static/img/fr.png"
 				alt="Français" style="width: 35px; height: 30px"></a>
 		</c:otherwise>
 	</c:choose>

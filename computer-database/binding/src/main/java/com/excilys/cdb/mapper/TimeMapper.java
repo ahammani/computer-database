@@ -8,6 +8,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
+/**
+ * Mapper between LocalDate and String
+ * 
+ * @author ahammani
+ *
+ */
 @Component
 public class TimeMapper {
 	@Autowired

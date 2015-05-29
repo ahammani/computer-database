@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.excilys.cdb.mapper.DTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Utils;
 import com.excilys.cdb.dto.ComputerDTO;
 import com.excilys.cdb.service.CompanyService;
 import com.excilys.cdb.service.ComputerService;
-import com.excilys.cdb.utils.Utils;
 
 @RequestMapping("editComputer")
 @Controller

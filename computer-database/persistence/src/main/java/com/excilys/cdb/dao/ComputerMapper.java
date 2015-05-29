@@ -10,6 +10,12 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.model.Computer.ComputerBuilder;
 
+/**
+ * Spring computer mapper
+ * 
+ * @author ahammani
+ *
+ */
 public class ComputerMapper implements RowMapper<Computer> {
 
 	@Override
