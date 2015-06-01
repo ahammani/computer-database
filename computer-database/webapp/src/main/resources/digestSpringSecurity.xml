@@ -1,3 +1,5 @@
+<!-- This code is NEVER used it's only here to show how to use HTTP Digest -->
+
 <beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -5,9 +7,11 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security.xsd">
 
+
+
 	<http pattern="/static/**" security="none" />
 
-	<http auto-config='true' create-session="never" use-expressions="false" >
+	<http auto-config='true' create-session="never" use-expressions="false" entry-point-ref="digestEntryPoint">
 		<intercept-url pattern="/addComputer/**" access="ROLE_USER" />
 		<intercept-url pattern="/editComputer/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/deleteComputer/**" access="ROLE_ADMIN" />
@@ -23,6 +27,7 @@
 		<logout logout-success-url="/dashboard" delete-cookies="JSESSIONID" />
 		<csrf disabled="true" />
 
+		<custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
 	</http>
 
 	<authentication-manager>
@@ -30,4 +35,19 @@
 	</authentication-manager>
 	
 	<beans:bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
+	<beans:bean id="digestFilter"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<beans:property name="userDetailsService" ref="userDetailsService" />
+		<beans:property name="authenticationEntryPoint" ref="digestEntryPoint" />
+	</beans:bean>
+
+	<beans:bean id="digestEntryPoint"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+		<beans:property name="realmName"
+			value="Contacts Realm via Digest Authentication" />
+		<beans:property name="key" value="acegi" />
+		
+	</beans:bean>
+
 </beans:beans>

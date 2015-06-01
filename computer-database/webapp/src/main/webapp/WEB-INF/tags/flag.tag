@@ -22,15 +22,20 @@
 	<c:when test="${pageContext.request.userPrincipal.name != null}">
 		<c:url var="logoutUrl" value="/logout" />
 		<form action="${logoutUrl}" method="post">
-			<input type="submit" class="btn btn-primary btn-block"
-				value="<spring:message code="logout" />" />
+			<button type="submit" class="btn btn-danger btn-block">
+			<span class="glyphicon glyphicon-log-out"> </span>
+			<spring:message code="logout" />
+			</button>
+			
 		</form>
 	</c:when>
 	<c:otherwise>
 	<c:url var="loginUrl" value="/customLogin" />
 		<form action="${loginUrl}" method="get">
-			<input type="submit" class="btn btn-primary "
-				value="<spring:message code="login" />" />
+			<button type="submit" class ="btn btn-primary" >
+				<span class="glyphicon glyphicon-user"></span>
+				<spring:message code="login" />
+			</button>
 		</form>
 	</c:otherwise>
 	</c:choose>

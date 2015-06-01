@@ -29,25 +29,29 @@
 							class="btn btn-primary" />
 					</form>
 				</div>
-				<div class="pull-right">
+				<div class="pull-right align-right">
 					<sec:authorize access="hasRole('ROLE_USER')">
-						<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
-								code="button.addComputer" /></a>
+						<a class="btn btn-success" id="addComputer" href="addComputer">
+							<spring:message	code="button.addComputer" />
+						</a>
 					</sec:authorize>
 
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<a class="btn btn-default" id="editComputer" href="#"
-							onclick="$.fn.toggleEditMode();"><spring:message
-								code="button.deleteComputer" /></a>
+						<a class="btn btn-default " id="editComputer" href="#"
+							onclick="$.fn.toggleEditMode();">
+							<spring:message	code="button.deleteComputer" />
+						</a>
 					</sec:authorize>
 				</div>
 			</div>
 		</div>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
+		
 			<form id="deleteForm" action="deleteComputer" method="POST">
 				<input type="hidden" name="selection" value="">
 			</form>
 		</sec:authorize>
+		
 		<div class="container" style="margin-top: 10px;">
 			<div class="label label-default pull-right">page:${pages.page}</div>
 			<table class="table table-striped table-bordered">
@@ -63,31 +67,31 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><spring:message code="form.computerName" /> <mylib:link
-								body="&uarr;" order="desc" field_order="computer.name"
+						<th><spring:message code="form.computerName" /> 
+						<mylib:link	body="<span class='glyphicon glyphicon-chevron-up'></span>" order="asc" field_order="computer.name"
 								limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="computer.name"
+						<mylib:link body="<span class='glyphicon glyphicon-chevron-down'></span>" order="desc" field_order="computer.name"
 								limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 						<th><spring:message code="form.introduced" /> <mylib:link
-								body="&uarr;" order="desc" field_order="computer.introduced"
+								body="<span class='glyphicon glyphicon-chevron-up'></span>" order="asc" field_order="computer.introduced"
 								limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
-							<mylib:link body="&darr;" order="asc"
+							<mylib:link body="<span class='glyphicon glyphicon-chevron-down'></span>" order="desc"
 								field_order="computer.introduced" limit="${pages.limit}"
 								page="${pages.page}" target="dashboard"></mylib:link></th>
 
 						<!-- Table header for Discontinued Date -->
 						<th><spring:message code="form.discontinued" /> <mylib:link
-								body="&uarr;" order="desc" field_order="computer.discontinued"
+								body="<span class='glyphicon glyphicon-chevron-up'></span>" order="asc" field_order="computer.discontinued"
 								limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
-							<mylib:link body="&darr;" order="asc"
+							<mylib:link body="<span class='glyphicon glyphicon-chevron-down'></span>" order="desc"
 								field_order="computer.discontinued" limit="${pages.limit}"
 								page="${pages.page}" target="dashboard"></mylib:link></th>
 						<!-- Table header for Company -->
 						<th><spring:message code="form.companyName" /> <mylib:link
-								body="&uarr;" order="desc" field_order="name"
+								body="<span class='glyphicon glyphicon-chevron-up'></span>" order="asc" field_order="name"
 								limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
-							<mylib:link body="&darr;" order="asc" field_order="name"
+							<mylib:link body="<span class='glyphicon glyphicon-chevron-down'></span>" order="desc" field_order="name"
 								limit="${pages.limit}" page="${pages.page}" target="dashboard"></mylib:link>
 						</th>
 
@@ -136,11 +140,13 @@
 	</footer>
 
 	<script src="static/js/jquery.min.js"></script>
+	<script src="static/js/bootbox.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		var button_view = "<spring:message code='button.cancel'/>";
 		var button_edit = "<spring:message code='button.deleteComputer'/>";
 		var alert_message = "<spring:message code='delete.message'/>";
+		var lang= "<spring:message code='lang'/>";
 	</script>
 	<script src="static/js/dashboard.js"></script>
 

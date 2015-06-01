@@ -48,6 +48,8 @@ $(function() {
         if($(".editMode").is(":visible")) {
             $(".editMode").hide();
             $("#editComputer").text(button_edit);
+
+            
         }
         else {
             $(".editMode").show();
@@ -60,12 +62,16 @@ $(function() {
 
 
 // Function delete selected: Asks for confirmation to delete selected computers, then submits it to the deleteForm
+
 (function ( $ ) {
-    $.fn.deleteSelected = function() {
-        if (confirm(alert_message)) { 
-            $('#deleteForm input[name=selection]').setCheckboxValues('selection','cb');
-            $('#deleteForm').submit();
-        }
+	bootbox.setLocale(lang)
+    $.fn.deleteSelected = function() { 
+        bootbox.confirm(alert_message,function(result){
+        	if(result){
+                $('#deleteForm input[name=selection]').setCheckboxValues('selection','cb');
+                $('#deleteForm').submit();
+        	}
+        })
     };
 }( jQuery ));
 

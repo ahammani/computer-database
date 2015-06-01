@@ -60,7 +60,12 @@
 							</div>
 						</fieldset>
 						<div class="actions pull-right">
-							<input type="submit" value=<spring:message code="form.add"/> class="btn btn-primary">
+						<button type="submit" class="btn btn-success">
+						<span class="glyphicon glyphicon-check"></span>
+						 <spring:message code="form.add"/>
+						</button>
+						
+<%-- 							<input type="submit" value="<spring:message code="form.add"/>" class="btn btn-success"> --%>
 							<spring:message code="form.or"/> <a href="dashboard" class="btn btn-default"><spring:message code="form.cancel"/></a>
 						</div>
 					</form:form>
