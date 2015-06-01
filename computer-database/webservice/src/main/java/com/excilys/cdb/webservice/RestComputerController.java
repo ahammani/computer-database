@@ -16,7 +16,7 @@ import com.excilys.cdb.service.IComputerService;
 
 @RestController
 @RequestMapping("rest/computer")
-public class RestComputerService implements IRestService<ComputerDTO> {
+public class RestComputerController implements IRestController<ComputerDTO> {
 	@Autowired
 	private IComputerService service;
 	@Autowired

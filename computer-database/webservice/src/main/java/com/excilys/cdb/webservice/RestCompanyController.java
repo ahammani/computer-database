@@ -13,7 +13,7 @@ import com.excilys.cdb.service.ICompanyService;
 
 @RestController
 @RequestMapping("rest/company")
-public class RestCompanyService implements IRestService<Company> {
+public class RestCompanyController implements IRestController<Company> {
 	@Autowired
 	private ICompanyService service;
 

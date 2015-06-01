@@ -5,7 +5,7 @@ import java.util.List;
 import com.excilys.cdb.exception.IllegalCallException;
 import com.excilys.cdb.page.Page;
 
-public interface IRestService<T> {
+public interface IRestController<T> {
 
 	default T create(T obj) {
 		throw new IllegalCallException();
