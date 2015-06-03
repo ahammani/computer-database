@@ -130,6 +130,7 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>4.1.6.RELEASE</version>
+				<!-- Exclusion of commons-logging for use logback -->
 				<exclusions>
 					<exclusion>
 						<groupId>commons-logging</groupId>

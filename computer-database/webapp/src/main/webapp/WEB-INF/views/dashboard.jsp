@@ -23,10 +23,13 @@
 							value='${pages.field_order}' />
 						<input type="hidden" name="limit" value="${pages.limit}" />
 						<input type="hidden" name="order" value="${pages.order}" />
+						
 						<input type="search" id="searchbox" name="search" class="form-control"
 							placeholder=<spring:message code="form.searchName"/> />
-						<input type="submit" id="searchsubmit" value=<spring:message code="form.filterByName"/>
-							class="btn btn-primary" />
+							<button type="submit" class="btn btn-primary">
+							<span class="glyphicon glyphicon-search"></span>
+							<spring:message code="form.filterByName"/>
+							</button>
 					</form>
 				</div>
 				<div class="pull-right align-right">
